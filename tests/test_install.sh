@@ -260,6 +260,49 @@ test_custom_command_name() {
     teardown
 }
 
+test_default_name_is_indo_with_in_link() {
+    setup
+
+    mkdir -p bin
+    cp "$INSTALL_SCRIPT" .
+    cp "$IN_SCRIPT" .
+    sed -i.bak 's|CANDIDATE_DIRS=(|CANDIDATE_DIRS=(\n    "'$TEST_DIR'/bin"|' install.sh
+
+    output=$(bash install.sh 2>&1)
+
+    assert_file_exists "bin/indo" "Default install is 'indo'"
+    if [[ -L "bin/in" ]]; then
+        log_pass "Backward-compatible 'in' link created"
+    else
+        log_fail "Backward-compatible 'in' link missing"
+    fi
+    out2=$(PATH="$TEST_DIR/bin:$PATH" bash -c 'indo --version' 2>&1)
+    assert_output_contains "$out2" "indo 1." "'indo' runs under bash -c"
+
+    teardown
+}
+
+test_in_link_does_not_clobber_other_tools() {
+    setup
+
+    mkdir -p bin
+    printf '#!/bin/sh\necho other tool\n' > bin/in
+    cp "$INSTALL_SCRIPT" .
+    cp "$IN_SCRIPT" .
+    sed -i.bak 's|CANDIDATE_DIRS=(|CANDIDATE_DIRS=(\n    "'$TEST_DIR'/bin"|' install.sh
+
+    output=$(bash install.sh 2>&1)
+
+    if grep -q "other tool" bin/in && [[ ! -L bin/in ]]; then
+        log_pass "Existing unrelated 'in' is kept"
+    else
+        log_fail "Existing unrelated 'in' was overwritten"
+    fi
+    assert_output_contains "$output" "Skipping 'in' link" "Skip message shown"
+
+    teardown
+}
+
 echo "Running installation tests..."
 
 test_script_syntax
@@ -270,6 +313,8 @@ test_install_download_mode
 test_path_warning
 test_installed_script_works
 test_custom_command_name
+test_default_name_is_indo_with_in_link
+test_in_link_does_not_clobber_other_tools
 
 if [[ $FAILED_TESTS -eq 0 ]]; then
     echo -e "${GREEN}All installation tests passed!${NC}"

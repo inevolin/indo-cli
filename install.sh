@@ -24,8 +24,17 @@ set -e  # Exit on any error
 REPO_URL="https://raw.githubusercontent.com/inevolin/in-cli/main/in.sh"
 SOURCE_FILE="./in.sh"
 
-# Default command name is "in", but can be overridden by the first argument
-COMMAND_NAME="${1:-in}"
+# Default command name is "indo". "in" is a reserved word in Bash and sh, so
+# "in * git status" fails there (including "bash -c", which AI agents use).
+# Without an argument we also add an "in" link for zsh users and old scripts.
+# A custom name (first argument) installs only that name.
+if [ -n "${1:-}" ]; then
+    COMMAND_NAME="$1"
+    ALIAS_NAME=""
+else
+    COMMAND_NAME="indo"
+    ALIAS_NAME="in"
+fi
 
 # Check if a preferred directory was passed via environment
 if [ -n "$DEST_DIR" ]; then
@@ -94,6 +103,21 @@ else
 fi
 
 echo "Successfully installed '$COMMAND_NAME' to $DEST_FILE!"
+
+# Backward-compatible "in" link (only replaces an older in-cli install)
+if [ -n "$ALIAS_NAME" ] && [ "$ALIAS_NAME" != "$COMMAND_NAME" ]; then
+    ALIAS_FILE="$DEST_DIR/$ALIAS_NAME"
+    if [ -e "$ALIAS_FILE" ] && [ ! -L "$ALIAS_FILE" ] && ! grep -q "inevolin/in-cli" "$ALIAS_FILE" 2>/dev/null; then
+        echo "Skipping '$ALIAS_NAME' link: $ALIAS_FILE exists and is not in-cli."
+    else
+        if [ -w "$DEST_DIR" ]; then
+            ln -sf "$COMMAND_NAME" "$ALIAS_FILE"
+        else
+            sudo ln -sf "$COMMAND_NAME" "$ALIAS_FILE"
+        fi
+        echo "Linked '$ALIAS_NAME' -> '$COMMAND_NAME' (works in zsh; in Bash use '$COMMAND_NAME')."
+    fi
+fi
 
 # Check if the install directory is in PATH
 if ! echo "$PATH" | grep -q "$DEST_DIR"; then

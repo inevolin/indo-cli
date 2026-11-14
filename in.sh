@@ -424,6 +424,13 @@ record_result() {
     fi
 }
 
+# Some tools force color even into pipes (for example pytest when FORCE_COLOR
+# is set). When our own colors are off, strip color codes from captured output.
+ESC_CHAR=$(printf '\033')
+strip_ansi() {
+    sed "s/${ESC_CHAR}\[[0-9;?]*[a-zA-Z]//g" "$1" > "$1.clean" && mv "$1.clean" "$1"
+}
+
 # Print the captured result of folder number $1
 flush_result() {
     local i="$1"
@@ -432,6 +439,7 @@ flush_result() {
     name=$(display_name "$d")
     rc=$(cat "$tmp_dir/$i.rc" 2>/dev/null || echo 1)
     out="$tmp_dir/$i.out"
+    [[ $color_out -eq 0 && -s "$out" ]] && strip_ansi "$out"
     record_result "$name" "$rc"
 
     case "$output_mode" in
@@ -465,7 +473,9 @@ flush_result() {
         else
             echo -e "${RED}FAIL${NC} ${name} (exit ${rc})"
             if [[ $tail_lines -gt 0 ]]; then
-                grep -v '^[[:space:]]*$' "$out" | tail -n "$tail_lines" | cut -c1-300 | sed 's/^/  /'
+                # Skip blank lines and JS/Python-style stack frame lines, keep the last N
+                grep -v -E '^[[:space:]]*$|^[[:space:]]+at .*:[0-9]+:[0-9]+\)?( \{)?$' "$out" \
+                    | tail -n "$tail_lines" | cut -c1-300 | sed 's/^/  /'
             fi
         fi
         ;;

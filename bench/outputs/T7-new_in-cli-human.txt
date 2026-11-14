@@ -1,0 +1,42 @@
+$ indo * git branch --show-current
+# exit 0
+in awesome-nodejs $ git branch --show-current
+main
+in camelcase $ git branch --show-current
+main
+in dotfiles $ git branch --show-current
+main
+in errors $ git branch --show-current
+master
+in escape-string-regexp $ git branch --show-current
+main
+in gitignore $ git branch --show-current
+main
+in go-humanize $ git branch --show-current
+feature/si-units
+in go-version $ git branch --show-current
+main
+in idna $ git branch --show-current
+master
+in is-plain-obj $ git branch --show-current
+main
+in more-itertools $ git branch --show-current
+master
+in p-limit $ git branch --show-current
+main
+in pretty-bytes $ git branch --show-current
+main
+in semver $ git branch --show-current
+master
+in six $ git branch --show-current
+main
+in slugify $ git branch --show-current
+main
+in tldr-python-client $ git branch --show-current
+main
+in tomli $ git branch --show-current
+master
+in toolz $ git branch --show-current
+master
+in uuid $ git branch --show-current
+master

@@ -1,0 +1,39 @@
+$ in-old * 'git grep -n TODO'
+# exit 1
+[1;33min awesome-nodejs $ [0mgit grep -n TODO
+[1;33min camelcase $ [0mgit grep -n TODO
+[1;33min dotfiles $ [0mgit grep -n TODO
+.macos:600:	'{"enabled" = 0;"name" = "EVENT_TODO";}' \
+.vim/colors/solarized.vim:625:"                        keywords TODO FIXME and XXX
+[1;33min errors $ [0mgit grep -n TODO
+[1;33min escape-string-regexp $ [0mgit grep -n TODO
+[1;33min gitignore $ [0mgit grep -n TODO
+.github/PULL_REQUEST_TEMPLATE.md:3:_TODO_
+.github/PULL_REQUEST_TEMPLATE.md:10:_TODO_
+.github/PULL_REQUEST_TEMPLATE.md:17:_TODO_
+Rails.gitignore:20:# TODO Comment out this rule if you are OK with secrets being uploaded to the repo
+Rails.gitignore:28:# TODO Comment out these rules if environment variables can be committed
+TeX.gitignore:165:# TODO Uncomment the next line if you use knitr and want to ignore its generated tikz files
+community/JavaScript/Vue.gitignore:5:# TODO: where does this rule come from?
+community/JavaScript/Vue.gitignore:8:# TODO: where does this rule come from?
+[1;33min go-humanize $ [0mgit grep -n TODO
+[1;33min go-version $ [0mgit grep -n TODO
+[1;33min idna $ [0mgit grep -n TODO
+[1;33min is-plain-obj $ [0mgit grep -n TODO
+[1;33min more-itertools $ [0mgit grep -n TODO
+[1;33min p-limit $ [0mgit grep -n TODO
+scripts/benchmarker.js:3:// TODO: I will move this to a proper package at some point.
+[1;33min pretty-bytes $ [0mgit grep -n TODO
+test.js:111:// TODO: Unskip when targeting Node.js 22. Node.js 20 only accepts up to 20 fraction digits in `Intl.NumberFormat`.
+test.js:932:// TODO: Unskip when targeting Node.js 22. Node.js 20 only accepts up to 20 fraction digits in `Intl.NumberFormat`.
+test.js:964:// TODO: Unskip when targeting Node.js 22. Node.js 20 only accepts up to 20 fraction digits in `Intl.NumberFormat`.
+[1;33min semver $ [0mgit grep -n TODO
+constraints.go:95:	// TODO(mattfarina): For v4 of this library consolidate the Check and Validate
+version.go:328:	// TODO: In the next semver major version validate the pre and metadata. Return error if there is one.
+[1;33min six $ [0mgit grep -n TODO
+[1;33min slugify $ [0mgit grep -n TODO
+[1;33min tldr-python-client $ [0mgit grep -n TODO
+[1;33min tomli $ [0mgit grep -n TODO
+[1;33min toolz $ [0mgit grep -n TODO
+toolz/sandbox/parallel.py:78:    results = list(results)  # TODO: Support complete laziness
+[1;33min uuid $ [0mgit grep -n TODO

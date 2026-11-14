@@ -1,0 +1,54 @@
+$ indo * 'git grep -n TODO'
+# exit 1
+in awesome-nodejs $ git grep -n TODO
+✘ awesome-nodejs: exit 1
+in camelcase $ git grep -n TODO
+✘ camelcase: exit 1
+in dotfiles $ git grep -n TODO
+.macos:600:	'{"enabled" = 0;"name" = "EVENT_TODO";}' \
+.vim/colors/solarized.vim:625:"                        keywords TODO FIXME and XXX
+in errors $ git grep -n TODO
+✘ errors: exit 1
+in escape-string-regexp $ git grep -n TODO
+✘ escape-string-regexp: exit 1
+in gitignore $ git grep -n TODO
+.github/PULL_REQUEST_TEMPLATE.md:3:_TODO_
+.github/PULL_REQUEST_TEMPLATE.md:10:_TODO_
+.github/PULL_REQUEST_TEMPLATE.md:17:_TODO_
+Rails.gitignore:20:# TODO Comment out this rule if you are OK with secrets being uploaded to the repo
+Rails.gitignore:28:# TODO Comment out these rules if environment variables can be committed
+TeX.gitignore:165:# TODO Uncomment the next line if you use knitr and want to ignore its generated tikz files
+community/JavaScript/Vue.gitignore:5:# TODO: where does this rule come from?
+community/JavaScript/Vue.gitignore:8:# TODO: where does this rule come from?
+in go-humanize $ git grep -n TODO
+✘ go-humanize: exit 1
+in go-version $ git grep -n TODO
+✘ go-version: exit 1
+in idna $ git grep -n TODO
+✘ idna: exit 1
+in is-plain-obj $ git grep -n TODO
+✘ is-plain-obj: exit 1
+in more-itertools $ git grep -n TODO
+✘ more-itertools: exit 1
+in p-limit $ git grep -n TODO
+scripts/benchmarker.js:3:// TODO: I will move this to a proper package at some point.
+in pretty-bytes $ git grep -n TODO
+test.js:111:// TODO: Unskip when targeting Node.js 22. Node.js 20 only accepts up to 20 fraction digits in `Intl.NumberFormat`.
+test.js:932:// TODO: Unskip when targeting Node.js 22. Node.js 20 only accepts up to 20 fraction digits in `Intl.NumberFormat`.
+test.js:964:// TODO: Unskip when targeting Node.js 22. Node.js 20 only accepts up to 20 fraction digits in `Intl.NumberFormat`.
+in semver $ git grep -n TODO
+constraints.go:95:	// TODO(mattfarina): For v4 of this library consolidate the Check and Validate
+version.go:328:	// TODO: In the next semver major version validate the pre and metadata. Return error if there is one.
+in six $ git grep -n TODO
+✘ six: exit 1
+in slugify $ git grep -n TODO
+✘ slugify: exit 1
+in tldr-python-client $ git grep -n TODO
+✘ tldr-python-client: exit 1
+in tomli $ git grep -n TODO
+✘ tomli: exit 1
+in toolz $ git grep -n TODO
+toolz/sandbox/parallel.py:78:    results = list(results)  # TODO: Support complete laziness
+in uuid $ git grep -n TODO
+✘ uuid: exit 1
+✘ 14 of 20 folders failed: awesome-nodejs camelcase errors escape-string-regexp go-humanize go-version idna is-plain-obj more-itertools six slugify tldr-python-client tomli uuid

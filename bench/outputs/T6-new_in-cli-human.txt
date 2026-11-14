@@ -1,0 +1,57 @@
+$ indo * 'grep "\"ava\"" package.json'
+# exit 1
+in awesome-nodejs $ grep "\"ava\"" package.json
+✘ awesome-nodejs: exit 2
+in camelcase $ grep "\"ava\"" package.json
+✘ camelcase: exit 1
+in dotfiles $ grep "\"ava\"" package.json
+✘ dotfiles: exit 2
+in errors $ grep "\"ava\"" package.json
+✘ errors: exit 2
+in escape-string-regexp $ grep "\"ava\"" package.json
+		"ava": "^3.15.0",
+in gitignore $ grep "\"ava\"" package.json
+✘ gitignore: exit 2
+in go-humanize $ grep "\"ava\"" package.json
+✘ go-humanize: exit 2
+in go-version $ grep "\"ava\"" package.json
+✘ go-version: exit 2
+in idna $ grep "\"ava\"" package.json
+✘ idna: exit 2
+in is-plain-obj $ grep "\"ava\"" package.json
+		"ava": "^6.1.2",
+in more-itertools $ grep "\"ava\"" package.json
+✘ more-itertools: exit 2
+in p-limit $ grep "\"ava\"" package.json
+		"ava": "^6.4.1",
+in pretty-bytes $ grep "\"ava\"" package.json
+		"ava": "^6.2.0",
+in semver $ grep "\"ava\"" package.json
+✘ semver: exit 2
+in six $ grep "\"ava\"" package.json
+✘ six: exit 2
+in slugify $ grep "\"ava\"" package.json
+✘ slugify: exit 1
+in tldr-python-client $ grep "\"ava\"" package.json
+✘ tldr-python-client: exit 2
+in tomli $ grep "\"ava\"" package.json
+✘ tomli: exit 2
+in toolz $ grep "\"ava\"" package.json
+✘ toolz: exit 2
+in uuid $ grep "\"ava\"" package.json
+✘ uuid: exit 2
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+✘ 16 of 20 folders failed: awesome-nodejs camelcase dotfiles errors gitignore go-humanize go-version idna more-itertools semver six slugify tldr-python-client tomli toolz uuid

@@ -1,0 +1,8 @@
+$ indo -c * 'git status -s'
+# exit 0
+dotfiles: ?? tmp/
+idna: ?? scratch.txt
+more-itertools:  M README.rst
+pretty-bytes:  M readme.md
+semver:  M README.md
+slugify:  M index.js

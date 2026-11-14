@@ -1,0 +1,145 @@
+$ for d in */; do echo "== $d"; (cd "$d" && git fetch && git status); done
+# exit 0
+== awesome-nodejs/
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+== camelcase/
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+== dotfiles/
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	tmp/
+
+nothing added to commit but untracked files present (use "git add" to track)
+== errors/
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+== escape-string-regexp/
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+== gitignore/
+On branch main
+Your branch is behind 'origin/main' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+nothing to commit, working tree clean
+== go-humanize/
+On branch feature/si-units
+nothing to commit, working tree clean
+== go-version/
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+== idna/
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	scratch.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+== is-plain-obj/
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+== more-itertools/
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   README.rst
+
+no changes added to commit (use "git add" and/or "git commit -a")
+== p-limit/
+On branch main
+Your branch is behind 'origin/main' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+nothing to commit, working tree clean
+== pretty-bytes/
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   readme.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+== semver/
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+== six/
+On branch main
+Your branch is behind 'origin/main' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+nothing to commit, working tree clean
+== slugify/
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   index.js
+
+no changes added to commit (use "git add" and/or "git commit -a")
+== tldr-python-client/
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+== tomli/
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+== toolz/
+On branch master
+Your branch is behind 'origin/master' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+nothing to commit, working tree clean
+== uuid/
+On branch master
+Your branch is behind 'origin/master' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+nothing to commit, working tree clean
+From /workspace/bench/remotes/gitignore
+   b71db92..2951106  main       -> origin/main
+From /workspace/bench/remotes/p-limit
+   a8a6fbe..0a5f286  main       -> origin/main
+From /workspace/bench/remotes/six
+   c8e3940..95fabce  main       -> origin/main
+From /workspace/bench/remotes/toolz
+   451af60..e4eda31  master     -> origin/master
+From /workspace/bench/remotes/uuid
+   2d3c2a9..41c3f81  master     -> origin/master

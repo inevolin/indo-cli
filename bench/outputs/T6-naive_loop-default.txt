@@ -1,0 +1,40 @@
+$ for d in */; do echo "== $d"; grep '"ava"' "$d/package.json"; done
+# exit 2
+== awesome-nodejs/
+== camelcase/
+== dotfiles/
+== errors/
+== escape-string-regexp/
+		"ava": "^3.15.0",
+== gitignore/
+== go-humanize/
+== go-version/
+== idna/
+== is-plain-obj/
+		"ava": "^6.1.2",
+== more-itertools/
+== p-limit/
+		"ava": "^6.4.1",
+== pretty-bytes/
+		"ava": "^6.2.0",
+== semver/
+== six/
+== slugify/
+== tldr-python-client/
+== tomli/
+== toolz/
+== uuid/
+grep: awesome-nodejs//package.json: No such file or directory
+grep: dotfiles//package.json: No such file or directory
+grep: errors//package.json: No such file or directory
+grep: gitignore//package.json: No such file or directory
+grep: go-humanize//package.json: No such file or directory
+grep: go-version//package.json: No such file or directory
+grep: idna//package.json: No such file or directory
+grep: more-itertools//package.json: No such file or directory
+grep: semver//package.json: No such file or directory
+grep: six//package.json: No such file or directory
+grep: tldr-python-client//package.json: No such file or directory
+grep: tomli//package.json: No such file or directory
+grep: toolz//package.json: No such file or directory
+grep: uuid//package.json: No such file or directory

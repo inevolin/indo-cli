@@ -1,0 +1,130 @@
+$ in-old * git status
+# exit 0
+[1;33min awesome-nodejs $ [0mgit status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+[1;33min camelcase $ [0mgit status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+[1;33min dotfiles $ [0mgit status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	tmp/
+
+nothing added to commit but untracked files present (use "git add" to track)
+[1;33min errors $ [0mgit status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+[1;33min escape-string-regexp $ [0mgit status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+[1;33min gitignore $ [0mgit status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+[1;33min go-humanize $ [0mgit status
+On branch feature/si-units
+nothing to commit, working tree clean
+[1;33min go-version $ [0mgit status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+[1;33min idna $ [0mgit status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	scratch.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+[1;33min is-plain-obj $ [0mgit status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+[1;33min more-itertools $ [0mgit status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   README.rst
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[1;33min p-limit $ [0mgit status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+[1;33min pretty-bytes $ [0mgit status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   readme.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[1;33min semver $ [0mgit status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[1;33min six $ [0mgit status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+[1;33min slugify $ [0mgit status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   index.js
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[1;33min tldr-python-client $ [0mgit status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+[1;33min tomli $ [0mgit status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+[1;33min toolz $ [0mgit status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean
+[1;33min uuid $ [0mgit status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+nothing to commit, working tree clean

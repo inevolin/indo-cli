@@ -1,0 +1,40 @@
+$ in-old * 'grep "\"ava\"" package.json'
+# exit 2
+[1;33min awesome-nodejs $ [0mgrep "\"ava\"" package.json
+[1;33min camelcase $ [0mgrep "\"ava\"" package.json
+[1;33min dotfiles $ [0mgrep "\"ava\"" package.json
+[1;33min errors $ [0mgrep "\"ava\"" package.json
+[1;33min escape-string-regexp $ [0mgrep "\"ava\"" package.json
+		"ava": "^3.15.0",
+[1;33min gitignore $ [0mgrep "\"ava\"" package.json
+[1;33min go-humanize $ [0mgrep "\"ava\"" package.json
+[1;33min go-version $ [0mgrep "\"ava\"" package.json
+[1;33min idna $ [0mgrep "\"ava\"" package.json
+[1;33min is-plain-obj $ [0mgrep "\"ava\"" package.json
+		"ava": "^6.1.2",
+[1;33min more-itertools $ [0mgrep "\"ava\"" package.json
+[1;33min p-limit $ [0mgrep "\"ava\"" package.json
+		"ava": "^6.4.1",
+[1;33min pretty-bytes $ [0mgrep "\"ava\"" package.json
+		"ava": "^6.2.0",
+[1;33min semver $ [0mgrep "\"ava\"" package.json
+[1;33min six $ [0mgrep "\"ava\"" package.json
+[1;33min slugify $ [0mgrep "\"ava\"" package.json
+[1;33min tldr-python-client $ [0mgrep "\"ava\"" package.json
+[1;33min tomli $ [0mgrep "\"ava\"" package.json
+[1;33min toolz $ [0mgrep "\"ava\"" package.json
+[1;33min uuid $ [0mgrep "\"ava\"" package.json
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory
+grep: package.json: No such file or directory

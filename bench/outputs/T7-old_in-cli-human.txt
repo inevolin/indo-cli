@@ -1,0 +1,42 @@
+$ in-old * git branch --show-current
+# exit 0
+[1;33min awesome-nodejs $ [0mgit branch --show-current
+main
+[1;33min camelcase $ [0mgit branch --show-current
+main
+[1;33min dotfiles $ [0mgit branch --show-current
+main
+[1;33min errors $ [0mgit branch --show-current
+master
+[1;33min escape-string-regexp $ [0mgit branch --show-current
+main
+[1;33min gitignore $ [0mgit branch --show-current
+main
+[1;33min go-humanize $ [0mgit branch --show-current
+feature/si-units
+[1;33min go-version $ [0mgit branch --show-current
+main
+[1;33min idna $ [0mgit branch --show-current
+master
+[1;33min is-plain-obj $ [0mgit branch --show-current
+main
+[1;33min more-itertools $ [0mgit branch --show-current
+master
+[1;33min p-limit $ [0mgit branch --show-current
+main
+[1;33min pretty-bytes $ [0mgit branch --show-current
+main
+[1;33min semver $ [0mgit branch --show-current
+master
+[1;33min six $ [0mgit branch --show-current
+main
+[1;33min slugify $ [0mgit branch --show-current
+main
+[1;33min tldr-python-client $ [0mgit branch --show-current
+main
+[1;33min tomli $ [0mgit branch --show-current
+master
+[1;33min toolz $ [0mgit branch --show-current
+master
+[1;33min uuid $ [0mgit branch --show-current
+master

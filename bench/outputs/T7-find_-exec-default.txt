@@ -1,0 +1,22 @@
+$ find . -mindepth 1 -maxdepth 1 -type d -exec git -C {} branch --show-current \;
+# exit 0
+main
+feature/si-units
+master
+main
+master
+main
+main
+main
+main
+master
+main
+main
+master
+master
+main
+main
+main
+main
+master
+master

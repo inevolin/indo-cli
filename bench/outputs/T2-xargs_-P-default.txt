@@ -1,0 +1,22 @@
+$ ls -d */ | xargs -P 8 -I{} sh -c 'git -C {} fetch -q && echo "{}: $(git -C {} status -sb | head -1)"'
+# exit 0
+awesome-nodejs/: ## main...origin/main
+dotfiles/: ## main...origin/main
+camelcase/: ## main...origin/main [ahead 1]
+go-version/: ## main...origin/main [ahead 1]
+go-humanize/: ## feature/si-units
+escape-string-regexp/: ## main...origin/main
+errors/: ## master...origin/master
+gitignore/: ## main...origin/main [behind 2]
+idna/: ## master...origin/master
+pretty-bytes/: ## main...origin/main
+is-plain-obj/: ## main...origin/main
+p-limit/: ## main...origin/main [behind 2]
+more-itertools/: ## master...origin/master
+semver/: ## master...origin/master
+slugify/: ## main...origin/main
+six/: ## main...origin/main [behind 2]
+tldr-python-client/: ## main...origin/main
+uuid/: ## master...origin/master [behind 2]
+toolz/: ## master...origin/master [behind 2]
+tomli/: ## master...origin/master

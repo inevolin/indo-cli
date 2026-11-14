@@ -1,0 +1,42 @@
+$ f=0; for d in */; do o=$(cd "$d" && ./ci.sh 2>&1) || { f=1; echo "FAIL ${d%/}"; echo "$o" | tail -n 10; }; done; exit $f
+# exit 1
+FAIL errors
+# github.com/pkg/errors
+# [github.com/pkg/errors]
+./errors_test.go:128:24: non-constant format string in call to github.com/pkg/errors.Wrapf
+./errors_test.go:220:31: non-constant format string in call to github.com/pkg/errors.WithMessagef
+FAIL	github.com/pkg/errors [build failed]
+FAIL
+FAIL slugify
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '_',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+FAIL tldr-python-client
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_tldr.py:6: in <module>
+    import tldr
+tldr.py:18: in <module>
+    import shtab
+E   ModuleNotFoundError: No module named 'shtab'
+=========================== short test summary info ============================
+ERROR tests/test_tldr.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.14s
+FAIL toolz
+            return next(iter(cls.discover(name=name)))
+        except StopIteration:
+>           raise PackageNotFoundError(name)
+E           importlib.metadata.PackageNotFoundError: No package metadata was found for toolz
+
+/usr/lib/python3.13/importlib/metadata/__init__.py:409: PackageNotFoundError
+=========================== short test summary info ============================
+SKIPPED [1] toolz/tests/test_functoolz.py:737: annotationlib is new in Python 3.14
+FAILED toolz/tests/test_package.py::test_has_version - importlib.metadata.Pac...
+1 failed, 191 passed, 1 skipped in 0.24s

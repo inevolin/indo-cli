@@ -1,158 +1,162 @@
-# in CLI tool
+# indo: run one command in many folders
 
 ![Demo](.github/assets/demo.gif)
 
-`in` is a lightweight Bash-based CLI tool that allows you to execute commands in directories simultaneously or sequentially. It supports glob patterns, brace expansion, comma-separated lists, and parallel execution.
+```bash
+indo * git status            # in every folder
+indo -P 8 repos/* git pull   # 8 at a time
+indo -f * 'npm test'         # show only what failed
+```
 
-- **Flexible Targets**: Specify directories using standard wildcards (`project*`), brace expansion (by shell), comma-separated lists (`front,back`), or exact paths.
-- **Parallel Execution**: Run commands concurrently across directories using `-P`.
-- **Zero Dependencies**: Pure Bash script (requires Bash 3.2+).
-- **Subshell Isolation**: Commands run in subshells, keeping your current working directory intact.
+- **One short command.** No `for` loops, no `find -exec`, no `xargs` quoting.
+- **Honest exit codes.** 0 only if the command worked in every folder.
+- **Made for AI agents too.** Short output modes cut test output by 94% on 20 real repos ([benchmark](#benchmark)).
+- **Zero dependencies.** One Bash script. Bash 3.2+.
 
+> **Why `indo` and not `in`?** `in` is a reserved word in Bash, so `in * ls` is a syntax error there (and in `bash -c`, which AI agents use). The installer adds `indo`, plus an `in` link that works in zsh.
+
+## Install
+
+```bash
+curl -sL https://raw.githubusercontent.com/inevolin/in-cli/main/install.sh | bash
+```
+
+No sudo? Install to your home folder:
+
+```bash
+curl -sL https://raw.githubusercontent.com/inevolin/in-cli/main/install.sh | DEST_DIR=~/.local/bin bash
+```
+
+Want another name? Pass it: `... | bash -s -- in-cli`. Then only that name is installed.
+
+## Rules of thumb
+
+1. **Quote the command** if it has `&&`, `||`, `;`, `|`, `>` or a `*` meant for inside the folder: `indo * 'ls *.json'`.
+2. **Use `--`** when a folder has the same name as a command: `indo * -- git status`.
+3. **Use `-f`** for tests and builds. You see only the failed folders and one count line.
+4. **Use `-c`** for status and search. One line per result, empty folders skipped.
+5. **Add `|| true` to searches.** `grep` exits 1 when it finds nothing, and `indo` counts that as a failure.
 
 ## Usage
 
 ```bash
-in [OPTIONS] [DIRECTORIES...] [--] COMMAND...
+indo [OPTIONS] [DIRECTORIES...] [--] COMMAND...
 ```
 
-**Recommendation:** It is optional but highly recommended to **quote your command** string (e.g., `in * "git status"`).
-
-Quoting is **mandatory** if your command contains:
-- Shell operators: `&&`, `||`, `;`, `|`, `>`
-- Wildcards belonging to the command: `*`, `?` (e.g., `rm *.log`)
-
-### Options
-
-| Flag | Description |
+| Flag | What it does |
 |------|-------------|
-| `-d`, `--dry` | Dry run (print commands without executing). |
-| `-h`, `--help` | Show help message. |
-| `-P`, `--parallel N` | Run in parallel with `N` jobs (default: 1). |
-| `-v`, `--verbose` | Enable verbose output (debug logs). |
+| `-P`, `--parallel N` | Run N folders at a time. Output stays grouped per folder, in order. |
+| `-c`, `--compact` | Prefix each output line with the folder. Skip folders with no output. |
+| `-s`, `--summary` | One line per folder: `ok` or `FAIL`. Failed folders show their last lines. |
+| `-f`, `--fail-only` | Like `-s`, but only failed folders. |
+| `--tail N` | Lines to show per failed folder (default 10). |
+| `--color WHEN` | `auto` (default), `always` or `never`. `--no-color` and `NO_COLOR=1` also work. |
+| `-d`, `--dry` | Print the commands, run nothing. |
+| `-v`, `--verbose` | Debug logs. |
+| `-V`, `--version` | Show the version. |
+| `-h`, `--help` | Show help. |
+
+**Exit code:** 0 if the command worked in every folder. 1 if it failed in any folder. The last line says how many failed and where.
 
 ### Examples
 
 See [EXAMPLES.md](EXAMPLES.md) for 50+ real-world examples.
 
 ```bash
-# Git operations
-in project* git status
-in repos/* git pull
+# Git
+indo -c * 'git status -s'                 # only dirty repos, one line per file
+indo -P 8 repos/* git pull
+indo -c * git branch --show-current
 
-# Package management
-in packages/* npm install
-in frontend,backend yarn build
+# Packages and builds
+indo frontend,backend yarn build
+indo -f -P 4 packages/* 'pnpm test'
 
-# Parallel execution (faster builds)
-in -P 4 packages/* pnpm build
+# Chaining (quote it)
+indo packages/* "pnpm update && git commit -am 'update' && git push"
 
-# Command Chaining (runs in shell automatically when quoted)
-in packages/* "pnpm update && git commit -am 'update' && git push"
-in services/* "docker build . || echo 'Build failed'"
+# Preview first
+indo -d packages/* "rm -rf node_modules"
 
-# Dry Run (Preview what will happen)
-in -d packages/* "rm -rf node_modules"
-
-# Shell features (pipes, redirects, wildcards inside dir)
-in src/* "ls -l | grep .ts"
-in logs/* "rm *.old"
-in ./* "wc -l *.json > stats.txt"
+# Shell features inside each folder
+indo src/* "ls -l | grep .ts"
+indo ./* "wc -l *.json > stats.txt"
 ```
 
-### Important Note on Wildcards
+### Wildcards
 
-When using wildcards (glob patterns) like `*.txt` in your command, your shell (bash/zsh) will try to expand them **before** running `in` ⚠️
+Your shell expands `*.txt` **before** `indo` runs, in your current folder.
 
-- ❌ **Incorrect:** `in projects/* ls *.txt` *Issue:* The shell expands `*.txt` in your *current* directory, not inside `projects/*`. If no txt files exist locally, it might fail or pass the literal string.
+- ❌ `indo projects/* ls *.txt` expands `*.txt` here, not inside each project.
+- ✅ `indo projects/* "ls *.txt"` quotes it, so it expands inside each folder.
 
-- ✅ **Correct:** `in projects/* ls my-file.txt` *Works because no wildcards are used.*
+### Output for scripts and AI agents
 
-- ✅ **Correct:** `in projects/* "ls *.txt"` *Why:* By quoting `"ls *.txt"`, `in` automatically enables shell mode, protecting the wildcard from your current shell so it expands inside each target directory.
+On a terminal you get colors and live output. In a pipe, a file or an agent's shell, colors are off. With `-c`, `-s` and `-f`, output is captured per folder and printed as one clean block:
 
-## Installation
-
-### Automatic (Recommended)
-Run the installer script:  
-```bash
-curl -sL https://raw.githubusercontent.com/inevolin/in-cli/main/install.sh | bash
+```text
+$ indo -f --tail 3 -P 8 errors six toolz uuid ./ci.sh
+FAIL errors (exit 1)
+  ./errors_test.go:220:31: non-constant format string in call to github.com/pkg/errors.WithMessagef
+  FAIL	github.com/pkg/errors [build failed]
+  FAIL
+FAIL toolz (exit 1)
+  SKIPPED [1] toolz/tests/test_functoolz.py:737: annotationlib is new in Python 3.14
+  FAILED toolz/tests/test_package.py::test_has_version - importlib.metadata.Pac...
+  1 failed, 191 passed, 1 skipped in 0.27s
+2/4 ok, 2 failed: errors toolz
 ```
 
-To install with a custom name (e.g., `indo` or `in-cli`) to avoid conflicts with the shell keyword `in`, pass the name as an argument:
+## Benchmark
+
+We ran 7 everyday tasks on 20 real open source repos (JavaScript, Go, Python) with real test suites, some failing tests and some dirty repos. Every command ran through `bash -c`, the way AI agents run commands. Full report: [ANALYSIS.md](ANALYSIS.md).
+
+![Benchmark](.github/assets/benchmark.png)
+
+| Task (20 repos) | Plain loop | Old `in` | Expert shell | **`indo` short output** |
+|---|---|---|---|---|
+| Which repos are dirty? | 875 tok | 1,095 tok | 44 tok, 121 chars | **48 tok, 25 chars** |
+| Fetch all. Which are behind? | 1,126 tok | 681 tok | 221 tok, 118 chars | **221 tok, 57 chars** |
+| Run tests. Which failed? | 8,014 tok ✗ | 8,254 tok ✗ | 418 tok, 120 chars | **460 tok, 17 chars** |
+| Same, 8 jobs in parallel | 10,433 tok ✗ | 8,270 tok ✗ | 418 tok, 106 chars | **460 tok, 22 chars** |
+| Who is not on main? | 154 tok | 411 tok | 111 tok, 73 chars | **111 tok, 35 chars** |
+
+`tok` = output tokens (tiktoken cl100k_base). ✗ = wrong answer or wrong exit code.
+
+**Where plain tools win:** for one search, `rg` or `grep '"x"' */package.json` is shorter. An expert loop uses about 6% fewer tokens, but is 2 to 7 times longer to type. GNU parallel with `-k --tag` is just as correct, but harder to remember.
+
+## Why not find or xargs?
+
+Running `git status` in every subfolder:
+
 ```bash
-curl -sL https://raw.githubusercontent.com/inevolin/in-cli/main/install.sh | bash -s -- indo
+find . -mindepth 1 -maxdepth 1 -type d -exec git -C {} status \;   # no folder names, exit code always 0
+ls -d */ | xargs -I {} sh -c 'cd {} && git status'                 # no folder names
+indo * git status                                                   # names, grouped, honest exit code
 ```
 
-**Non-root Installation:** If you do not have sudo privileges or prefer to install to a specific directory (e.g., `~/.local/bin`), you can override the destination using the `DEST_DIR` environment variable:
-```bash
-curl -sL https://raw.githubusercontent.com/inevolin/in-cli/main/install.sh | DEST_DIR=~/.local/bin bash -s -- indo
-```
-
-### Manual
-1. Clone the repo or download `in.sh`.
-2. Make it executable: `chmod +x in.sh`
-3. Move to your path: `sudo mv in.sh /usr/local/bin/in`
-
-## Motivation
-
-While tools like `find` and `xargs` are powerful, constructing correct commands for simple tasks is often cumbersome and error-prone.
-
-**Compare:**
-
-Running `git status` in all subdirectories:
-
-**With `find`:**
-```bash
-find . -maxdepth 1 -type d -not -name '.' -execdir git status \;
-```
-
-**With `xargs`:**
-```bash
-ls -d */ | xargs -I {} sh -c 'cd {} && git status'
-```
-
-**With `in`:**
-```bash
-in * git status
-```
-
-**Why `in` is simpler:**
-- **No boilerplate**: Forget about `-maxdepth`, `-execdir`, `-print0`, or complex `xargs` flags.
-- **Intuitive**: It works just like running a command, but applied to multiple places.
-- **Safety defaults**: Handles directory paths with spaces correctly without arcane flags.
-- **Easy Parallelism**: Just add `-P 4` to run 4 jobs at once. Doing this with `xargs` often leads to complex quoting or syntax.
-
-## Uninstallation
-
-To remove `in`, delete the executable from your path:
+## Uninstall
 
 ```bash
-sudo rm "$(which in)"
+sudo rm -f "$(command -v indo)" "$(dirname "$(command -v indo)")/in"
 ```
 
 ## Testing
 
-This project includes a comprehensive test suite covering all features and regressions.
-
 ```bash
-# Run all tests
 ./tests.sh
 ```
 
 ## Requirements
 
-- **Shell**: Bash 3.2 or higher
-- **Operating Systems**: 
-  - Linux (all distributions)
-  - macOS 10.5+
-  - BSD systems (FreeBSD, OpenBSD, NetBSD)
-  - Windows (via WSL, Git Bash, or Cygwin)
-- **Dependencies**: None (pure Bash)
+- Bash 3.2 or newer
+- Linux, macOS, BSD, or Windows (WSL, Git Bash, Cygwin)
+- No other dependencies
 
 ## Contributing
 
-Contributions are welcome! Feel free to open a pull request with improvements, bug fixes, or new features.
+Pull requests are welcome.
 
 ## License
 
-MIT License. See [LICENSE](LICENSE) for details.
+MIT. See [LICENSE](LICENSE).

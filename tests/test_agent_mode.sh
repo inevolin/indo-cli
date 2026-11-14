@@ -47,6 +47,11 @@ check "NO_COLOR is respected" '[[ "$out" != *"$ESC"* ]]'
 out=$("$IN_TOOL" --color=sometimes a 'true' 2>&1); rc=$?
 check "bad --color value is an error" '[[ $rc -eq 2 ]]'
 
+out=$("$IN_TOOL" -c a 'printf "\033[31mred\033[0m\n"' 2>&1)
+check "captured output has forced colors removed when color is off" '[[ "$out" == "a: red" ]]'
+out=$("$IN_TOOL" -c --color always a 'printf "\033[31mred\033[0m\n"' 2>&1)
+check "forced colors are kept with --color always" '[[ "$out" == *"$ESC"* ]]'
+
 # --- version ---
 out=$("$IN_TOOL" --version); rc=$?
 check "--version prints a version" '[[ $rc -eq 0 && "$out" =~ [0-9]+\.[0-9]+\.[0-9]+ ]]'
@@ -90,6 +95,8 @@ out=$("$IN_TOOL" --summary --tail 2 c 'seq 1 9; false' 2>&1)
 check "--tail limits failure output" '[[ "$out" == *"  8"*"  9"* && "$out" != *"  7"* ]]'
 out=$("$IN_TOOL" --summary --tail 0 c 'seq 1 9; false' 2>&1)
 check "--tail 0 shows no failure output" '[[ "$out" == "FAIL c (exit 1)"$'"'"'\n'"'"'"0/1 ok, 1 failed: c" ]]'
+out=$("$IN_TOOL" -f --tail 2 c 'echo "AssertionError: boom"; echo "    at run (node:internal/x:1:2)"; echo "    at Foo.bar (/a/b.js:10:5)"; false' 2>&1)
+check "stack frame lines are skipped in failure output" '[[ "$out" == *"AssertionError: boom"* && "$out" != *"node:internal"* ]]'
 out=$("$IN_TOOL" -s a/ 'echo hi' 2>&1)
 check "trailing slash is dropped from folder names" '[[ "$out" == *"ok   a: hi"* ]]'
 

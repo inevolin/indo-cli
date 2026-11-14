@@ -1,0 +1,22 @@
+$ for d in */; do echo "${d%/}: $(git -C "$d" branch --show-current)"; done
+# exit 0
+awesome-nodejs: main
+camelcase: main
+dotfiles: main
+errors: master
+escape-string-regexp: main
+gitignore: main
+go-humanize: feature/si-units
+go-version: main
+idna: master
+is-plain-obj: main
+more-itertools: master
+p-limit: main
+pretty-bytes: main
+semver: master
+six: main
+slugify: main
+tldr-python-client: main
+tomli: master
+toolz: master
+uuid: master

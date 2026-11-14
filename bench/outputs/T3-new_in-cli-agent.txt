@@ -1,0 +1,43 @@
+$ indo -f * ./ci.sh
+# exit 1
+FAIL errors (exit 1)
+  # github.com/pkg/errors
+  # [github.com/pkg/errors]
+  ./errors_test.go:128:24: non-constant format string in call to github.com/pkg/errors.Wrapf
+  ./errors_test.go:220:31: non-constant format string in call to github.com/pkg/errors.WithMessagef
+  FAIL	github.com/pkg/errors [build failed]
+  FAIL
+FAIL slugify (exit 1)
+  ✖ discarded emoji do not leave combining marks behind (0.163455ms)
+    AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+    '_' !== ''
+      generatedMessage: true,
+      code: 'ERR_ASSERTION',
+      actual: '_',
+      expected: '',
+      operator: 'strictEqual',
+      diff: 'simple'
+    }
+FAIL tldr-python-client (exit 2)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  tests/test_tldr.py:6: in <module>
+      import tldr
+  tldr.py:18: in <module>
+      import shtab
+  E   ModuleNotFoundError: No module named 'shtab'
+  =========================== short test summary info ============================
+  ERROR tests/test_tldr.py
+  !!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+  1 error in 0.14s
+FAIL toolz (exit 1)
+          try:
+              return next(iter(cls.discover(name=name)))
+          except StopIteration:
+  >           raise PackageNotFoundError(name)
+  E           importlib.metadata.PackageNotFoundError: No package metadata was found for toolz
+  /usr/lib/python3.13/importlib/metadata/__init__.py:409: PackageNotFoundError
+  =========================== short test summary info ============================
+  SKIPPED [1] toolz/tests/test_functoolz.py:737: annotationlib is new in Python 3.14
+  FAILED toolz/tests/test_package.py::test_has_version - importlib.metadata.Pac...
+  1 failed, 191 passed, 1 skipped in 0.25s
+16/20 ok, 4 failed: errors slugify tldr-python-client toolz

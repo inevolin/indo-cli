@@ -1,0 +1,775 @@
+$ indo -P 8 * ./ci.sh
+# exit 1
+in awesome-nodejs $ ./ci.sh
+no tests
+in camelcase $ ./ci.sh
+✔ camelCase (3.761996ms)
+✔ camelCase with pascalCase option (2.848938ms)
+✔ camelCase with preserveConsecutiveUppercase option (1.884115ms)
+✔ camelCase with both pascalCase and preserveConsecutiveUppercase option (0.466492ms)
+✔ camelCase with locale option (0.782612ms)
+✔ camelCase with disabled locale (0.35745ms)
+✔ number handling follows Google Style Guide (1.940304ms)
+✔ camelCase with capitalizeAfterNumber option (0.281084ms)
+✔ capitalizeAfterNumber edge cases (0.327527ms)
+✔ capitalizeAfterNumber: false keeps preserveConsecutiveUppercase intact (3.119506ms)
+✔ capitalizeAfterNumber stops at a separator that follows the letter (1.028777ms)
+✔ case preservation after numbers (capitalizeAfterNumber: false) (0.231849ms)
+✔ preserve leading underscores and dollar signs (0.724441ms)
+✔ astral plane letters behave like their basic plane counterparts (2.075473ms)
+✔ edge cases: emoji and unicode (0.339965ms)
+✔ edge cases: combined options (0.172359ms)
+✔ edge cases: numbers (0.114737ms)
+✔ edge cases: locale with capitalizeAfterNumber (0.179463ms)
+✔ edge cases: special characters (0.106766ms)
+✔ edge cases: array input (0.106024ms)
+✔ edge cases: uppercase transitions (0.48722ms)
+✔ edge cases: extreme inputs (0.206449ms)
+✔ pascalCase only ever changes the first character (6.127391ms)
+✔ the result follows the documented rules, checked against them directly (212.913955ms)
+✔ a single character input is taken on its own (0.136894ms)
+✔ every decimal digit counts as a number, not just the ASCII ones (77.618996ms)
+✔ a letter after a separator is not a letter after a digit (0.172327ms)
+✔ the two capitalizeAfterNumber settings agree when there is no digit (119.056399ms)
+✔ combining marks are kept and do not disturb the word boundaries of their base letter (1.653869ms)
+✔ context sensitive lowercasing and cased characters that are not Uppercase_Letter (0.365057ms)
+✔ locales only matter for characters that actually have locale specific casing (2.796128ms)
+✔ array input joins the words with a separator (1.305122ms)
+✔ invalid input (0.703973ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 607.489711
+in dotfiles $ ./ci.sh
+no tests
+in errors $ ./ci.sh
+# github.com/pkg/errors
+# [github.com/pkg/errors]
+./errors_test.go:128:24: non-constant format string in call to github.com/pkg/errors.Wrapf
+./errors_test.go:220:31: non-constant format string in call to github.com/pkg/errors.WithMessagef
+FAIL	github.com/pkg/errors [build failed]
+FAIL
+✘ errors: exit 1
+in escape-string-regexp $ ./ci.sh
+
+  ✔ main
+  ✔ escapes `-` in a way compatible with PCRE
+  ✔ escapes `-` in a way compatible with the Unicode flag
+  ─
+
+  3 tests passed
+in gitignore $ ./ci.sh
+no tests
+in go-humanize $ ./ci.sh
+ok  	github.com/dustin/go-humanize	(cached)
+ok  	github.com/dustin/go-humanize/english	(cached)
+in go-version $ ./ci.sh
+ok  	github.com/hashicorp/go-version	(cached)
+in idna $ ./ci.sh
+............................................................ [  0%]
+..................s........... [  1%]
+...................................................................... [  2%]
+........................................................................ [  3%]
+........................................................................ [  4%]
+........................................................................ [  5%]
+........................................................................ [  6%]
+........................................................................ [  8%]
+........................................................................ [  9%]
+........................................................................ [ 10%]
+........................................................................ [ 11%]
+........................................................................ [ 12%]
+........................................................................ [ 13%]
+........................................................................ [ 14%]
+........................................................................ [ 15%]
+........................................................................ [ 17%]
+........................................................................ [ 18%]
+........................................................................ [ 19%]
+........................................................................ [ 20%]
+........................................................................ [ 21%]
+........................................................................ [ 22%]
+........................................................................ [ 23%]
+........................................................................ [ 24%]
+........................................................................ [ 25%]
+........................................................................ [ 27%]
+........................................................................ [ 28%]
+........................................................................ [ 29%]
+........................................................................ [ 30%]
+........................................................................ [ 31%]
+........................................................................ [ 32%]
+........................................................................ [ 33%]
+........................................................................ [ 34%]
+........................................................................ [ 35%]
+........................................................................ [ 37%]
+........................................................................ [ 38%]
+........................................................................ [ 39%]
+........................................................................ [ 40%]
+........................................................................ [ 41%]
+........................................................................ [ 42%]
+........................................................................ [ 43%]
+........................................................................ [ 44%]
+........................................................................ [ 46%]
+........................................................................ [ 47%]
+........................................................................ [ 48%]
+........................................................................ [ 49%]
+........................................................................ [ 50%]
+........................................................................ [ 51%]
+........................................................................ [ 52%]
+........................................................................ [ 53%]
+........................................................................ [ 54%]
+........................................................................ [ 56%]
+........................................................................ [ 57%]
+........................................................................ [ 58%]
+........................................................................ [ 59%]
+........................................................................ [ 60%]
+........................................................................ [ 61%]
+........................................................................ [ 62%]
+........................................................................ [ 63%]
+........................................................................ [ 65%]
+........................................................................ [ 66%]
+........................................................................ [ 67%]
+........................................................................ [ 68%]
+........................................................................ [ 69%]
+........................................................................ [ 70%]
+........................................................................ [ 71%]
+........................................................................ [ 72%]
+........................................................................ [ 73%]
+........................................................................ [ 75%]
+........................................................................ [ 76%]
+........................................................................ [ 77%]
+........................................................................ [ 78%]
+........................................................................ [ 79%]
+........................................................................ [ 80%]
+........................................................................ [ 81%]
+........................................................................ [ 82%]
+........................................................................ [ 84%]
+........................................................................ [ 85%]
+........................................................................ [ 86%]
+........................................................................ [ 87%]
+........................................................................ [ 88%]
+........................................................................ [ 89%]
+........................................................................ [ 90%]
+........................................................................ [ 91%]
+........................................................................ [ 92%]
+........................................................................ [ 94%]
+........................................................................ [ 95%]
+........................................................................ [ 96%]
+........................................................................ [ 97%]
+........................................................................ [ 98%]
+........................................................................ [ 99%]
+.....................                                                    [100%]
+6444 passed, 1 skipped, 56 subtests passed in 4.88s
+in is-plain-obj $ ./ci.sh
+
+  ✔ main
+  ─
+
+  1 test passed
+in more-itertools $ ./ci.sh
+........................................... [  5%]
+........................ [  8%]
+........................................................... [ 16%]
+............................................................................................................. [ 30%]
+............................................................................................................ [ 44%]
+.................................................................................................................................. [ 61%]
+............................ [ 64%]
+.................................................... [ 71%]
+..................................................................................................................................................................................................... [ 97%]
+.....................                                                           [100%]
+771 passed, 21203 subtests passed in 8.96s
+in p-limit $ ./ci.sh
+
+  ✔ throws on invalid concurrency argument
+  ✔ clearQueue
+  ✔ accepts additional arguments
+  ✔ map rejects with the iterable error when it throws before the first item
+  ✔ continues after sync throw
+  ✔ runs all tasks asynchronously
+  ✔ map resolves to an empty array for an empty iterable
+  ✔ non-promise returning function
+  ✔ map accepts an iterable (set)
+  ✔ map accepts an iterable (array iterator)
+  ✔ map accepts array-like inputs
+  ✔ map passes sequential indexes for a generator
+  ✔ map rejects with the mapper error
+  ✔ map
+  ✔ propagates async execution context properly
+  ✔ limitFunction exposes clearQueue
+  ✔ shared context with a limited provider helper
+  ✔ map passes index and preserves order with concurrency
+  ✔ map works when detached from the limit
+  ✔ map does not leave unhandled rejections when the iterable throws
+  ✔ clearQueue rejects pending promises when enabled (103ms)
+  ✔ map rejects immediately with the iterable error and still runs already scheduled tasks (104ms)
+  ✔ accepts options object (104ms)
+  ✔ does not ignore errors (115ms)
+  ✔ change concurrency to bigger value (154ms)
+  ✔ change concurrency to smaller value (204ms)
+  ✔ concurrency: 1 (607ms)
+  ✔ concurrency: 4 (2.3s)
+  ✔ limitFunction() (2.3s)
+  ✔ activeCount and pendingCount properties (3s)
+  ─
+
+  30 tests passed
+in pretty-bytes $ ./ci.sh
+
+  - [skip] throws on invalid fraction digit options
+  - [skip] the output is always plain decimal that is within half a percent
+  - [skip] values below 1e-6 keep their digits
+  ✔ throws on invalid input (109ms)
+  ✔ validates the options before scaling the value (108ms)
+  ✔ converts bytes to human readable strings (108ms)
+  ✔ does not use exponential notation (107ms)
+  ✔ rounding carries across every decimal unit boundary (107ms)
+  ✔ rounding carries across every binary unit boundary (107ms)
+  ✔ an exact unit power is one of that unit (107ms)
+  ✔ rounding carries values above unit boundary thresholds (101ms)
+  ✔ a value just below a unit boundary keeps the smaller unit (101ms)
+  ✔ rounding carries BigInt values across unit boundaries (101ms)
+  ✔ rounding carries with presentation options (101ms)
+  ✔ fractional digit options do not carry across unit boundaries
+  ✔ rounding does not carry beyond the largest unit
+  ✔ supports negative number
+  ✔ locale option
+  ✔ locale option falls back through the list it was given
+  ✔ a locale can change the digits without changing the unit
+  ✔ locale option keeps the default significant digits
+  ✔ signed option
+  ✔ signed zero is formatted like any other value
+  ✔ bits option
+  ✔ binary option
+  ✔ bits and binary option
+  ✔ fractional digits options
+  ✔ space option
+  ✔ nonBreakingSpace option
+  ✔ fixedWidth option
+  ✔ documented examples are accurate
+  ✔ a bigint formats like the equivalent number
+  ✔ rounding follows Number#toPrecision at exact ties
+  ✔ a bigint scales exactly in the largest unit
+  ✔ large bigints scale exactly
+  ✔ a locale does not change the digits
+  ✔ the formatted value never shrinks as the input grows
+  ✔ the extremes of the number range format as plain digits
+  ✔ zero keeps its locale digits
+  ✔ very large values keep plain digits with a locale
+  ✔ bigints are accepted up to the number range
+  ✔ bigints too large for a number are written out in full
+  ✔ a value past the number range is the exact quotient
+  ✔ the value never shrinks across the switch to exact bigint arithmetic
+  ✔ fraction digit options apply past the number range
+  ✔ a value past the number range ignores grouping and padding
+  ✔ the options shape the output as documented
+  ✔ locale: true uses the 3 significant digit default
+  ✔ locale: true uses the system locale
+  ✔ fractional digits options do not localize without a locale (120ms)
+  ✔ the output does not depend on the system locale (172ms)
+  ─
+
+  48 tests passed
+  3 tests skipped
+in semver $ ./ci.sh
+ok  	github.com/Masterminds/semver/v3	(cached)
+in six $ ./ci.sh
+.................................s....................sssssssssssssss... [ 36%]
+........................................................................ [ 72%]
+........................................................                 [100%]
+184 passed, 16 skipped in 0.24s
+in slugify $ ./ci.sh
+✖ main (5.569481ms)
+✔ decamelize acronyms (0.485304ms)
+✖ possessives and contractions (2.703772ms)
+✖ custom separator (0.856407ms)
+✔ options set to `undefined` use the defaults (0.283166ms)
+✔ a separator containing `$` is inserted literally (0.293542ms)
+✖ custom replacements (0.423356ms)
+✔ custom replacements match normalized text before decamelization (0.18036ms)
+✔ custom replacements retain their ordering (1.856913ms)
+✔ normalization rejects excessive combining marks before applying replacements (0.696583ms)
+✔ custom replacement keys match before decamelization (transliterate: true) (0.252911ms)
+✔ custom replacement values are decamelized (transliterate: true) (0.187303ms)
+✔ removing text can expose a camel-case boundary (transliterate: true) (0.168101ms)
+✔ equal-length replacements can consume an earlier replacement value (transliterate: true) (0.111893ms)
+✔ replacement values are not passed through the same replacements again (transliterate: true) (0.093633ms)
+✔ custom replacements retain matched-text replacement patterns (transliterate: true) (0.08586ms)
+✔ custom replacements retain literal-dollar replacement patterns (transliterate: true) (0.221559ms)
+✔ replacement values respect disabled decamelization (transliterate: true) (0.132457ms)
+✔ custom replacement keys match before decamelization (transliterate: false) (0.062065ms)
+✔ custom replacement values are decamelized (transliterate: false) (0.0698ms)
+✔ removing text can expose a camel-case boundary (transliterate: false) (0.05108ms)
+✔ equal-length replacements can consume an earlier replacement value (transliterate: false) (0.059956ms)
+✔ replacement values are not passed through the same replacements again (transliterate: false) (0.2393ms)
+✔ custom replacements retain matched-text replacement patterns (transliterate: false) (0.07199ms)
+✔ custom replacements retain literal-dollar replacement patterns (transliterate: false) (0.738307ms)
+✔ replacement values respect disabled decamelization (transliterate: false) (0.615703ms)
+✔ custom replacement keys remain case-sensitive (0.154123ms)
+✔ custom replacement keys are literal strings (0.278808ms)
+✔ the last duplicate replacement overrides earlier values with transliteration (0.159614ms)
+✔ replacement ordering uses normalized key lengths (0.474703ms)
+✖ camel-case replacements can override built-in replacements (0.324812ms)
+✔ a built-in replacement can be disabled with an empty value (0.134294ms)
+✔ replacement values retain casing when lowercasing is disabled (0.098658ms)
+✔ replacement word boundaries use the configured separator (0.142466ms)
+✔ preserved characters in replacement values survive decamelization (0.250878ms)
+✖ edge preservation still uses the original input with replacements (0.291067ms)
+✔ replacement values are transliterated with the selected locale (2.188278ms)
+✔ decomposed replacement values keep their camel-case boundaries (1.790103ms)
+✔ custom replacement keys match literally without transliteration (0.116317ms)
+✔ custom replacement arrays are not mutated (0.95917ms)
+✔ replacement values cannot bypass the normalization mark limit (0.179947ms)
+✔ normalization accepts the maximum supported mark run (0.244849ms)
+✔ replacement results share the counter with equivalent direct input (0.232575ms)
+✖ lowercase option (0.194362ms)
+✔ decamelize option (0.6235ms)
+✔ supports German umlauts (0.128668ms)
+✔ transliteration does not create false camel-case boundaries (0.762936ms)
+✔ uppercase ligatures and sharp s do not create word boundaries (0.127661ms)
+✔ transliteration preserves casing without splitting uppercase words (0.072448ms)
+✔ Unicode acronyms split from capitalized words and numeric suffixes (0.071071ms)
+✔ Unicode plural acronyms stay intact before a following word (0.061782ms)
+✔ Cyrillic camel-case and acronym boundaries use the original letters (0.10427ms)
+✔ titlecase letters form camel-case boundaries (0.605622ms)
+✔ decomposed lowercase letters keep all marks before an uppercase boundary (0.090804ms)
+✔ decomposed uppercase letters stay with their acronym (0.152125ms)
+✔ decomposed acronyms split from digits and following words (0.069019ms)
+✔ non-ASCII decimal digits participate in camel-case boundaries (0.054313ms)
+✔ disabling decamelization keeps Unicode identifiers intact (0.075202ms)
+✔ supports Vietnamese (0.143293ms)
+✔ supports Arabic (0.074031ms)
+✔ supports Persian / Farsi (0.051557ms)
+✔ supports Urdu (0.075982ms)
+✔ supports Pashto (0.413671ms)
+✔ supports Russian (0.125979ms)
+✔ supports Romanian (0.065391ms)
+✔ supports Turkish (0.084092ms)
+✔ supports Armenian (0.095295ms)
+✔ leading underscore (0.132626ms)
+✖ trailing dash (0.171634ms)
+✖ counter (0.524624ms)
+✔ slugifyWithCounter() never returns the same slug twice (0.208564ms)
+✖ preserve characters (0.209481ms)
+✖ preserving an emoji does not preserve halves of other emoji (transliterate: true) (0.615339ms)
+✔ leading underscore preservation does not duplicate preserved characters (transliterate: true) (0.163056ms)
+✔ trailing dash preservation does not duplicate preserved characters (transliterate: true) (0.116489ms)
+✔ edge preservation restores characters removed by custom replacements (transliterate: true) (0.116447ms)
+✖ preserving an emoji does not preserve halves of other emoji (transliterate: false) (0.802798ms)
+✔ leading underscore preservation does not duplicate preserved characters (transliterate: false) (0.515445ms)
+✔ trailing dash preservation does not duplicate preserved characters (transliterate: false) (0.509483ms)
+✔ edge preservation restores characters removed by custom replacements (transliterate: false) (0.468356ms)
+✔ locale option (2.183372ms)
+✔ transliterate option disabled (0.248486ms)
+✖ discarded emoji do not leave combining marks behind (0.164774ms)
+✔ slugifyWithCounter() is not vulnerable to ReDoS (7.046891ms)
+ℹ tests 84
+ℹ suites 0
+ℹ pass 71
+ℹ fail 13
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 173.474715
+
+✖ failing tests:
+
+test at test.js:5:1
+✖ main (5.569481ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'foo-bar_'
+  - 'foo-bar'
+            ^
+  
+      at TestContext.<anonymous> (file:///workspace/bench/src/slugify/test.js:8:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.start (node:internal/test_runner/test:1262:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'foo-bar_',
+    expected: 'foo-bar',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test.js:54:1
+✖ possessives and contractions (2.703772ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'dont_' !== 'dont'
+  
+      at TestContext.<anonymous> (file:///workspace/bench/src/slugify/test.js:68:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'dont_',
+    expected: 'dont',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test.js:108:1
+✖ custom separator (0.856407ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'deja-vu_'
+  - 'deja-vu'
+            ^
+  
+      at TestContext.<anonymous> (file:///workspace/bench/src/slugify/test.js:112:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'deja-vu_',
+    expected: 'deja-vu',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test.js:151:1
+✖ custom replacements (0.423356ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '10-or-20-percent_'
+  - '10-or-20-percent'
+                     ^
+  
+      at TestContext.<anonymous> (file:///workspace/bench/src/slugify/test.js:158:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '10-or-20-percent_',
+    expected: '10-or-20-percent',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test.js:297:1
+✖ camel-case replacements can override built-in replacements (0.324812ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'rock-and-roll-unicorn_'
+  - 'rock-and-roll-unicorn'
+                          ^
+  
+      at TestContext.<anonymous> (file:///workspace/bench/src/slugify/test.js:298:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'rock-and-roll-unicorn_',
+    expected: 'rock-and-roll-unicorn',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test.js:330:1
+✖ edge preservation still uses the original input with replacements (0.291067ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + '_hello-world_-'
+  - '_hello-world-'
+                 ^
+  
+      at TestContext.<anonymous> (file:///workspace/bench/src/slugify/test.js:331:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '_hello-world_-',
+    expected: '_hello-world-',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test.js:390:1
+✖ lowercase option (0.194362ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Deja_Vu_'
+  - 'Deja_Vu'
+            ^
+  
+      at TestContext.<anonymous> (file:///workspace/bench/src/slugify/test.js:393:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Deja_Vu_',
+    expected: 'Deja_Vu',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test.js:526:1
+✖ trailing dash (0.171634ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'foo-bar_-'
+  - 'foo-bar-'
+            ^
+  
+      at TestContext.<anonymous> (file:///workspace/bench/src/slugify/test.js:527:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'foo-bar_-',
+    expected: 'foo-bar-',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test.js:534:1
+✖ counter (0.524624ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '_foo' !== 'foo-5'
+  
+      at TestContext.<anonymous> (file:///workspace/bench/src/slugify/test.js:558:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '_foo',
+    expected: 'foo-5',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test.js:600:1
+✖ preserve characters (0.209481ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'foo-bar_'
+  - 'foo-bar'
+            ^
+  
+      at TestContext.<anonymous> (file:///workspace/bench/src/slugify/test.js:603:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'foo-bar_',
+    expected: 'foo-bar',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test.js:628:2
+✖ preserving an emoji does not preserve halves of other emoji (transliterate: true) (0.615339ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '_' !== ''
+  
+      at TestContext.<anonymous> (file:///workspace/bench/src/slugify/test.js:630:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '_',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test.js:628:2
+✖ preserving an emoji does not preserve halves of other emoji (transliterate: false) (0.802798ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '_' !== ''
+  
+      at TestContext.<anonymous> (file:///workspace/bench/src/slugify/test.js:630:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '_',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test.js:725:1
+✖ discarded emoji do not leave combining marks behind (0.164774ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '_' !== ''
+  
+      at TestContext.<anonymous> (file:///workspace/bench/src/slugify/test.js:726:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '_',
+    expected: '',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+✘ slugify: exit 1
+in tldr-python-client $ ./ci.sh
+
+==================================== ERRORS ====================================
+_____________________ ERROR collecting tests/test_tldr.py ______________________
+ImportError while importing test module '/workspace/bench/src/tldr-python-client/tests/test_tldr.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/usr/lib/python3.13/importlib/__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/test_tldr.py:6: in <module>
+    import tldr
+tldr.py:18: in <module>
+    import shtab
+E   ModuleNotFoundError: No module named 'shtab'
+=========================== short test summary info ============================
+ERROR tests/test_tldr.py
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.17s
+✘ tldr-python-client: exit 2
+in tomli $ ./ci.sh
+..............s...                               [100%]
+17 passed, 1 skipped, 744 subtests passed in 0.32s
+in toolz $ ./ci.sh
+........................................................................ [ 37%]
+............................s........................................... [ 74%]
+................................F................                        [100%]
+=================================== FAILURES ===================================
+_______________________________ test_has_version _______________________________
+
+cls = <class 'importlib.metadata.Distribution'>, name = 'toolz'
+
+    @classmethod
+    def from_name(cls, name: str) -> Distribution:
+        """Return the Distribution for the given package name.
+    
+        :param name: The name of the distribution package to search for.
+        :return: The Distribution instance (or subclass thereof) for the named
+            package, if found.
+        :raises PackageNotFoundError: When the named package's distribution
+            metadata cannot be found.
+        :raises ValueError: When an invalid value is supplied for name.
+        """
+        if not name:
+            raise ValueError("A distribution name is required.")
+        try:
+>           return next(iter(cls.discover(name=name)))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           StopIteration
+
+/usr/lib/python3.13/importlib/metadata/__init__.py:407: StopIteration
+
+During handling of the above exception, another exception occurred:
+
+    def test_has_version():
+        # If this test fails, then toolz probably isn't installed properly.
+        # For local development, try `pip install -e .` from the project directory.
+>       version = toolz.__version__
+                  ^^^^^^^^^^^^^^^^^
+
+toolz/tests/test_package.py:7: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+toolz/__init__.py:29: in __getattr__
+    rv = version("toolz")
+         ^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/importlib/metadata/__init__.py:987: in version
+    return distribution(distribution_name).version
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/lib/python3.13/importlib/metadata/__init__.py:960: in distribution
+    return Distribution.from_name(distribution_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = <class 'importlib.metadata.Distribution'>, name = 'toolz'
+
+    @classmethod
+    def from_name(cls, name: str) -> Distribution:
+        """Return the Distribution for the given package name.
+    
+        :param name: The name of the distribution package to search for.
+        :return: The Distribution instance (or subclass thereof) for the named
+            package, if found.
+        :raises PackageNotFoundError: When the named package's distribution
+            metadata cannot be found.
+        :raises ValueError: When an invalid value is supplied for name.
+        """
+        if not name:
+            raise ValueError("A distribution name is required.")
+        try:
+            return next(iter(cls.discover(name=name)))
+        except StopIteration:
+>           raise PackageNotFoundError(name)
+E           importlib.metadata.PackageNotFoundError: No package metadata was found for toolz
+
+/usr/lib/python3.13/importlib/metadata/__init__.py:409: PackageNotFoundError
+=========================== short test summary info ============================
+SKIPPED [1] toolz/tests/test_functoolz.py:737: annotationlib is new in Python 3.14
+FAILED toolz/tests/test_package.py::test_has_version - importlib.metadata.Pac...
+1 failed, 191 passed, 1 skipped in 0.27s
+✘ toolz: exit 1
+in uuid $ ./ci.sh
+ok  	github.com/google/uuid	(cached)
+✘ 4 of 20 folders failed: errors slugify tldr-python-client toolz

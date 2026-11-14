@@ -1,0 +1,19 @@
+$ rg -n --hidden -g '!.git' TODO
+# exit 0
+toolz/toolz/sandbox/parallel.py:78:    results = list(results)  # TODO: Support complete laziness
+p-limit/scripts/benchmarker.js:3:// TODO: I will move this to a proper package at some point.
+semver/version.go:328:	// TODO: In the next semver major version validate the pre and metadata. Return error if there is one.
+semver/constraints.go:95:	// TODO(mattfarina): For v4 of this library consolidate the Check and Validate
+dotfiles/.macos:600:	'{"enabled" = 0;"name" = "EVENT_TODO";}' \
+pretty-bytes/test.js:111:// TODO: Unskip when targeting Node.js 22. Node.js 20 only accepts up to 20 fraction digits in `Intl.NumberFormat`.
+pretty-bytes/test.js:932:// TODO: Unskip when targeting Node.js 22. Node.js 20 only accepts up to 20 fraction digits in `Intl.NumberFormat`.
+pretty-bytes/test.js:964:// TODO: Unskip when targeting Node.js 22. Node.js 20 only accepts up to 20 fraction digits in `Intl.NumberFormat`.
+dotfiles/.vim/colors/solarized.vim:625:"                        keywords TODO FIXME and XXX
+gitignore/TeX.gitignore:165:# TODO Uncomment the next line if you use knitr and want to ignore its generated tikz files
+gitignore/Rails.gitignore:20:# TODO Comment out this rule if you are OK with secrets being uploaded to the repo
+gitignore/Rails.gitignore:28:# TODO Comment out these rules if environment variables can be committed
+gitignore/.github/PULL_REQUEST_TEMPLATE.md:3:_TODO_
+gitignore/.github/PULL_REQUEST_TEMPLATE.md:10:_TODO_
+gitignore/.github/PULL_REQUEST_TEMPLATE.md:17:_TODO_
+gitignore/community/JavaScript/Vue.gitignore:5:# TODO: where does this rule come from?
+gitignore/community/JavaScript/Vue.gitignore:8:# TODO: where does this rule come from?

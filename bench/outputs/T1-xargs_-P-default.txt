@@ -1,0 +1,8 @@
+$ ls -d */ | xargs -P 8 -I{} sh -c 'git -C {} status -s | sed "s|^|{}: |"'
+# exit 0
+dotfiles/: ?? tmp/
+idna/: ?? scratch.txt
+more-itertools/:  M README.rst
+semver/:  M README.md
+slugify/:  M index.js
+pretty-bytes/:  M readme.md

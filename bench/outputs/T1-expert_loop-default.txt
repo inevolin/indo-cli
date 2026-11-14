@@ -1,0 +1,14 @@
+$ rc=0; for d in */; do s=$(git -C "$d" status -s) || rc=1; [ -n "$s" ] && printf '%s:\n%s\n' "${d%/}" "$s"; done; exit $rc
+# exit 0
+dotfiles:
+?? tmp/
+idna:
+?? scratch.txt
+more-itertools:
+ M README.rst
+pretty-bytes:
+ M readme.md
+semver:
+ M README.md
+slugify:
+ M index.js

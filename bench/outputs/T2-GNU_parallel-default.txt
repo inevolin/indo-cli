@@ -1,0 +1,22 @@
+$ parallel -j8 -k --tag 'git -C {} fetch -q && git -C {} status -sb | head -1' ::: */
+# exit 0
+awesome-nodejs/	## main...origin/main
+camelcase/	## main...origin/main [ahead 1]
+dotfiles/	## main...origin/main
+errors/	## master...origin/master
+escape-string-regexp/	## main...origin/main
+gitignore/	## main...origin/main [behind 2]
+go-humanize/	## feature/si-units
+go-version/	## main...origin/main [ahead 1]
+idna/	## master...origin/master
+is-plain-obj/	## main...origin/main
+more-itertools/	## master...origin/master
+p-limit/	## main...origin/main [behind 2]
+pretty-bytes/	## main...origin/main
+semver/	## master...origin/master
+six/	## main...origin/main [behind 2]
+slugify/	## main...origin/main
+tldr-python-client/	## main...origin/main
+tomli/	## master...origin/master
+toolz/	## master...origin/master [behind 2]
+uuid/	## master...origin/master [behind 2]

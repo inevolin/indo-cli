@@ -1,0 +1,42 @@
+$ in-old * 'git fetch -q && git status -sb | head -1'
+# exit 0
+[1;33min awesome-nodejs $ [0mgit fetch -q && git status -sb | head -1
+## main...origin/main
+[1;33min camelcase $ [0mgit fetch -q && git status -sb | head -1
+## main...origin/main [ahead 1]
+[1;33min dotfiles $ [0mgit fetch -q && git status -sb | head -1
+## main...origin/main
+[1;33min errors $ [0mgit fetch -q && git status -sb | head -1
+## master...origin/master
+[1;33min escape-string-regexp $ [0mgit fetch -q && git status -sb | head -1
+## main...origin/main
+[1;33min gitignore $ [0mgit fetch -q && git status -sb | head -1
+## main...origin/main [behind 2]
+[1;33min go-humanize $ [0mgit fetch -q && git status -sb | head -1
+## feature/si-units
+[1;33min go-version $ [0mgit fetch -q && git status -sb | head -1
+## main...origin/main [ahead 1]
+[1;33min idna $ [0mgit fetch -q && git status -sb | head -1
+## master...origin/master
+[1;33min is-plain-obj $ [0mgit fetch -q && git status -sb | head -1
+## main...origin/main
+[1;33min more-itertools $ [0mgit fetch -q && git status -sb | head -1
+## master...origin/master
+[1;33min p-limit $ [0mgit fetch -q && git status -sb | head -1
+## main...origin/main [behind 2]
+[1;33min pretty-bytes $ [0mgit fetch -q && git status -sb | head -1
+## main...origin/main
+[1;33min semver $ [0mgit fetch -q && git status -sb | head -1
+## master...origin/master
+[1;33min six $ [0mgit fetch -q && git status -sb | head -1
+## main...origin/main [behind 2]
+[1;33min slugify $ [0mgit fetch -q && git status -sb | head -1
+## main...origin/main
+[1;33min tldr-python-client $ [0mgit fetch -q && git status -sb | head -1
+## main...origin/main
+[1;33min tomli $ [0mgit fetch -q && git status -sb | head -1
+## master...origin/master
+[1;33min toolz $ [0mgit fetch -q && git status -sb | head -1
+## master...origin/master [behind 2]
+[1;33min uuid $ [0mgit fetch -q && git status -sb | head -1
+## master...origin/master [behind 2]

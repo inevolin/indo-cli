@@ -1,0 +1,42 @@
+$ indo * 'git fetch -q && git status -sb | head -1'
+# exit 0
+in awesome-nodejs $ git fetch -q && git status -sb | head -1
+## main...origin/main
+in camelcase $ git fetch -q && git status -sb | head -1
+## main...origin/main [ahead 1]
+in dotfiles $ git fetch -q && git status -sb | head -1
+## main...origin/main
+in errors $ git fetch -q && git status -sb | head -1
+## master...origin/master
+in escape-string-regexp $ git fetch -q && git status -sb | head -1
+## main...origin/main
+in gitignore $ git fetch -q && git status -sb | head -1
+## main...origin/main [behind 2]
+in go-humanize $ git fetch -q && git status -sb | head -1
+## feature/si-units
+in go-version $ git fetch -q && git status -sb | head -1
+## main...origin/main [ahead 1]
+in idna $ git fetch -q && git status -sb | head -1
+## master...origin/master
+in is-plain-obj $ git fetch -q && git status -sb | head -1
+## main...origin/main
+in more-itertools $ git fetch -q && git status -sb | head -1
+## master...origin/master
+in p-limit $ git fetch -q && git status -sb | head -1
+## main...origin/main [behind 2]
+in pretty-bytes $ git fetch -q && git status -sb | head -1
+## main...origin/main
+in semver $ git fetch -q && git status -sb | head -1
+## master...origin/master
+in six $ git fetch -q && git status -sb | head -1
+## main...origin/main [behind 2]
+in slugify $ git fetch -q && git status -sb | head -1
+## main...origin/main
+in tldr-python-client $ git fetch -q && git status -sb | head -1
+## main...origin/main
+in tomli $ git fetch -q && git status -sb | head -1
+## master...origin/master
+in toolz $ git fetch -q && git status -sb | head -1
+## master...origin/master [behind 2]
+in uuid $ git fetch -q && git status -sb | head -1
+## master...origin/master [behind 2]

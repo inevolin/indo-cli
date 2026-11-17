@@ -385,6 +385,93 @@ test_no_skill_by_default() {
     teardown
 }
 
+test_dest_dir_missing_is_created() {
+    setup
+
+    cp "$INSTALL_SCRIPT" .
+    cp "$IN_SCRIPT" .
+
+    output=$(DEST_DIR="$TEST_DIR/new/bin" bash install.sh 2>&1)
+
+    assert_file_exists "new/bin/indo" "Missing DEST_DIR is created and used"
+    assert_output_contains "$output" "Creating directory: $TEST_DIR/new/bin" "Creation message shown"
+    if [[ "$output" != *"/usr/local/bin"* ]]; then
+        log_pass "No fallback to /usr/local/bin"
+    else
+        log_fail "Installer mentioned /usr/local/bin for an explicit DEST_DIR"
+    fi
+
+    teardown
+}
+
+test_dest_dir_uncreatable_fails() {
+    setup
+
+    cp "$INSTALL_SCRIPT" .
+    cp "$IN_SCRIPT" .
+    touch afile
+    mkdir -p fakebin
+    printf '#!/bin/sh\nexit 1\n' > fakebin/sudo; chmod +x fakebin/sudo
+
+    output=$(PATH="$TEST_DIR/fakebin:$PATH" DEST_DIR="$TEST_DIR/afile/bin" bash install.sh 2>&1)
+    rc=$?
+
+    if [[ $rc -ne 0 ]]; then
+        log_pass "Uncreatable DEST_DIR makes the install fail"
+    else
+        log_fail "Uncreatable DEST_DIR did not fail (rc=$rc)"
+    fi
+    assert_output_contains "$output" "could not create DEST_DIR" "Clear error for uncreatable DEST_DIR"
+    if [[ "$output" != *"Successfully installed"* ]]; then
+        log_pass "Nothing installed elsewhere"
+    else
+        log_fail "Installed somewhere else instead of failing"
+    fi
+
+    teardown
+}
+
+test_path_check_is_exact() {
+    setup
+
+    mkdir -p b bin
+    cp "$INSTALL_SCRIPT" .
+    cp "$IN_SCRIPT" .
+
+    output=$(PATH="$TEST_DIR/bin:$PATH" DEST_DIR="$TEST_DIR/b" bash install.sh 2>&1)
+    assert_output_contains "$output" "not in your PATH" "PATH warning when only a longer path matches"
+
+    output=$(PATH="$TEST_DIR/b:$PATH" DEST_DIR="$TEST_DIR/b" bash install.sh 2>&1)
+    if [[ "$output" != *"not in your PATH"* ]]; then
+        log_pass "No PATH warning when DEST_DIR is in PATH"
+    else
+        log_fail "PATH warning shown although DEST_DIR is in PATH"
+    fi
+
+    teardown
+}
+
+test_failed_download_installs_nothing() {
+    setup
+
+    mkdir -p bin fakebin
+    cp "$INSTALL_SCRIPT" .
+    printf '#!/bin/sh\necho "not indo"\n' > in.sh        # a foreign in.sh must be ignored
+    printf '#!/bin/sh\nexit 22\n' > fakebin/curl; chmod +x fakebin/curl
+
+    output=$(PATH="$TEST_DIR/fakebin:$PATH" DEST_DIR="$TEST_DIR/bin" bash install.sh 2>&1)
+    rc=$?
+
+    if [[ $rc -ne 0 && ! -e bin/indo ]]; then
+        log_pass "Failed download stops the install and installs nothing"
+    else
+        log_fail "Failed download was not handled (rc=$rc)"
+    fi
+    assert_output_contains "$output" "download failed" "Clear error for failed download"
+
+    teardown
+}
+
 echo "Running installation tests..."
 
 test_script_syntax
@@ -401,6 +488,10 @@ test_in_link_replaces_old_in_cli_install
 test_with_skill_installs_skill
 test_with_skill_and_custom_name
 test_no_skill_by_default
+test_dest_dir_missing_is_created
+test_dest_dir_uncreatable_fails
+test_path_check_is_exact
+test_failed_download_installs_nothing
 
 if [[ $FAILED_TESTS -eq 0 ]]; then
     echo -e "${GREEN}All installation tests passed!${NC}"

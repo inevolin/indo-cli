@@ -52,8 +52,20 @@ else
     ALIAS_NAME="in"
 fi
 
-# Check if a preferred directory was passed via environment
+# An explicit DEST_DIR is always used: created if missing (with sudo only when
+# needed), or the install stops with an error. It never falls back to another folder.
 if [ -n "$DEST_DIR" ]; then
+    if [ ! -d "$DEST_DIR" ]; then
+        echo "Creating directory: $DEST_DIR"
+        if ! mkdir -p "$DEST_DIR" 2>/dev/null; then
+            if command -v sudo >/dev/null 2>&1 && sudo mkdir -p "$DEST_DIR"; then
+                :
+            else
+                echo "Error: could not create DEST_DIR=$DEST_DIR. Create it yourself or pick another folder." >&2
+                exit 1
+            fi
+        fi
+    fi
     CANDIDATE_DIRS=("$DEST_DIR")
 # Otherwise, try reasonable candidate installation directories (in order of preference)
 else
@@ -101,11 +113,16 @@ TMP_FILE=$(mktemp 2>/dev/null || echo "/tmp/indo.$$.tmp")
 echo "Installing '$COMMAND_NAME' to $DEST_FILE..."
 
 # Download or copy the script
-if [ -f "in.sh" ]; then
+# A local in.sh is used only if it really is indo (not some other in.sh in this folder)
+if [ -f "in.sh" ] && grep -qE "inevolin/(in|indo)-cli" in.sh 2>/dev/null; then
     cp in.sh "$TMP_FILE"
 else
     echo "Downloading from $REPO_URL..."
-    curl -sL "$REPO_URL" -o "$TMP_FILE"
+    if ! curl -fsSL "$REPO_URL" -o "$TMP_FILE" || ! grep -qE "inevolin/(in|indo)-cli" "$TMP_FILE" 2>/dev/null; then
+        rm -f "$TMP_FILE"
+        echo "Error: download failed from $REPO_URL. Nothing was installed." >&2
+        exit 1
+    fi
 fi
 
 chmod +x "$TMP_FILE"
@@ -136,7 +153,11 @@ if [ -n "$ALIAS_NAME" ] && [ "$ALIAS_NAME" != "$COMMAND_NAME" ]; then
 fi
 
 # Check if the install directory is in PATH
-if ! echo "$PATH" | grep -q "$DEST_DIR"; then
+case ":$PATH:" in
+    *":$DEST_DIR:"*) IN_PATH=1 ;;
+    *) IN_PATH=0 ;;
+esac
+if [ "$IN_PATH" = "0" ]; then
     echo ""
     echo "⚠️  Warning: $DEST_DIR is not in your PATH"
     echo "To make '$COMMAND_NAME' accessible, follow these steps:"
@@ -154,7 +175,14 @@ if [ "$WITH_SKILL" = "1" ]; then
         cp "skills/indo/SKILL.md" "$SKILL_DIR/indo/SKILL.md"
     else
         echo "Downloading the indo skill from $SKILL_URL..."
-        curl -sL "$SKILL_URL" -o "$SKILL_DIR/indo/SKILL.md"
+        SKILL_TMP=$(mktemp 2>/dev/null || echo "/tmp/indo-skill.$$.tmp")
+        if curl -fsSL "$SKILL_URL" -o "$SKILL_TMP" && grep -q "^name: indo" "$SKILL_TMP"; then
+            mv "$SKILL_TMP" "$SKILL_DIR/indo/SKILL.md"
+        else
+            rm -f "$SKILL_TMP"
+            echo "Error: could not download the indo skill from $SKILL_URL." >&2
+            exit 1
+        fi
     fi
     echo "Installed the indo Agent Skill to $SKILL_DIR/indo/SKILL.md"
 fi

@@ -1,24 +1,44 @@
-# indo: run one command in many folders
+# indo: run one command in every repo, in parallel
 
 ![Demo](.github/assets/demo.gif)
 
 ```bash
-indo * git status            # in every folder
-indo -P 8 repos/* git pull   # 8 at a time
-indo -f * 'npm test'         # show only what failed
+indo -f -P 8 * 'npm test'      # test 20 repos at once, show only what failed
 ```
 
-- **One short command.** No `for` loops, no `find -exec`, no `xargs` quoting.
+- **One command, every folder.** No `for` loops, no `find -exec`, no `xargs` quoting.
+- **Parallel.** `-P 8` runs 8 folders at a time. Output stays grouped and in order.
+- **Only what broke.** `-f` prints the failed folders and one count line. 94% less output on 20 real repos.
 - **Honest exit codes.** 0 only if the command worked in every folder.
-- **Made for AI agents too.** Short output modes cut test output by 94% on 20 real repos ([benchmark](#benchmark)).
-- **Zero dependencies.** One Bash script. Bash 3.2+.
+- **Built for AI agents.** With indo, Claude Code ran tests across 20 repos about 2x faster (26.9 s to 13.0 s), with the same correct answers. With the indo Agent Skill, the cost stays about the same ([eval](#indo-for-ai-agents)).
+- **Zero dependencies.** One Bash script. Bash 3.2 or newer.
 
-> **Why `indo` and not `in`?** `in` is a reserved word in Bash, so `in * ls` is a syntax error there (and in `bash -c`, which AI agents use). The installer adds `indo`, plus an `in` link that works in zsh.
+## The problem
+
+Many of us work in a folder full of repos. Ten services, twenty libraries, a fleet of small projects without a monorepo.
+
+So we run the same command again and again. `git pull` here, `npm test` there. Or we write a loop:
+
+```bash
+for d in */; do (cd "$d" && npm test); done
+```
+
+The loop runs one folder at a time. It prints thousands of lines. It returns the exit code of the last folder only, so a failure in the middle is lost.
+
+AI coding agents do the same thing. In 148 plain bash runs in our eval, Claude Code never once ran folders in parallel. It went one folder at a time, every time.
+
+indo fixes this. One short command runs in every folder, in parallel, and tells you only what went wrong.
 
 ## Install
 
 ```bash
 curl -sL https://raw.githubusercontent.com/inevolin/indo-cli/main/install.sh | bash
+```
+
+With the Agent Skill for Claude Code and Cursor (installs to `~/.claude/skills/indo`):
+
+```bash
+curl -sL https://raw.githubusercontent.com/inevolin/indo-cli/main/install.sh | bash -s -- --with-skill
 ```
 
 No sudo? Install to your home folder:
@@ -29,15 +49,105 @@ curl -sL https://raw.githubusercontent.com/inevolin/indo-cli/main/install.sh | D
 
 Want another name? Pass it: `... | bash -s -- mycmd`. Then only that name is installed.
 
-> **New repo name.** The repo moved from github.com/inevolin/in-cli to github.com/inevolin/indo-cli. Old links redirect here. Old installs keep working, and running the installer again updates them and keeps the `in` link. Version 1.2.0 is the first release under the new name.
+> **Why `indo` and not `in`?** `in` is a reserved word in Bash, so `in * ls` is a syntax error there (and in `bash -c`, which AI agents use). The installer adds `indo`, plus an `in` link that works in zsh.
 
-## Rules of thumb
+## Quick start
 
-1. **Quote the command** if it has `&&`, `||`, `;`, `|`, `>` or a `*` meant for inside the folder: `indo * 'ls *.json'`.
-2. **Use `--`** when a folder has the same name as a command: `indo * -- git status`.
-3. **Use `-f`** for tests and builds. You see only the failed folders and one count line.
-4. **Use `-c`** for status and search. One line per result, empty folders skipped.
-5. **Add `|| true` to searches.** `grep` exits 1 when it finds nothing, and `indo` counts that as a failure.
+```bash
+indo * git status -s                      # status of every repo
+indo -c * 'git status -s'                 # only dirty repos, one line per file
+indo -P 8 * git pull                      # pull everything, 8 at a time
+indo -f -P 8 * 'npm test'                 # run all tests, show only failures
+indo -c * git branch --show-current       # which branch is each repo on?
+indo -d * 'rm -rf node_modules'           # dry run: print, do not run
+```
+
+## Use cases
+
+### Tests and builds across many repos
+
+```bash
+indo -f -P 8 * 'npm test'
+indo -f -P 4 packages/* 'pnpm build'
+indo -s -P 8 services/* 'go test ./...'   # one ok or FAIL line per repo
+```
+
+`-f` prints nothing for the folders that passed. You get the failures and a last line like `16/20 ok, 4 failed: errors slugify tldr-python-client toolz`.
+
+### Git across a folder of repos
+
+```bash
+indo -s -P 8 * 'git fetch -q'                                       # fetch everything
+indo -c * 'git rev-list --left-right --count HEAD...@{u}'          # ahead and behind
+indo -c * 'git log -1 --format=%cs'                                 # last commit date
+indo -P 8 * 'git pull --ff-only'                                    # safe pull
+```
+
+### Dependency and code audits
+
+```bash
+indo -c * 'grep "\"lodash\"" package.json || true'    # who still uses lodash?
+indo -c * 'jq -r .engines.node package.json 2>/dev/null || true'
+indo -c * 'git grep -c TODO || true'                  # TODOs per repo
+indo -c * '[ -e LICENSE ] || echo missing LICENSE'
+```
+
+### A fleet of repos without a monorepo
+
+Keep your repos small and separate, and still work on them as one:
+
+```bash
+indo services/* "git checkout -b release/2.0 && git push -u origin release/2.0"
+indo frontend,backend,worker 'docker build -t "$(basename "$PWD")" .'
+indo packages/* "npm version patch && git push --follow-tags"
+```
+
+### Agent workflows
+
+Give your coding agent indo and the Agent Skill. It then runs slow commands in parallel and reads short output. See [indo for AI agents](#indo-for-ai-agents).
+
+More: [EXAMPLES.md](EXAMPLES.md) has 50+ examples.
+
+## indo for AI agents
+
+We tested indo with a real coding agent, not with scripted commands. Claude Code got the same multi-repo tasks with and without indo. Full method and every number: [bench/agent-eval](bench/agent-eval/README.md).
+
+### What we found
+
+| | Plain bash | With indo |
+|---|---|---|
+| Correct answers (all runs) | tied | tied |
+| Test run across 20 repos, Sonnet 5.5 | 26.9 s | **13.0 s** (with the prompt note; 27.6 s to 12.6 s with the skill in tuning runs) |
+| New tasks the skill was not tuned on (tests, pull then test), Sonnet 5.5 | 15.7 s | **12.3 s** (22% less time) |
+| Cost per run with the Agent Skill | 1x | about 1x |
+| Cost per run with an always-on prompt note instead | 1x | 1.06x to 1.30x |
+| Ran folders in parallel | 0 of 148 runs | 7 of 9 slow-task runs (final skill, new tasks) |
+
+- **Correctness is a tie.** In 168 runs of round 1, both arms got the same score (Sonnet 42/42 each, Haiku 41/42 each). The tasks were easy for these models. indo did not make answers better or worse.
+- **The speed win is real for slow commands.** Tests, builds and pulls finish faster because indo runs folders in parallel. Fast commands like `git status` gain nothing.
+- **Use the skill, not a prompt note.** A note in the system prompt costs tokens on every request. The skill's short description costs much less, and the agent uses indo just as often.
+- **Weaker models gain less.** Haiku 5.5 used indo in less than half of the runs and saved no time.
+
+### Install the Agent Skill
+
+The skill is one file: [skills/indo/SKILL.md](skills/indo/SKILL.md). It tells the agent when to use indo and which command to run.
+
+| Agent | Where the skill goes | Command |
+|---|---|---|
+| Claude Code | `~/.claude/skills/indo/` | `install.sh --with-skill` (see [Install](#install)) |
+| Cursor | `~/.cursor/skills/indo/` or `~/.agents/skills/indo/` (Cursor also reads `~/.claude/skills`) | same as Claude Code |
+| Codex | `~/.agents/skills/indo/` | `curl -sL https://raw.githubusercontent.com/inevolin/indo-cli/main/install.sh \| SKILL_DIR=~/.agents/skills bash -s -- --with-skill` |
+| Other agents | Agents that read `AGENTS.md` only: paste the rules below into it | |
+
+Install the skill in one place per agent. Cursor reads both `~/.claude/skills` and `~/.agents/skills`, so two copies show up twice. For one project only, put the folder in the repo instead: `.claude/skills/indo/` (Claude Code), `.cursor/skills/indo/` (Cursor) or `.agents/skills/indo/` (Codex and Cursor).
+
+Rules for `AGENTS.md` or `CLAUDE.md`:
+
+```text
+indo is installed. To run a command in 2 or more folders, use it instead of a for loop.
+Slow commands (tests, builds, git fetch or pull): indo -f -P 8 */ 'CMD'
+Status or search: indo -c */ 'git status -s'   (add || true after grep)
+```
 
 ## Usage
 
@@ -60,34 +170,17 @@ indo [OPTIONS] [DIRECTORIES...] [--] COMMAND...
 
 **Exit code:** 0 if the command worked in every folder. 1 if it failed in any folder. The last line says how many failed and where.
 
-### Examples
+### Rules of thumb
 
-See [EXAMPLES.md](EXAMPLES.md) for 50+ real-world examples.
-
-```bash
-# Git
-indo -c * 'git status -s'                 # only dirty repos, one line per file
-indo -P 8 repos/* git pull
-indo -c * git branch --show-current
-
-# Packages and builds
-indo frontend,backend yarn build
-indo -f -P 4 packages/* 'pnpm test'
-
-# Chaining (quote it)
-indo packages/* "pnpm update && git commit -am 'update' && git push"
-
-# Preview first
-indo -d packages/* "rm -rf node_modules"
-
-# Shell features inside each folder
-indo src/* "ls -l | grep .ts"
-indo ./* "wc -l *.json > stats.txt"
-```
+1. **Quote the command** if it has `&&`, `||`, `;`, `|`, `>` or a `*` meant for inside the folder: `indo * 'ls *.json'`.
+2. **Use `--`** when a folder has the same name as a command: `indo * -- git status`.
+3. **Use `-f`** for tests and builds. You see only the failed folders and one count line.
+4. **Use `-c`** for status and search. One line per result, empty folders skipped.
+5. **Add `|| true` to searches.** `grep` exits 1 when it finds nothing, and indo counts that as a failure.
 
 ### Wildcards
 
-Your shell expands `*.txt` **before** `indo` runs, in your current folder.
+Your shell expands `*.txt` **before** indo runs, in your current folder.
 
 - ❌ `indo projects/* ls *.txt` expands `*.txt` here, not inside each project.
 - ✅ `indo projects/* "ls *.txt"` quotes it, so it expands inside each folder.
@@ -109,13 +202,19 @@ FAIL toolz (exit 1)
 2/4 ok, 2 failed: errors toolz
 ```
 
-## Benchmark
+## Benchmarks
 
-We ran 7 everyday tasks on 20 real open source repos (JavaScript, Go, Python) with real test suites, some failing tests and some dirty repos. Every command ran through `bash -c`, the way AI agents run commands. Full report: [ANALYSIS.md](ANALYSIS.md).
+### Agent eval
+
+Claude Code 2.1.325 on 20 real repos (JavaScript, Go, Python), 354 graded runs in total. Three setups: plain bash, indo with a prompt note, and indo with the Agent Skill. Results above. Method, all tables and the scripts: [bench/agent-eval](bench/agent-eval/README.md).
+
+### Output size
+
+We ran 7 everyday tasks on the same 20 repos, with real test suites, some failing tests and some dirty repos. Every command ran through `bash -c`, the way AI agents run commands. Full report: [ANALYSIS.md](ANALYSIS.md).
 
 ![Benchmark](.github/assets/benchmark.png)
 
-| Task (20 repos) | Plain loop | Old `in` | Expert shell | **`indo` short output** |
+| Task (20 repos) | Plain loop | Old `in` | Expert shell | **indo short output** |
 |---|---|---|---|---|
 | Which repos are dirty? | 875 tok | 1,095 tok | 44 tok, 121 chars | **48 tok, 25 chars** |
 | Fetch all. Which are behind? | 1,126 tok | 681 tok | 221 tok, 118 chars | **221 tok, 57 chars** |
@@ -125,7 +224,12 @@ We ran 7 everyday tasks on 20 real open source repos (JavaScript, Go, Python) wi
 
 `tok` = output tokens (tiktoken cl100k_base). ✗ = wrong answer or wrong exit code.
 
-**Where plain tools win:** for one search, `rg` or `grep '"x"' */package.json` is shorter. An expert loop uses about 6% fewer tokens, but is 2 to 7 times longer to type. GNU parallel with `-k --tag` is just as correct, but harder to remember.
+### Limits
+
+- **Correctness did not improve.** The agent tasks were easy for the models we tested. Both arms scored the same.
+- **Speed depends on the work.** The gain comes from running folders in parallel. Slow commands (tests, builds, pulls) gain the most. Quick commands gain nothing.
+- **Small samples.** 3 runs per task and setup, one 20-repo workspace, one Linux machine, one agent (Claude Code). We did not test Codex or Cursor.
+- **Plain tools still win sometimes.** For one search, `rg` or `grep '"x"' */package.json` is shorter. An expert loop uses about 6% fewer tokens than indo, but is 2 to 7 times longer to type. GNU parallel with `-k --tag` is just as correct, but harder to remember.
 
 ## Why not find or xargs?
 
@@ -139,13 +243,17 @@ indo * git status                                                   # names, gro
 
 ## Changelog
 
+- **Agent Skill.** New [skills/indo/SKILL.md](skills/indo/SKILL.md), `install.sh --with-skill`, and the [agent eval](bench/agent-eval/README.md). The `indo` script did not change.
 - **1.2.0** The repo is now called indo-cli (it was in-cli). The tool is `indo` everywhere. The `in` link still works.
 - **1.1.0** Short output modes (`-c`, `-s`, `-f`), honest exit codes, `--version`, and `indo` as the default install name.
+
+> **New repo name.** The repo moved from github.com/inevolin/in-cli to github.com/inevolin/indo-cli. Old links redirect here. Old installs keep working, and running the installer again updates them and keeps the `in` link.
 
 ## Uninstall
 
 ```bash
 sudo rm -f "$(command -v indo)" "$(dirname "$(command -v indo)")/in"
+rm -rf ~/.claude/skills/indo ~/.agents/skills/indo   # if you installed the skill
 ```
 
 ## Testing

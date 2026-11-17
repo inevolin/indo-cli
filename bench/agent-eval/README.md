@@ -5,9 +5,9 @@ We gave Claude Code the same multi-repo tasks with and without indo and measured
 ## Short answer
 
 - **Correct answers: tied.** Every arm got the same score on every model.
-- **Speed: faster with indo, on slow commands.** With the indo Agent Skill, Claude Code (Sonnet 5.5) finished held-out multi-repo test and pull tasks in 22% to 32% less time. A full test run across 20 repos went from 26.9 s to 13.0 s.
+- **Speed: faster with indo, on slow commands.** With the indo Agent Skill, Claude Code (Sonnet 5.5) finished held-out multi-repo test and pull tasks in 22% to 32% less time. A full test run across 20 repos went from 26.9 s to 13.0 s with the prompt note, and from 27.6 s to 12.6 s with the skill (dev runs).
 - **Cost: about the same with the skill.** The always-on prompt note cost 6% to 30% more per run. The skill costs about the same as plain bash once the prompt cache is warm.
-- **Plain bash agents never ran anything in parallel.** In 148 plain bash runs, the agent wrote a sequential loop every time.
+- **Plain bash agents never ran anything in parallel.** In 148 plain bash runs, the agent never used `xargs -P`, `&` or GNU parallel. It went one folder at a time.
 - **The weaker model did not get faster.** Haiku 5.5 used indo in less than half of the runs and saved no time.
 
 ## Setup

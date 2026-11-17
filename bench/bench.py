@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Benchmark indo-cli against default tools on a 20-repo workspace.
+"""Benchmark indo against default tools on a 20-repo workspace.
 
 Every command runs through `bash -c` with no terminal, the way AI agents run
 commands. Tokens are counted with tiktoken cl100k_base on stdout+stderr.
@@ -100,9 +100,9 @@ def reset_fetch():
 GREP_AVA = r'''grep "\"ava\"" package.json'''
 TASKS = [
  ("T1", "Which repos have uncommitted changes?", None, [
-  ("old indo-cli", "human", "in-old * git status"),
-  ("new indo-cli", "human", "indo * git status"),
-  ("new indo-cli", "agent", "indo -c * 'git status -s'"),
+  ("old in", "human", "in-old * git status"),
+  ("indo", "human", "indo * git status"),
+  ("indo", "agent", "indo -c * 'git status -s'"),
   ("naive loop", "default", 'for d in */; do echo "== $d"; (cd "$d" && git status); done'),
   ("expert loop", "default", 'rc=0; for d in */; do s=$(git -C "$d" status -s) || rc=1; [ -n "$s" ] && printf \'%s:\\n%s\\n\' "${d%/}" "$s"; done; exit $rc'),
   ("find -execdir (README)", "default", "find . -maxdepth 1 -type d -not -name '.' -execdir git status \\;"),
@@ -110,52 +110,52 @@ TASKS = [
   ("GNU parallel", "default", "parallel -k --tag 'git -C {} status -s' ::: */"),
  ]),
  ("T2", "Fetch every repo. Which are behind?", reset_fetch, [
-  ("old indo-cli", "human", "in-old * 'git fetch -q && git status -sb | head -1'"),
-  ("new indo-cli", "human", "indo * 'git fetch -q && git status -sb | head -1'"),
-  ("new indo-cli", "agent", "indo -c -P 8 * 'git fetch -q && git status -sb | head -1'"),
+  ("old in", "human", "in-old * 'git fetch -q && git status -sb | head -1'"),
+  ("indo", "human", "indo * 'git fetch -q && git status -sb | head -1'"),
+  ("indo", "agent", "indo -c -P 8 * 'git fetch -q && git status -sb | head -1'"),
   ("naive loop", "default", 'for d in */; do echo "== $d"; (cd "$d" && git fetch && git status); done'),
   ("expert loop", "default", 'rc=0; for d in */; do git -C "$d" fetch -q || rc=1; echo "${d%/}: $(git -C "$d" status -sb | head -1)"; done; exit $rc'),
   ("xargs -P", "default", "ls -d */ | xargs -P 8 -I{} sh -c 'git -C {} fetch -q && echo \"{}: $(git -C {} status -sb | head -1)\"'"),
   ("GNU parallel", "default", "parallel -j8 -k --tag 'git -C {} fetch -q && git -C {} status -sb | head -1' ::: */"),
  ]),
  ("T3", "Run tests everywhere. Which failed?", None, [
-  ("old indo-cli", "human", "in-old * ./ci.sh"),
-  ("new indo-cli", "human", "indo * ./ci.sh"),
-  ("new indo-cli", "agent", "indo -f * ./ci.sh"),
+  ("old in", "human", "in-old * ./ci.sh"),
+  ("indo", "human", "indo * ./ci.sh"),
+  ("indo", "agent", "indo -f * ./ci.sh"),
   ("naive loop", "default", 'for d in */; do echo "== $d"; (cd "$d" && ./ci.sh); done'),
   ("expert loop", "default", 'f=0; for d in */; do o=$(cd "$d" && ./ci.sh 2>&1) || { f=1; echo "FAIL ${d%/}"; echo "$o" | tail -n 10; }; done; exit $f'),
   ("find -exec", "default", "find . -mindepth 1 -maxdepth 1 -type d -exec sh -c 'cd \"$1\" && ./ci.sh' _ {} \\;"),
  ]),
  ("T4", "Run tests in parallel (8 jobs). Which failed?", None, [
-  ("old indo-cli", "human", "in-old -P 8 * ./ci.sh"),
-  ("new indo-cli", "human", "indo -P 8 * ./ci.sh"),
-  ("new indo-cli", "agent", "indo -f -P 8 * ./ci.sh"),
+  ("old in", "human", "in-old -P 8 * ./ci.sh"),
+  ("indo", "human", "indo -P 8 * ./ci.sh"),
+  ("indo", "agent", "indo -f -P 8 * ./ci.sh"),
   ("xargs -P", "default", "ls -d */ | xargs -P 8 -I{} sh -c 'cd {} && ./ci.sh 2>&1 | sed \"s|^|{}: |\"'"),
   ("expert xargs -P", "default", "printf '%s\\n' */ | xargs -P 8 -I{} sh -c 'o=$(cd {} && ./ci.sh 2>&1) || { printf \"FAIL %s\\n%s\\n\" {} \"$(echo \"$o\" | tail -n 10)\"; exit 1; }'"),
   ("GNU parallel", "default", "parallel -j8 -k --tag 'cd {} && ./ci.sh' ::: */"),
   ("expert GNU parallel", "default", "parallel -j8 -k 'o=$(cd {} && ./ci.sh 2>&1) || { echo \"FAIL {}\"; echo \"$o\" | tail -n 10; exit 1; }' ::: */"),
  ]),
  ("T5", "Find every TODO in the code", None, [
-  ("old indo-cli", "human", "in-old * 'git grep -n TODO'"),
-  ("new indo-cli", "human", "indo * 'git grep -n TODO'"),
-  ("new indo-cli", "agent", "indo -c * 'git grep -n TODO || true'"),
+  ("old in", "human", "in-old * 'git grep -n TODO'"),
+  ("indo", "human", "indo * 'git grep -n TODO'"),
+  ("indo", "agent", "indo -c * 'git grep -n TODO || true'"),
   ("naive grep -r", "default", "grep -rn TODO */"),
   ("expert grep -r", "default", "grep -rn --exclude-dir={node_modules,.git} TODO */"),
   ("ripgrep", "specialised", "rg -n TODO"),
   ("ripgrep --hidden", "specialised", "rg -n --hidden -g '!.git' TODO"),
  ]),
  ("T6", "Which JS repos still use ava older than v6?", None, [
-  ("old indo-cli", "human", f"in-old * '{GREP_AVA}'"),
-  ("new indo-cli", "human", f"indo * '{GREP_AVA}'"),
-  ("new indo-cli", "agent (no || true)", f"indo -c * '{GREP_AVA}'"),
-  ("new indo-cli", "agent", f"indo -c * '{GREP_AVA} 2>/dev/null || true'"),
+  ("old in", "human", f"in-old * '{GREP_AVA}'"),
+  ("indo", "human", f"indo * '{GREP_AVA}'"),
+  ("indo", "agent (no || true)", f"indo -c * '{GREP_AVA}'"),
+  ("indo", "agent", f"indo -c * '{GREP_AVA} 2>/dev/null || true'"),
   ("naive loop", "default", 'for d in */; do echo "== $d"; grep \'"ava"\' "$d/package.json"; done'),
   ("grep with glob", "specialised", "grep '\"ava\"' */package.json"),
  ]),
  ("T7", "Which repos are not on main or master?", None, [
-  ("old indo-cli", "human", "in-old * git branch --show-current"),
-  ("new indo-cli", "human", "indo * git branch --show-current"),
-  ("new indo-cli", "agent", "indo -c * git branch --show-current"),
+  ("old in", "human", "in-old * git branch --show-current"),
+  ("indo", "human", "indo * git branch --show-current"),
+  ("indo", "agent", "indo -c * git branch --show-current"),
   ("naive loop", "default", 'for d in */; do echo "== $d"; (cd "$d" && git branch); done'),
   ("expert loop", "default", 'for d in */; do echo "${d%/}: $(git -C "$d" branch --show-current)"; done'),
   ("find -exec", "default", "find . -mindepth 1 -maxdepth 1 -type d -exec git -C {} branch --show-current \\;"),

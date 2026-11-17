@@ -15,9 +15,9 @@ tasks=[("T1","Which repos are dirty?","naive loop","expert loop"),
        ("T7","Who is not on main?","naive loop","expert loop")]
 rows=[]
 for t,label,naive,expert in tasks:
-    rows.append((label, get(t,naive), get(t,"old indo-cli"), get(t,expert), get(t,"new indo-cli","agent")))
+    rows.append((label, get(t,naive), get(t,"old in"), get(t,expert), get(t,"indo","agent")))
 RED="#d64545"; GREEN="#2e9e5b"; GRAY="#b8bec6"; DARK="#6b7480"
-series=[("Plain loop or default", 1, RED),("Old indo-cli",2,GRAY),("Expert shell",3,DARK),("New indo-cli, short output",4,GREEN)]
+series=[("Plain loop or default", 1, RED),("Old in",2,GRAY),("Expert shell",3,DARK),("indo, short output",4,GREEN)]
 fig,(a1,a2)=plt.subplots(1,2,figsize=(13,5.6),gridspec_kw={"width_ratios":[1.35,1]})
 fig.patch.set_facecolor("white")
 n=len(rows); h=0.2
@@ -46,7 +46,7 @@ a1.set_title("Output an AI agent must read (tokens, log scale)",fontsize=11,loc=
 a2.set_title("Command length (characters)",fontsize=11,loc="left",color="#222")
 a2.set_xlim(0,175)
 a1.legend(loc="lower center",bbox_to_anchor=(0.9,-0.16),ncol=4,frameon=False,fontsize=9.5)
-fig.suptitle("indo-cli vs default tools on 20 real repos",x=0.01,ha="left",fontsize=15,fontweight="bold",color="#111")
+fig.suptitle("indo vs default tools on 20 real repos",x=0.01,ha="left",fontsize=15,fontweight="bold",color="#111")
 fig.text(0.01,0.9,"✗ = wrong answer or wrong exit code.  Tokens: tiktoken cl100k_base, stdout+stderr, run with bash -c and no terminal.",fontsize=9,color="#666")
 plt.tight_layout(rect=(0,0.03,1,0.9))
 plt.savefig("../bench/chart.png",dpi=160)

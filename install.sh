@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ################################################################################
-# install.sh - Installer for indo-cli (the 'indo' command)
+# install.sh - Installer for the 'indo' command
 #
 # Purpose:
 #   Installs the 'indo' command (plus an 'in' link) to a suitable directory in your PATH.
@@ -104,11 +104,11 @@ fi
 
 echo "Successfully installed '$COMMAND_NAME' to $DEST_FILE!"
 
-# Backward-compatible "in" link (only replaces an older in-cli or indo-cli install)
+# Backward-compatible "in" link (only replaces an older install of this tool)
 if [ -n "$ALIAS_NAME" ] && [ "$ALIAS_NAME" != "$COMMAND_NAME" ]; then
     ALIAS_FILE="$DEST_DIR/$ALIAS_NAME"
     if [ -e "$ALIAS_FILE" ] && [ ! -L "$ALIAS_FILE" ] && ! grep -qE "inevolin/(in|indo)-cli" "$ALIAS_FILE" 2>/dev/null; then
-        echo "Skipping '$ALIAS_NAME' link: $ALIAS_FILE exists and is not indo-cli."
+        echo "Skipping '$ALIAS_NAME' link: $ALIAS_FILE exists and is not indo."
     else
         if [ -w "$DEST_DIR" ]; then
             ln -sf "$COMMAND_NAME" "$ALIAS_FILE"

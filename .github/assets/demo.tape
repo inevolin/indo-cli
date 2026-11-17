@@ -1,4 +1,4 @@
-# demo.tape - VHS recording script for the indo-cli demo GIF
+# demo.tape - VHS recording script for the indo demo GIF
 #
 # Usage: vhs .github/assets/demo.tape (run from repository root)
 #
@@ -37,7 +37,7 @@ Show
 
 # Scene 1: Batch File Operations
 Set TypingSpeed 20ms
-Type "# indo-cli: create config files in all service folders"
+Type "# indo: create config files in all service folders"
 Set TypingSpeed 75ms
 Sleep 500ms
 Enter

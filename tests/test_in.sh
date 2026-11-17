@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ################################################################################
-# test_in.sh - Comprehensive test suite for indo-cli (the 'indo' command)
+# test_in.sh - Comprehensive test suite for the 'indo' command
 #
 # Purpose:
 #   Tests all features and edge cases of the 'indo' tool including:

@@ -315,12 +315,12 @@ test_in_link_replaces_old_in_cli_install() {
     output=$(bash install.sh 2>&1)
 
     if [[ -L bin/in ]]; then
-        log_pass "Old in-cli 'in' install is replaced by a link to indo"
+        log_pass "Old 'in' install is replaced by a link to indo"
     else
-        log_fail "Old in-cli 'in' install was not replaced"
+        log_fail "Old 'in' install was not replaced"
     fi
     out2=$(bin/in --version 2>&1)
-    assert_output_contains "$out2" "indo 1.2.0 (indo-cli)" "'in' link runs indo-cli 1.2.0"
+    assert_output_contains "$out2" "indo 1.2.0" "'in' link runs indo 1.2.0"
 
     teardown
 }

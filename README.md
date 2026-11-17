@@ -1,4 +1,4 @@
-# indo-cli: run one command in many folders
+# indo: run one command in many folders
 
 ![Demo](.github/assets/demo.gif)
 
@@ -29,7 +29,7 @@ curl -sL https://raw.githubusercontent.com/inevolin/indo-cli/main/install.sh | D
 
 Want another name? Pass it: `... | bash -s -- mycmd`. Then only that name is installed.
 
-> **Renamed from in-cli.** This project used to be called in-cli (github.com/inevolin/in-cli). Old links redirect here. Old installs keep working, and running the installer again updates them and keeps the `in` link. Version 1.2.0 is the first release under the new name.
+> **New repo name.** The repo moved from github.com/inevolin/in-cli to github.com/inevolin/indo-cli. Old links redirect here. Old installs keep working, and running the installer again updates them and keeps the `in` link. Version 1.2.0 is the first release under the new name.
 
 ## Rules of thumb
 
@@ -139,7 +139,7 @@ indo * git status                                                   # names, gro
 
 ## Changelog
 
-- **1.2.0** Renamed the project from in-cli to indo-cli. `indo` is the main command. The `in` link still works.
+- **1.2.0** The repo is now called indo-cli (it was in-cli). The tool is `indo` everywhere. The `in` link still works.
 - **1.1.0** Short output modes (`-c`, `-s`, `-f`), honest exit codes, `--version`, and `indo` as the default install name.
 
 ## Uninstall

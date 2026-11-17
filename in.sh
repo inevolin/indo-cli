@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ################################################################################
-# indo-cli (in.sh) - Execute commands on multiple targets (files or directories)
+# indo (in.sh) - Execute commands on multiple targets (files or directories)
 #
 # Purpose:
 #   A lightweight CLI tool that runs shell commands across multiple targets
@@ -88,7 +88,7 @@ while [[ $# -gt 0 ]]; do
     case "$1" in
     -d|--dry) dry_run=1; shift ;;
     -h|--help) print_usage; exit 0 ;;
-    -V|--version) echo "$cmd_name $version (indo-cli)"; exit 0 ;;
+    -V|--version) echo "$cmd_name $version"; exit 0 ;;
     -v|--verbose) verbose=1; shift ;;
     -c|--compact) output_mode="compact"; shift ;;
     -s|--summary) output_mode="summary"; shift ;;
@@ -516,7 +516,7 @@ if [[ "$output_mode" == "human" && $parallelism -eq 1 ]]; then
         fi
     done
 else
-    tmp_dir=$(mktemp -d 2>/dev/null || mktemp -d -t indo-cli)
+    tmp_dir=$(mktemp -d 2>/dev/null || mktemp -d -t indo)
     trap 'rm -rf "$tmp_dir"' EXIT
     trap 'rm -rf "$tmp_dir"; exit 130' INT TERM
 

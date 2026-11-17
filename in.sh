@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ################################################################################
-# in.sh - Execute commands on multiple targets (files or directories)
+# indo-cli (in.sh) - Execute commands on multiple targets (files or directories)
 #
 # Purpose:
 #   A lightweight CLI tool that runs shell commands across multiple targets
@@ -9,7 +9,7 @@
 #   auto-creation of directories, and parallel execution.
 #
 # Usage:
-#   in [OPTIONS] [DIRECTORIES...] [--] COMMAND...
+#   indo [OPTIONS] [DIRECTORIES...] [--] COMMAND...
 #
 # Features:
 #   - Flexible directory targeting (globs, comma lists, exact paths)
@@ -18,12 +18,12 @@
 #   - Compatible with Bash 3.2+
 #
 # License: MIT
-# Repository: https://github.com/inevolin/in-cli
+# Repository: https://github.com/inevolin/indo-cli
 ################################################################################
 
 set -u  # Exit on undefined variables
 
-version="1.1.0"
+version="1.2.0"
 
 # Default settings
 parallelism=1
@@ -37,6 +37,8 @@ color_mode="auto"     # auto | always | never
 
 cmd_name=$(basename "$0")
 cmd_name="${cmd_name%.sh}"
+# The old name "in" (and the in.sh file itself) shows the main name "indo".
+[[ "$cmd_name" == "in" ]] && cmd_name="indo"
 
 print_usage() {
     echo "Usage: $cmd_name [OPTIONS] [DIRECTORIES...] [--] COMMAND..."
@@ -78,7 +80,7 @@ print_usage() {
 ################################################################################
 # Option Parsing
 # Only leading options are parsed. Everything after the first non-option
-# belongs to the directories or the command, so "in * grep --help" passes
+# belongs to the directories or the command, so "indo * grep --help" passes
 # --help to grep untouched.
 ################################################################################
 
@@ -86,7 +88,7 @@ while [[ $# -gt 0 ]]; do
     case "$1" in
     -d|--dry) dry_run=1; shift ;;
     -h|--help) print_usage; exit 0 ;;
-    -V|--version) echo "$cmd_name $version"; exit 0 ;;
+    -V|--version) echo "$cmd_name $version (indo-cli)"; exit 0 ;;
     -v|--verbose) verbose=1; shift ;;
     -c|--compact) output_mode="compact"; shift ;;
     -s|--summary) output_mode="summary"; shift ;;
@@ -514,7 +516,7 @@ if [[ "$output_mode" == "human" && $parallelism -eq 1 ]]; then
         fi
     done
 else
-    tmp_dir=$(mktemp -d 2>/dev/null || mktemp -d -t in-cli)
+    tmp_dir=$(mktemp -d 2>/dev/null || mktemp -d -t indo-cli)
     trap 'rm -rf "$tmp_dir"' EXIT
     trap 'rm -rf "$tmp_dir"; exit 130' INT TERM
 

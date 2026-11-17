@@ -1,10 +1,10 @@
 #!/bin/bash
 
 ################################################################################
-# test_in.sh - Comprehensive test suite for the 'in' CLI tool
+# test_in.sh - Comprehensive test suite for indo-cli (the 'indo' command)
 #
 # Purpose:
-#   Tests all features and edge cases of the 'in' tool including:
+#   Tests all features and edge cases of the 'indo' tool including:
 #   - Single and multiple directory execution
 #   - Glob patterns and comma-separated lists
 #   - Parallel execution with -P option
@@ -117,7 +117,7 @@ assert_output_does_not_contain() {
 
 test_help() {
     output=$("$IN_TOOL" --help)
-    assert_output_contains "$output" "Usage: in" "Help check"
+    assert_output_contains "$output" "Usage: indo" "Help check"
 }
 
 test_single_dir() {
@@ -232,7 +232,7 @@ test_implicit_split_heuristic() {
 test_no_args() {
     output=$("$IN_TOOL" 2>&1)
     assert_exit_code 1 $? "No args returns failure"
-    assert_output_contains "$output" "Usage: in" "No args shows usage"
+    assert_output_contains "$output" "Usage: indo" "No args shows usage"
 }
 
 test_no_command() {
@@ -259,7 +259,7 @@ test_verbose() {
     setup
     mkdir dir1
     output=$("$IN_TOOL" -v dir1 echo hi 2>&1)
-    assert_output_contains "$output" "[in] Target directories" "Verbose logging"
+    assert_output_contains "$output" "[indo] Target directories" "Verbose logging"
 }
 
 test_dry_run() {

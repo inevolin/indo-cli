@@ -1,10 +1,10 @@
-# in-cli vs default tools: a benchmark on 20 real repos
+# indo-cli vs default tools: a benchmark on 20 real repos
 
-**Headline.** With the new short output (`-c`, `-f`), in-cli gave the right answer *and* the right exit code in 7 of 7 tasks. The output was 93% smaller than plain shell loops and 93% smaller than the old in-cli. Expert shell one-liners are about as small (6% fewer tokens), but their commands are 2.6 times longer and easy to get wrong.
+**Headline.** With the new short output (`-c`, `-f`), indo-cli gave the right answer *and* the right exit code in 7 of 7 tasks. The output was 93% smaller than plain shell loops and 93% smaller than the old indo-cli. Expert shell one-liners are about as small (6% fewer tokens), but their commands are 2.6 times longer and easy to get wrong.
 
-![in-cli vs default tools](bench/chart.png)
+![indo-cli vs default tools](bench/chart.png)
 
-| Task (20 repos) | Plain loop | Old in-cli | Expert shell | **New in-cli** | New in-cli command |
+| Task (20 repos) | Plain loop | Old indo-cli | Expert shell | **New indo-cli** | New indo-cli command |
 |---|---|---|---|---|---|
 | Which repos are dirty? | 875 tok | 1,095 tok | 44 tok, 121 chars | **48 tok, 25 chars** | `indo -c * 'git status -s'` |
 | Fetch all. Which are behind? | 1,126 tok | 681 tok | 221 tok, 118 chars | **221 tok, 57 chars** | `indo -c -P 8 * 'git fetch -q && git status -sb \| head -1'` |
@@ -18,7 +18,7 @@
 
 ## What the numbers say
 
-**1. The old in-cli could not tell you that something failed.** It always ended with the exit code of the *last* folder. In the test task, 4 of 20 repos failed and it still returned 0. In parallel mode the output of different folders was mixed together, so even a careful reader blamed the wrong repo (`pretty-bytes` instead of `errors`).
+**1. The old indo-cli could not tell you that something failed.** It always ended with the exit code of the *last* folder. In the test task, 4 of 20 repos failed and it still returned 0. In parallel mode the output of different folders was mixed together, so even a careful reader blamed the wrong repo (`pretty-bytes` instead of `errors`).
 
 **2. `in` does not run in Bash at all.** `in` is a reserved word in Bash and sh. `bash -c 'in * pwd'` stops with `syntax error near unexpected token 'in'`. AI agents run every command through `bash -c`, so for agents the old tool did not exist. The installer now uses `indo` by default.
 
@@ -31,7 +31,7 @@
 - `grep -rn TODO */` read `node_modules` and printed 6 million tokens.
 - `rg TODO` skips hidden files by default, so it missed 5 of 17 TODOs (in `.macos`, `.vim/` and `.github/`). `rg --hidden -g '!.git'` finds all 17.
 
-## Where in-cli wins
+## Where indo-cli wins
 
 - **Short commands that are also correct.** 17 to 59 characters, against 73 to 121 for the expert loops. Less to type, less to get wrong, and fewer tokens in the agent's own command.
 - **Exit codes you can trust.** 0 only when every folder worked. Otherwise 1, plus `N of M folders failed: a b c`.
@@ -43,11 +43,11 @@
 
 Be honest about these:
 
-- **A single search.** `grep '"ava"' */package.json` is shorter (27 characters) than any in-cli command. `rg` is the right tool for "search all the code". in-cli does not try to replace them.
-- **Expert loops use about 6% fewer tokens.** in-cli adds a count line and the folder name on each line. If you are an expert and you write the loop every time, you get the same result.
+- **A single search.** `grep '"ava"' */package.json` is shorter (27 characters) than any indo-cli command. `rg` is the right tool for "search all the code". indo-cli does not try to replace them.
+- **Expert loops use about 6% fewer tokens.** indo-cli adds a count line and the folder name on each line. If you are an expert and you write the loop every time, you get the same result.
 - **GNU parallel is the strongest rival.** `parallel -k --tag` keeps order, tags lines and returns the number of failures. It is just harder to remember, and its plain output was 10,699 tokens on the test task.
-- **Raw speed.** in-cli's short output modes write each folder's output to a temp file first. On 20 folders that costs about 0.1 seconds (0.15 s instead of 0.04 s for a plain loop). For anything real (tests, fetch, builds) this does not matter. `-P 8` ran the tests in 9.5 s instead of 22 s.
-- **Commands whose "failure" is not a failure.** `grep` exits 1 when it finds nothing. in-cli reports this as a failed folder. You need `|| true` for search commands. Without it, the `ava` task printed 451 tokens of `FAIL` lines instead of 65.
+- **Raw speed.** indo-cli's short output modes write each folder's output to a temp file first. On 20 folders that costs about 0.1 seconds (0.15 s instead of 0.04 s for a plain loop). For anything real (tests, fetch, builds) this does not matter. `-P 8` ran the tests in 9.5 s instead of 22 s.
+- **Commands whose "failure" is not a failure.** `grep` exits 1 when it finds nothing. indo-cli reports this as a failed folder. You need `|| true` for search commands. Without it, the `ava` task printed 451 tokens of `FAIL` lines instead of 65.
 
 ## For humans
 

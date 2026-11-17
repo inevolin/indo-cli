@@ -32,7 +32,7 @@ touch a.webui b.webui c.ignore
 # Standard mode: in . ls *.webui
 # If we pass literal *.webui, it fails without shell mode
 # (assuming internal ls execution logic)
-# Note: quoting "*.webui" prevents the *test runner shell* from expanding it, passing it literally to `in`.
+# Note: quoting "*.webui" prevents the *test runner shell* from expanding it, passing it literally to `indo`.
 
 output=$("$IN_ABS" . ls "*.webui" 2>&1)
 if [[ "$output" == *"No such file or directory"* ]]; then

@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
 ################################################################################
-# install.sh - Installer for 'in' CLI tool
+# install.sh - Installer for indo-cli (the 'indo' command)
 #
 # Purpose:
-#   Installs the 'in' command to a suitable directory in your PATH.
+#   Installs the 'indo' command (plus an 'in' link) to a suitable directory in your PATH.
 #   Can be run locally from the repository or via curl pipe to bash.
 #
 # Usage:
 #   Local:  ./install.sh [command_name]
-#   Remote: curl -sL https://raw.githubusercontent.com/inevolin/in-cli/main/install.sh | bash -s -- [command_name]
+#   Remote: curl -sL https://raw.githubusercontent.com/inevolin/indo-cli/main/install.sh | bash -s -- [command_name]
 #
 # What it does:
 #   1. Finds a suitable installation directory (checks /usr/local/bin, ~/.local/bin, etc.)
@@ -21,7 +21,7 @@
 
 set -e  # Exit on any error
 
-REPO_URL="https://raw.githubusercontent.com/inevolin/in-cli/main/in.sh"
+REPO_URL="https://raw.githubusercontent.com/inevolin/indo-cli/main/in.sh"
 SOURCE_FILE="./in.sh"
 
 # Default command name is "indo". "in" is a reserved word in Bash and sh, so
@@ -80,7 +80,7 @@ if [ -z "$DEST_DIR" ]; then
 fi
 
 DEST_FILE="$DEST_DIR/$COMMAND_NAME"
-TMP_FILE=$(mktemp 2>/dev/null || echo "/tmp/in.$$.tmp")
+TMP_FILE=$(mktemp 2>/dev/null || echo "/tmp/indo.$$.tmp")
 
 echo "Installing '$COMMAND_NAME' to $DEST_FILE..."
 
@@ -104,11 +104,11 @@ fi
 
 echo "Successfully installed '$COMMAND_NAME' to $DEST_FILE!"
 
-# Backward-compatible "in" link (only replaces an older in-cli install)
+# Backward-compatible "in" link (only replaces an older in-cli or indo-cli install)
 if [ -n "$ALIAS_NAME" ] && [ "$ALIAS_NAME" != "$COMMAND_NAME" ]; then
     ALIAS_FILE="$DEST_DIR/$ALIAS_NAME"
-    if [ -e "$ALIAS_FILE" ] && [ ! -L "$ALIAS_FILE" ] && ! grep -q "inevolin/in-cli" "$ALIAS_FILE" 2>/dev/null; then
-        echo "Skipping '$ALIAS_NAME' link: $ALIAS_FILE exists and is not in-cli."
+    if [ -e "$ALIAS_FILE" ] && [ ! -L "$ALIAS_FILE" ] && ! grep -qE "inevolin/(in|indo)-cli" "$ALIAS_FILE" 2>/dev/null; then
+        echo "Skipping '$ALIAS_NAME' link: $ALIAS_FILE exists and is not indo-cli."
     else
         if [ -w "$DEST_DIR" ]; then
             ln -sf "$COMMAND_NAME" "$ALIAS_FILE"

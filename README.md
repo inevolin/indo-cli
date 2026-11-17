@@ -1,4 +1,4 @@
-# indo: run one command in many folders
+# indo-cli: run one command in many folders
 
 ![Demo](.github/assets/demo.gif)
 
@@ -18,16 +18,18 @@ indo -f * 'npm test'         # show only what failed
 ## Install
 
 ```bash
-curl -sL https://raw.githubusercontent.com/inevolin/in-cli/main/install.sh | bash
+curl -sL https://raw.githubusercontent.com/inevolin/indo-cli/main/install.sh | bash
 ```
 
 No sudo? Install to your home folder:
 
 ```bash
-curl -sL https://raw.githubusercontent.com/inevolin/in-cli/main/install.sh | DEST_DIR=~/.local/bin bash
+curl -sL https://raw.githubusercontent.com/inevolin/indo-cli/main/install.sh | DEST_DIR=~/.local/bin bash
 ```
 
-Want another name? Pass it: `... | bash -s -- in-cli`. Then only that name is installed.
+Want another name? Pass it: `... | bash -s -- mycmd`. Then only that name is installed.
+
+> **Renamed from in-cli.** This project used to be called in-cli (github.com/inevolin/in-cli). Old links redirect here. Old installs keep working, and running the installer again updates them and keeps the `in` link. Version 1.2.0 is the first release under the new name.
 
 ## Rules of thumb
 
@@ -134,6 +136,11 @@ find . -mindepth 1 -maxdepth 1 -type d -exec git -C {} status \;   # no folder n
 ls -d */ | xargs -I {} sh -c 'cd {} && git status'                 # no folder names
 indo * git status                                                   # names, grouped, honest exit code
 ```
+
+## Changelog
+
+- **1.2.0** Renamed the project from in-cli to indo-cli. `indo` is the main command. The `in` link still works.
+- **1.1.0** Short output modes (`-c`, `-s`, `-f`), honest exit codes, `--version`, and `indo` as the default install name.
 
 ## Uninstall
 

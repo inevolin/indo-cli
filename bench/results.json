@@ -22,7 +22,7 @@
  {
   "task": "T1",
   "question": "Which repos have uncommitted changes?",
-  "tool": "old in-cli",
+  "tool": "old indo-cli",
   "mode": "human",
   "cmd": "in-old * git status",
   "cmd_chars": 19,
@@ -46,7 +46,7 @@
  {
   "task": "T1",
   "question": "Which repos have uncommitted changes?",
-  "tool": "new in-cli",
+  "tool": "new indo-cli",
   "mode": "human",
   "cmd": "indo * git status",
   "cmd_chars": 17,
@@ -70,7 +70,7 @@
  {
   "task": "T1",
   "question": "Which repos have uncommitted changes?",
-  "tool": "new in-cli",
+  "tool": "new indo-cli",
   "mode": "agent",
   "cmd": "indo -c * 'git status -s'",
   "cmd_chars": 25,
@@ -207,7 +207,7 @@
  {
   "task": "T2",
   "question": "Fetch every repo. Which are behind?",
-  "tool": "old in-cli",
+  "tool": "old indo-cli",
   "mode": "human",
   "cmd": "in-old * 'git fetch -q && git status -sb | head -1'",
   "cmd_chars": 51,
@@ -230,7 +230,7 @@
  {
   "task": "T2",
   "question": "Fetch every repo. Which are behind?",
-  "tool": "new in-cli",
+  "tool": "new indo-cli",
   "mode": "human",
   "cmd": "indo * 'git fetch -q && git status -sb | head -1'",
   "cmd_chars": 49,
@@ -253,7 +253,7 @@
  {
   "task": "T2",
   "question": "Fetch every repo. Which are behind?",
-  "tool": "new in-cli",
+  "tool": "new indo-cli",
   "mode": "agent",
   "cmd": "indo -c -P 8 * 'git fetch -q && git status -sb | head -1'",
   "cmd_chars": 57,
@@ -368,7 +368,7 @@
  {
   "task": "T3",
   "question": "Run tests everywhere. Which failed?",
-  "tool": "old in-cli",
+  "tool": "old indo-cli",
   "mode": "human",
   "cmd": "in-old * ./ci.sh",
   "cmd_chars": 16,
@@ -390,7 +390,7 @@
  {
   "task": "T3",
   "question": "Run tests everywhere. Which failed?",
-  "tool": "new in-cli",
+  "tool": "new indo-cli",
   "mode": "human",
   "cmd": "indo * ./ci.sh",
   "cmd_chars": 14,
@@ -412,7 +412,7 @@
  {
   "task": "T3",
   "question": "Run tests everywhere. Which failed?",
-  "tool": "new in-cli",
+  "tool": "new indo-cli",
   "mode": "agent",
   "cmd": "indo -f * ./ci.sh",
   "cmd_chars": 17,
@@ -495,7 +495,7 @@
  {
   "task": "T4",
   "question": "Run tests in parallel (8 jobs). Which failed?",
-  "tool": "old in-cli",
+  "tool": "old indo-cli",
   "mode": "human",
   "cmd": "in-old -P 8 * ./ci.sh",
   "cmd_chars": 21,
@@ -517,7 +517,7 @@
  {
   "task": "T4",
   "question": "Run tests in parallel (8 jobs). Which failed?",
-  "tool": "new in-cli",
+  "tool": "new indo-cli",
   "mode": "human",
   "cmd": "indo -P 8 * ./ci.sh",
   "cmd_chars": 19,
@@ -539,7 +539,7 @@
  {
   "task": "T4",
   "question": "Run tests in parallel (8 jobs). Which failed?",
-  "tool": "new in-cli",
+  "tool": "new indo-cli",
   "mode": "agent",
   "cmd": "indo -f -P 8 * ./ci.sh",
   "cmd_chars": 22,
@@ -649,7 +649,7 @@
  {
   "task": "T5",
   "question": "Find every TODO in the code",
-  "tool": "old in-cli",
+  "tool": "old indo-cli",
   "mode": "human",
   "cmd": "in-old * 'git grep -n TODO'",
   "cmd_chars": 27,
@@ -666,7 +666,7 @@
  {
   "task": "T5",
   "question": "Find every TODO in the code",
-  "tool": "new in-cli",
+  "tool": "new indo-cli",
   "mode": "human",
   "cmd": "indo * 'git grep -n TODO'",
   "cmd_chars": 25,
@@ -683,7 +683,7 @@
  {
   "task": "T5",
   "question": "Find every TODO in the code",
-  "tool": "new in-cli",
+  "tool": "new indo-cli",
   "mode": "agent",
   "cmd": "indo -c * 'git grep -n TODO || true'",
   "cmd_chars": 36,
@@ -768,7 +768,7 @@
  {
   "task": "T6",
   "question": "Which JS repos still use ava older than v6?",
-  "tool": "old in-cli",
+  "tool": "old indo-cli",
   "mode": "human",
   "cmd": "in-old * 'grep \"\\\"ava\\\"\" package.json'",
   "cmd_chars": 38,
@@ -787,7 +787,7 @@
  {
   "task": "T6",
   "question": "Which JS repos still use ava older than v6?",
-  "tool": "new in-cli",
+  "tool": "new indo-cli",
   "mode": "human",
   "cmd": "indo * 'grep \"\\\"ava\\\"\" package.json'",
   "cmd_chars": 36,
@@ -806,7 +806,7 @@
  {
   "task": "T6",
   "question": "Which JS repos still use ava older than v6?",
-  "tool": "new in-cli",
+  "tool": "new indo-cli",
   "mode": "agent (no || true)",
   "cmd": "indo -c * 'grep \"\\\"ava\\\"\" package.json'",
   "cmd_chars": 39,
@@ -825,7 +825,7 @@
  {
   "task": "T6",
   "question": "Which JS repos still use ava older than v6?",
-  "tool": "new in-cli",
+  "tool": "new indo-cli",
   "mode": "agent",
   "cmd": "indo -c * 'grep \"\\\"ava\\\"\" package.json 2>/dev/null || true'",
   "cmd_chars": 59,
@@ -882,7 +882,7 @@
  {
   "task": "T7",
   "question": "Which repos are not on main or master?",
-  "tool": "old in-cli",
+  "tool": "old indo-cli",
   "mode": "human",
   "cmd": "in-old * git branch --show-current",
   "cmd_chars": 34,
@@ -901,7 +901,7 @@
  {
   "task": "T7",
   "question": "Which repos are not on main or master?",
-  "tool": "new in-cli",
+  "tool": "new indo-cli",
   "mode": "human",
   "cmd": "indo * git branch --show-current",
   "cmd_chars": 32,
@@ -920,7 +920,7 @@
  {
   "task": "T7",
   "question": "Which repos are not on main or master?",
-  "tool": "new in-cli",
+  "tool": "new indo-cli",
   "mode": "agent",
   "cmd": "indo -c * git branch --show-current",
   "cmd_chars": 35,

@@ -225,7 +225,7 @@ test_installed_script_works() {
     # Test that installed script actually works
     if [[ -x "bin/in" ]]; then
         output=$(bin/in --help 2>&1)
-        assert_output_contains "$output" "Usage: in" "Installed script runs and shows help"
+        assert_output_contains "$output" "Usage: indo" "Installed script runs and shows help"
     else
         log_fail "Installed script not executable"
     fi
@@ -303,6 +303,28 @@ test_in_link_does_not_clobber_other_tools() {
     teardown
 }
 
+test_in_link_replaces_old_in_cli_install() {
+    setup
+
+    mkdir -p bin
+    printf '#!/usr/bin/env bash\n# Repository: https://github.com/inevolin/in-cli\necho old in-cli\n' > bin/in
+    cp "$INSTALL_SCRIPT" .
+    cp "$IN_SCRIPT" .
+    sed -i.bak 's|CANDIDATE_DIRS=(|CANDIDATE_DIRS=(\n    "'$TEST_DIR'/bin"|' install.sh
+
+    output=$(bash install.sh 2>&1)
+
+    if [[ -L bin/in ]]; then
+        log_pass "Old in-cli 'in' install is replaced by a link to indo"
+    else
+        log_fail "Old in-cli 'in' install was not replaced"
+    fi
+    out2=$(bin/in --version 2>&1)
+    assert_output_contains "$out2" "indo 1.2.0 (indo-cli)" "'in' link runs indo-cli 1.2.0"
+
+    teardown
+}
+
 echo "Running installation tests..."
 
 test_script_syntax
@@ -315,6 +337,7 @@ test_installed_script_works
 test_custom_command_name
 test_default_name_is_indo_with_in_link
 test_in_link_does_not_clobber_other_tools
+test_in_link_replaces_old_in_cli_install
 
 if [[ $FAILED_TESTS -eq 0 ]]; then
     echo -e "${GREEN}All installation tests passed!${NC}"

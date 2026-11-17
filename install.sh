@@ -8,9 +8,11 @@
 #   Can be run locally from the repository or via curl pipe to bash.
 #
 # Usage:
-#   Local:  ./install.sh [--with-skill] [command_name]
-#   Remote: curl -sL https://raw.githubusercontent.com/inevolin/indo-cli/main/install.sh | bash -s -- [--with-skill] [command_name]
+#   Local:  ./install.sh [--with-skill] [--create-dir] [command_name]
+#   Remote: curl -sL https://raw.githubusercontent.com/inevolin/indo-cli/main/install.sh | bash -s -- [--with-skill] [--create-dir] [command_name]
 #
+#   --create-dir creates DEST_DIR if it does not exist (same as CREATE_DIR=1).
+#   Without it, a missing DEST_DIR stops the install with an error.
 #   --with-skill also installs the indo Agent Skill to $SKILL_DIR/indo/SKILL.md
 #   (default SKILL_DIR: ~/.claude/skills, used by Claude Code and Cursor).
 #   For Codex use SKILL_DIR=~/.agents/skills.
@@ -31,10 +33,12 @@ SOURCE_FILE="./in.sh"
 
 # Options: --with-skill (anywhere), then an optional command name
 WITH_SKILL=0
+CREATE_DIR="${CREATE_DIR:-0}"
 ARGS=()
 for arg in "$@"; do
     case "$arg" in
         --with-skill) WITH_SKILL=1 ;;
+        --create-dir) CREATE_DIR=1 ;;
         *) ARGS+=("$arg") ;;
     esac
 done
@@ -52,10 +56,15 @@ else
     ALIAS_NAME="in"
 fi
 
-# An explicit DEST_DIR is always used: created if missing (with sudo only when
-# needed), or the install stops with an error. It never falls back to another folder.
+# An explicit DEST_DIR is always used, never replaced by another folder.
+# If it does not exist, stop, unless --create-dir (or CREATE_DIR=1) was given.
 if [ -n "$DEST_DIR" ]; then
     if [ ! -d "$DEST_DIR" ]; then
+        if [ "$CREATE_DIR" != "1" ]; then
+            echo "Error: DEST_DIR=$DEST_DIR does not exist. Nothing was installed." >&2
+            echo "Create it first (mkdir -p \"$DEST_DIR\"), or run the installer again with --create-dir (or CREATE_DIR=1)." >&2
+            exit 1
+        fi
         echo "Creating directory: $DEST_DIR"
         if ! mkdir -p "$DEST_DIR" 2>/dev/null; then
             if command -v sudo >/dev/null 2>&1 && sudo mkdir -p "$DEST_DIR"; then

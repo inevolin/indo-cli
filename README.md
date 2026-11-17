@@ -49,7 +49,11 @@ curl -sL https://raw.githubusercontent.com/inevolin/indo-cli/main/install.sh | D
 
 Want another name? Pass it: `... | bash -s -- mycmd`. Then only that name is installed.
 
-`DEST_DIR` is always used as given. If the folder does not exist, the installer creates it (with sudo only when needed). If it cannot, it stops with an error and installs nothing.
+`DEST_DIR` is always used as given. If the folder does not exist, the installer stops with an error and installs nothing. To create the folder instead, add `--create-dir` (or set `CREATE_DIR=1`):
+
+```bash
+curl -sL https://raw.githubusercontent.com/inevolin/indo-cli/main/install.sh | DEST_DIR=~/tools/bin bash -s -- --create-dir
+```
 
 > **Why `indo` and not `in`?** `in` is a reserved word in Bash, so `in * ls` is a syntax error there (and in `bash -c`, which AI agents use). The installer adds `indo`, plus an `in` link that works in zsh.
 
@@ -245,7 +249,7 @@ indo * git status                                                   # names, gro
 
 ## Changelog
 
-- **Installer fixes.** A missing `DEST_DIR` is created instead of silently installing to /usr/local/bin. A failed download now stops with an error instead of installing an error page. A stray `in.sh` in the current folder is no longer installed by mistake. The PATH check matches whole entries only.
+- **Installer fixes.** A missing `DEST_DIR` now stops the install with a clear error instead of silently installing to /usr/local/bin. New `--create-dir` flag (or `CREATE_DIR=1`) creates it. A failed download now stops with an error instead of installing an error page. A stray `in.sh` in the current folder is no longer installed by mistake. The PATH check matches whole entries only.
 - **Agent Skill.** New [skills/indo/SKILL.md](skills/indo/SKILL.md), `install.sh --with-skill`, and the [agent eval](bench/agent-eval/README.md). The `indo` script did not change.
 - **1.2.0** The repo is now called indo-cli (it was in-cli). The tool is `indo` everywhere. The `in` link still works.
 - **1.1.0** Short output modes (`-c`, `-s`, `-f`), honest exit codes, `--version`, and `indo` as the default install name.

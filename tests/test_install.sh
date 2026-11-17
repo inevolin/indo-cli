@@ -385,21 +385,57 @@ test_no_skill_by_default() {
     teardown
 }
 
-test_dest_dir_missing_is_created() {
+test_dest_dir_missing_fails_by_default() {
     setup
 
     cp "$INSTALL_SCRIPT" .
     cp "$IN_SCRIPT" .
 
     output=$(DEST_DIR="$TEST_DIR/new/bin" bash install.sh 2>&1)
+    rc=$?
 
-    assert_file_exists "new/bin/indo" "Missing DEST_DIR is created and used"
-    assert_output_contains "$output" "Creating directory: $TEST_DIR/new/bin" "Creation message shown"
-    if [[ "$output" != *"/usr/local/bin"* ]]; then
-        log_pass "No fallback to /usr/local/bin"
+    if [[ $rc -ne 0 && ! -e new ]]; then
+        log_pass "Missing DEST_DIR stops the install and creates nothing"
     else
-        log_fail "Installer mentioned /usr/local/bin for an explicit DEST_DIR"
+        log_fail "Missing DEST_DIR did not stop the install (rc=$rc)"
     fi
+    assert_output_contains "$output" "DEST_DIR=$TEST_DIR/new/bin does not exist" "Error names the folder"
+    assert_output_contains "$output" "--create-dir" "Error points to --create-dir"
+    if [[ "$output" != *"Successfully installed"* ]]; then
+        log_pass "No fallback install"
+    else
+        log_fail "Installed somewhere else"
+    fi
+
+    teardown
+}
+
+test_create_dir_flag_creates_dest_dir() {
+    setup
+
+    mkdir -p skills/indo
+    cp "$INSTALL_SCRIPT" .
+    cp "$IN_SCRIPT" .
+    cp "$(dirname "$INSTALL_SCRIPT")/skills/indo/SKILL.md" skills/indo/SKILL.md
+
+    output=$(DEST_DIR="$TEST_DIR/new/bin" SKILL_DIR="$TEST_DIR/skilldir" bash -s -- --create-dir --with-skill < install.sh 2>&1)
+
+    assert_file_exists "new/bin/indo" "--create-dir creates DEST_DIR (bash -s -- form)"
+    assert_file_exists "skilldir/indo/SKILL.md" "--create-dir works with --with-skill"
+    assert_output_contains "$output" "Creating directory: $TEST_DIR/new/bin" "Creation message shown"
+
+    teardown
+}
+
+test_create_dir_env() {
+    setup
+
+    cp "$INSTALL_SCRIPT" .
+    cp "$IN_SCRIPT" .
+
+    CREATE_DIR=1 DEST_DIR="$TEST_DIR/env/bin" bash install.sh mycmd >/dev/null 2>&1
+
+    assert_file_exists "env/bin/mycmd" "CREATE_DIR=1 creates DEST_DIR, custom name kept"
 
     teardown
 }
@@ -413,7 +449,7 @@ test_dest_dir_uncreatable_fails() {
     mkdir -p fakebin
     printf '#!/bin/sh\nexit 1\n' > fakebin/sudo; chmod +x fakebin/sudo
 
-    output=$(PATH="$TEST_DIR/fakebin:$PATH" DEST_DIR="$TEST_DIR/afile/bin" bash install.sh 2>&1)
+    output=$(PATH="$TEST_DIR/fakebin:$PATH" DEST_DIR="$TEST_DIR/afile/bin" bash install.sh --create-dir 2>&1)
     rc=$?
 
     if [[ $rc -ne 0 ]]; then
@@ -488,7 +524,9 @@ test_in_link_replaces_old_in_cli_install
 test_with_skill_installs_skill
 test_with_skill_and_custom_name
 test_no_skill_by_default
-test_dest_dir_missing_is_created
+test_dest_dir_missing_fails_by_default
+test_create_dir_flag_creates_dest_dir
+test_create_dir_env
 test_dest_dir_uncreatable_fails
 test_path_check_is_exact
 test_failed_download_installs_nothing

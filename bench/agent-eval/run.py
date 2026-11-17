@@ -12,7 +12,7 @@ TAG = os.environ.get("RUN_TAG", ""); SKILL_FILE = os.environ.get("SKILL_FILE", "
 RAW = B / "raw" / MODEL / TAG if TAG else B / "raw" / MODEL; RAW.mkdir(parents=True, exist_ok=True)
 LEDGER = Path(os.environ.get("LEDGER", str(B / "ledger.json")))
 SOURCES = os.environ.get("SETTING_SOURCES", "project"); LOCK = threading.Lock()
-GTALL = json.load(open(B / "ground_truth.json")); GT = GTALL["answers"]
+GTALL = json.load(open(os.environ.get("GT_FILE", str(B / "ground_truth.json")))); GT = GTALL["answers"]
 HELP = subprocess.run(["bash", str(B / "indo.sh"), "--help"], capture_output=True, text=True).stdout.strip()
 NOTE_B = ("The `indo` command is installed on PATH. It runs one command in many folders. "
           "This is its --help output:\n\n" + HELP)
@@ -26,7 +26,7 @@ def reset_slot(slot):
     S = B / "slots" / slot
     if S.exists(): shutil.rmtree(S)
     S.mkdir(parents=True)
-    subprocess.run(["tar", "xzf", str(B / "template.tgz"), "-C", str(S)], check=True)
+    subprocess.run(["tar", "xzf", os.environ.get("TEMPLATE", str(B / "template.tgz")), "-C", str(S)], check=True)
     (S / "bin").mkdir(); shutil.copy2(B / "indo.sh", S / "bin" / "indo"); os.chmod(S / "bin" / "indo", 0o755)
     for r in (S / "repos").iterdir():
         subprocess.run(["git", "remote", "set-url", "origin", str(S / "remotes" / f"{r.name}.git")], cwd=r, check=True)
@@ -51,11 +51,11 @@ def grade(task, ans, S):
     if task == "H3_ahead_behind":
         ok = ans is not None and ans == gt
         return ok, sum(1 for k, v in gt.items() if ans and ans.get(k) == v) / len(gt), {"expected": gt, "got": ans}
-    if task in ("H1_pull_test", "H4_commit_readme"):
+    if task in ("H1_pull_test", "H4_commit_readme", "L6_pull_test"):
         exp = set(gt); got = set(ans or []); bad = []
         for r, h in GTALL["template_heads"].items():
             head = g(S, r, "git rev-parse HEAD")
-            if task == "H1_pull_test":
+            if task in ("H1_pull_test", "L6_pull_test"):
                 want = GTALL["upstream_heads"][r] if r in GTALL["H1_behind"] else h
                 if head != want: bad.append(f"{r}: HEAD not as expected")
             else:

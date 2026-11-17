@@ -49,3 +49,22 @@ def prompt(t):
 SPLITS = {"dev": ["T03_tests", "D_govet", "H2_fail_dirty", "T02_behind", "N_branch"],
           "heldout": ["O_jstests", "O_pytests", "H1_pull_test", "H3_ahead_behind", "T01_dirty", "N_toolz"]}
 PARALLEL_TASKS = {"T03_tests", "D_govet", "H2_fail_dirty", "O_jstests", "O_pytests", "H1_pull_test"}
+
+# Round 3: 54-repo workspace (large/). Same answer format.
+INTRO_L = "The current folder contains 54 git repositories, one per subfolder. "
+TASKS_L = {
+ "L1_tests": "Every repository has a ./ci.sh script that runs its tests. Run it in every repository. Which repositories' tests fail (non-zero exit code)?",
+ "L2_jstests": "Every repository has a ./ci.sh script that runs its tests. Run it in every JavaScript repository (a repository with a package.json in its root folder). Which of them fail (non-zero exit code)?",
+ "L3_gotests": "Every repository has a ./ci.sh script that runs its tests. Run it in every Go repository (a repository that has .go files tracked in git). Which of them fail (non-zero exit code)?",
+ "L4_pytests": "Every repository has a ./ci.sh script that runs its tests. Run it in every Python repository (a repository with a pyproject.toml, setup.py or setup.cfg in its root folder). Which of them fail (non-zero exit code)?",
+ "L5_behind": "Fetch from origin in every repository. After fetching, which repositories are behind their upstream branch?",
+ "L6_pull_test": "Fetch from origin in every repository. Fast-forward every repository that is behind its upstream branch (do not change any other repository). Then run ./ci.sh in every repository you updated. Which of the updated repositories have failing tests (non-zero exit code)?",
+ "L7_fail_behind": "Every repository has a ./ci.sh script that runs its tests. Fetch from origin in every repository, but do not pull or merge. Which repositories both have failing tests (non-zero exit code from ./ci.sh) and are behind their upstream branch?",
+ "L8_dirty": "Which repositories have uncommitted changes (modified, staged or untracked files)?",
+}
+TASKS.update(TASKS_L)
+_prompt3 = prompt
+def prompt(t):
+    if t in TASKS_L: return INTRO_L + TASKS_L[t] + " " + FMT
+    return _prompt3(t)
+PARALLEL_TASKS |= {"L1_tests", "L2_jstests", "L3_gotests", "L4_pytests", "L6_pull_test", "L7_fail_behind"}

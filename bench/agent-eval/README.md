@@ -4,10 +4,12 @@ We gave Claude Code the same multi-repo tasks with and without indo and measured
 
 ## Short answer
 
+- **54 repos: 1.8x faster on test tasks.** Claude Code with indo and the skill finished slow multi-repo tasks 1.82x faster (95% CI 1.44x to 2.30x). A full test run went from 53.0 s to 16.1 s. Same answers, same cost. See [Round 3](#round-3-54-repos-paired-runs).
+
 - **Correct answers: tied.** Every arm got the same score on every model.
 - **Speed: faster with indo, on slow commands.** With the indo Agent Skill, Claude Code (Sonnet 5.5) finished held-out multi-repo test and pull tasks in 22% to 32% less time. A full test run across 20 repos went from 26.9 s to 13.0 s with the prompt note, and from 27.6 s to 12.6 s with the skill (dev runs).
 - **Cost: about the same with the skill.** The always-on prompt note cost 6% to 30% more per run. The skill costs about the same as plain bash once the prompt cache is warm.
-- **Plain bash agents never ran anything in parallel.** In 148 plain bash runs, the agent never used `xargs -P`, `&` or GNU parallel. It went one folder at a time.
+- **Plain bash agents almost never ran anything in parallel.** In 172 plain bash runs, the agent ran folders in parallel only twice, both times for `git fetch` on the 54-repo workspace. It never ran tests in parallel.
 - **The weaker model did not get faster.** Haiku 5.5 used indo in less than half of the runs and saved no time.
 
 ## Setup
@@ -103,10 +105,45 @@ All 6 held-out tasks: 18/18 correct in every arm. Skill vs note cost: 0.90x.
 
 **Skill v5, Haiku 5.5, plain bash vs skill (36 runs):** 18/18 correct in both. Parallel tasks 16.8 s vs 16.5 s (0.98, 0.89 to 1.08). Cost 1.11x (1.05 to 1.18) on parallel tasks. Haiku used indo in 8 of 18 runs. The skill does not help this model yet.
 
+## Round 3: 54 repos, paired runs
+
+A bigger, slower workspace: 54 real repos (18 JavaScript, 16 Go, 18 Python, 3 without tests), pinned in [results/large-repos.lock](results/large-repos.lock). A full sequential test run takes about 45 s. 11 repos fail their tests: 8 for real reasons and 3 with a failing test we committed. 6 repos are behind, 3 ahead, 6 dirty, 2 on a feature branch. Scripts: [setup_large.sh](setup_large.sh), [seed_large.sh](seed_large.sh), [gt_large.py](gt_large.py).
+
+- **Agent:** Claude Code 2.1.325 with Sonnet 5.5.
+- **Arms:** A, plain bash. C, indo plus the final skill (v6) in the agent's skills folder.
+- **Design:** 8 new tasks, 3 repeats. Each repeat is a pair: A and C on the same task, back to back, in random order. One run at a time, so the arms never compete for the CPU.
+- **Cursor agent CLI:** not run. It installed, but it needs a Cursor login or `CURSOR_API_KEY`, and the box has neither. Codex and Gemini CLI were not run either, because there were no credentials.
+
+| Task (54 repos) | Plain: correct, median time | indo + skill: correct, median time | Median speedup | Runs using indo / with -P |
+|---|---|---|---|---|
+| L1 run all tests, which fail? | 3/3, 53.0 s | 3/3, 16.1 s | 3.3x | 3 / 3 |
+| L2 JavaScript tests | 3/3, 24.0 s | 3/3, 13.5 s | 1.8x | 3 / 3 |
+| L3 Go tests | 3/3, 6.9 s | 3/3, 5.6 s | 1.2x | 3 / 3 |
+| L4 Python tests | 3/3, 31.7 s | 3/3, 14.8 s | 2.1x | 3 / 3 |
+| L5 fetch, which are behind? | 3/3, 5.0 s | 3/3, 4.5 s | 1.1x | 3 / 3 |
+| L6 pull the behind repos, then test them | 3/3, 14.8 s | 3/3, 14.0 s | 1.1x | 3 / 3 |
+| L7 failing tests and behind | 3/3, 55.4 s | 3/3, 16.8 s | 3.3x | 3 / 3 |
+| L8 dirty repos | 3/3, 4.2 s | 3/3, 5.0 s | 0.8x | 3 / 0 |
+
+Pooled over pairs (geometric mean of the per-pair ratios, 95% bootstrap CI):
+
+| | Pairs | Speedup with indo | Cost with indo |
+|---|---|---|---|
+| Slow tasks (L1, L2, L3, L4, L6, L7) | 17 | **1.82x (1.44x to 2.30x)** | 1.02x (0.93 to 1.09) |
+| All 8 tasks | 23 | 1.53x (1.24x to 1.90x) | 1.02x (0.95 to 1.07) |
+
+- **Correct answers: 24/24 in both arms.**
+- **One outlier is left out of the pooled numbers.** One plain bash Go run (L3, repeat 3) took 355 s with the same command that took 7 s in the other repeats. If we keep it, the slow-task speedup is 2.25x (1.54x to 3.77x). Per-task medians are not affected much.
+- **Plain bash ran folders in parallel in 2 of 24 runs.** Both were `git fetch` loops with `&` and `wait`. It never ran tests in parallel. On the 20-repo workspace it was 0 of 148 runs.
+- **Where indo did not help:** quick commands. `git status` (L8) was a bit slower with indo, and pull then test (L6) touched only 6 repos.
+- **Spend:** 0.99 USD for these 48 runs.
+
+Numbers: [results/large-stats.json](results/large-stats.json), [results/large-sensitivity.json](results/large-sensitivity.json). Headline numbers for all rounds: [results/summary.json](results/summary.json).
+
 ## Limits
 
 - Small samples: 3 runs per task and arm, 6 held-out tasks, one 20-repo workspace, one machine.
-- One agent (Claude Code). We did not test Codex, Cursor or Gemini CLI.
+- One agent (Claude Code). Cursor agent CLI, Codex and Gemini CLI were not tested, because there were no logins or API keys for them.
 - Speed depends on the machine and on how slow each folder's command is. Fast commands (git status) gain nothing. Test suites gain the most.
 - Up to 3 runs shared the 8 cores, so times are noisy. Both arms ran mixed together in random order.
 - Cost depends on the prompt cache. Every new prompt prefix pays one cache write.

@@ -10,7 +10,7 @@ indo -f -P 8 * 'npm test'      # test 20 repos at once, show only what failed
 - **Parallel.** `-P 8` runs 8 folders at a time. Output stays grouped and in order.
 - **Only what broke.** `-f` prints the failed folders and one count line. 94% less output on 20 real repos.
 - **Honest exit codes.** 0 only if the command worked in every folder.
-- **Built for AI agents.** With indo, Claude Code ran tests across 20 repos about 2x faster (26.9 s to 13.0 s), with the same correct answers. With the indo Agent Skill, the cost stays about the same ([eval](#indo-for-ai-agents)).
+- **Built for AI agents.** On 54 real repos, Claude Code with indo finished test tasks 1.8x faster and a full test run 3.3x faster (53.0 s to 16.1 s). Same answers, same cost ([eval](#indo-for-ai-agents)).
 - **Zero dependencies.** One Bash script. Bash 3.2 or newer.
 
 ## The problem
@@ -25,7 +25,7 @@ for d in */; do (cd "$d" && npm test); done
 
 The loop runs one folder at a time. It prints thousands of lines. It returns the exit code of the last folder only, so a failure in the middle is lost.
 
-AI coding agents do the same thing. In 148 plain bash runs in our eval, Claude Code never once ran folders in parallel. It went one folder at a time, every time.
+AI coding agents do the same thing. In 172 plain bash runs in our eval, Claude Code never ran tests in parallel. It went one folder at a time.
 
 indo fixes this. One short command runs in every folder, in parallel, and tells you only what went wrong.
 
@@ -120,19 +120,21 @@ We tested indo with a real coding agent, not with scripted commands. Claude Code
 
 ### What we found
 
+On 54 real repos, Claude Code (Sonnet 5.5) with indo and the Agent Skill:
+
 | | Plain bash | With indo |
 |---|---|---|
-| Correct answers (all runs) | tied | tied |
-| Test run across 20 repos, Sonnet 5.5 | 26.9 s | **13.0 s** (with the prompt note; 27.6 s to 12.6 s with the skill in tuning runs) |
-| New tasks the skill was not tuned on (tests, pull then test), Sonnet 5.5 | 15.7 s | **12.3 s** (22% less time) |
-| Cost per run with the Agent Skill | 1x | about 1x |
-| Cost per run with an always-on prompt note instead | 1x | 1.06x to 1.30x |
-| Ran folders in parallel | 0 of 148 runs | 7 of 9 slow-task runs (final skill, new tasks) |
+| Correct answers | 24/24 | 24/24 |
+| Run all tests in 54 repos, which fail? | 53.0 s | **16.1 s (3.3x faster)** |
+| 6 slow multi-repo tasks (tests, pull then test) | 1x | **1.8x faster** (95% CI 1.4x to 2.3x) |
+| Cost per run | 1x | 1.02x (95% CI 0.95 to 1.07) |
+| Ran tests in parallel | never | 18 of 18 slow-task runs |
 
-- **Correctness is a tie.** In 168 runs of round 1, both arms got the same score (Sonnet 42/42 each, Haiku 41/42 each). The tasks were easy for these models. indo did not make answers better or worse.
-- **The speed win is real for slow commands.** Tests, builds and pulls finish faster because indo runs folders in parallel. Fast commands like `git status` gain nothing.
-- **Use the skill, not a prompt note.** A note in the system prompt costs tokens on every request. The skill's short description costs much less, and the agent uses indo just as often.
-- **Weaker models gain less.** Haiku 5.5 used indo in less than half of the runs and saved no time.
+- **Same answers.** Both setups got every task right, here and in 168 earlier runs on 20 repos.
+- **Faster where it matters.** Tests and builds finish faster because indo runs folders in parallel. Quick commands like `git status` gain nothing.
+- **Agents do not parallelize on their own.** In 172 plain bash runs, Claude Code ran folders in parallel only twice (both `git fetch`). It never ran tests in parallel.
+- **Use the skill, not a prompt note.** An always-on note in the system prompt cost 6% to 30% more per run. With the skill, cost stayed about the same.
+- **Limits.** One agent and model, 3 paired runs per task, one machine. Haiku 5.5 did not get faster. Cursor, Codex and Gemini are not tested yet.
 
 ### Install the Agent Skill
 
@@ -212,7 +214,7 @@ FAIL toolz (exit 1)
 
 ### Agent eval
 
-Claude Code 2.1.325 on 20 real repos (JavaScript, Go, Python), 354 graded runs in total. Three setups: plain bash, indo with a prompt note, and indo with the Agent Skill. Results above. Method, all tables and the scripts: [bench/agent-eval](bench/agent-eval/README.md).
+Claude Code 2.1.325 on 20 and 54 real repos (JavaScript, Go, Python), 402 graded runs in total. Three setups: plain bash, indo with a prompt note, and indo with the Agent Skill. Results above. Method, all tables and the scripts: [bench/agent-eval](bench/agent-eval/README.md).
 
 ### Output size
 
@@ -234,7 +236,7 @@ We ran 7 everyday tasks on the same 20 repos, with real test suites, some failin
 
 - **Correctness did not improve.** The agent tasks were easy for the models we tested. Both arms scored the same.
 - **Speed depends on the work.** The gain comes from running folders in parallel. Slow commands (tests, builds, pulls) gain the most. Quick commands gain nothing.
-- **Small samples.** 3 runs per task and setup, one 20-repo workspace, one Linux machine, one agent (Claude Code). We did not test Codex or Cursor.
+- **Small samples.** 3 runs per task and setup, two workspaces (20 and 54 repos), one Linux machine, one agent (Claude Code). We did not test Codex, Cursor or Gemini.
 - **Plain tools still win sometimes.** For one search, `rg` or `grep '"x"' */package.json` is shorter. An expert loop uses about 6% fewer tokens than indo, but is 2 to 7 times longer to type. GNU parallel with `-k --tag` is just as correct, but harder to remember.
 
 ## Why not find or xargs?

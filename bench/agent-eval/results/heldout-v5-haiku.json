@@ -1,0 +1,253 @@
+{
+ "model": "claude-haiku-5-5",
+ "per_task": {
+  "O_jstests": {
+   "A": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 11.5,
+    "wall_sd": 0.2,
+    "cost_mean": 0.00184,
+    "turns_mean": 4,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 12.2,
+    "wall_sd": 1.9,
+    "cost_mean": 0.00201,
+    "turns_mean": 4.33,
+    "indo_runs": 1,
+    "parallel_runs": 1,
+    "skill_loaded": 1
+   }
+  },
+  "O_pytests": {
+   "A": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 22.9,
+    "wall_sd": 0.5,
+    "cost_mean": 0.00198,
+    "turns_mean": 4,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 20.4,
+    "wall_sd": 4.4,
+    "cost_mean": 0.00212,
+    "turns_mean": 4,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   }
+  },
+  "H1_pull_test": {
+   "A": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 15.9,
+    "wall_sd": 1.7,
+    "cost_mean": 0.00308,
+    "turns_mean": 6,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 16.9,
+    "wall_sd": 1.4,
+    "cost_mean": 0.00356,
+    "turns_mean": 8.33,
+    "indo_runs": 3,
+    "parallel_runs": 3,
+    "skill_loaded": 2
+   }
+  },
+  "H3_ahead_behind": {
+   "A": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 6.7,
+    "wall_sd": 0.5,
+    "cost_mean": 0.00191,
+    "turns_mean": 3.33,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 7.0,
+    "wall_sd": 1.2,
+    "cost_mean": 0.0021,
+    "turns_mean": 4,
+    "indo_runs": 2,
+    "parallel_runs": 2,
+    "skill_loaded": 1
+   }
+  },
+  "T01_dirty": {
+   "A": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 4.5,
+    "wall_sd": 0.8,
+    "cost_mean": 0.00144,
+    "turns_mean": 2.67,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 4.7,
+    "wall_sd": 0.7,
+    "cost_mean": 0.00145,
+    "turns_mean": 2.67,
+    "indo_runs": 2,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   }
+  },
+  "N_toolz": {
+   "A": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 5.4,
+    "wall_sd": 0.3,
+    "cost_mean": 0.00195,
+    "turns_mean": 3.33,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 4.9,
+    "wall_sd": 0.6,
+    "cost_mean": 0.00152,
+    "turns_mean": 2.67,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   }
+  }
+ },
+ "pooled": {
+  "parallel_tasks": {
+   "A": {
+    "n": 9,
+    "correct": 9,
+    "wall_mean": 16.76,
+    "cost_mean": 0.0023,
+    "cost_total": 0.0207,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 9,
+    "correct": 9,
+    "wall_mean": 16.49,
+    "cost_mean": 0.00256,
+    "cost_total": 0.023,
+    "indo_runs": 4,
+    "parallel_runs": 4,
+    "skill_loaded": 3
+   },
+   "C_vs_A": {
+    "wall_ratio": 0.984,
+    "wall_ratio_boot95": [
+     0.885,
+     1.075
+    ],
+    "cost_ratio": 1.113,
+    "cost_ratio_boot95": [
+     1.046,
+     1.181
+    ]
+   }
+  },
+  "all_tasks": {
+   "A": {
+    "n": 18,
+    "correct": 18,
+    "wall_mean": 11.14,
+    "cost_mean": 0.00203,
+    "cost_total": 0.0366,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 18,
+    "correct": 18,
+    "wall_mean": 11.02,
+    "cost_mean": 0.00213,
+    "cost_total": 0.0383,
+    "indo_runs": 8,
+    "parallel_runs": 6,
+    "skill_loaded": 4
+   },
+   "C_vs_A": {
+    "wall_ratio": 0.989,
+    "wall_ratio_boot95": [
+     0.91,
+     1.063
+    ],
+    "cost_ratio": 1.049,
+    "cost_ratio_boot95": [
+     0.978,
+     1.116
+    ]
+   }
+  },
+  "other_tasks": {
+   "A": {
+    "n": 9,
+    "correct": 9,
+    "wall_mean": 5.53,
+    "cost_mean": 0.00177,
+    "cost_total": 0.0159,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 9,
+    "correct": 9,
+    "wall_mean": 5.54,
+    "cost_mean": 0.00169,
+    "cost_total": 0.0152,
+    "indo_runs": 4,
+    "parallel_runs": 2,
+    "skill_loaded": 1
+   },
+   "C_vs_A": {
+    "wall_ratio": 1.002,
+    "wall_ratio_boot95": [
+     0.904,
+     1.105
+    ],
+    "cost_ratio": 0.955,
+    "cost_ratio_boot95": [
+     0.838,
+     1.086
+    ]
+   }
+  }
+ }
+}

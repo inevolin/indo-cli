@@ -8,8 +8,12 @@
 #   Can be run locally from the repository or via curl pipe to bash.
 #
 # Usage:
-#   Local:  ./install.sh [command_name]
-#   Remote: curl -sL https://raw.githubusercontent.com/inevolin/indo-cli/main/install.sh | bash -s -- [command_name]
+#   Local:  ./install.sh [--with-skill] [command_name]
+#   Remote: curl -sL https://raw.githubusercontent.com/inevolin/indo-cli/main/install.sh | bash -s -- [--with-skill] [command_name]
+#
+#   --with-skill also installs the indo Agent Skill to $SKILL_DIR/indo/SKILL.md
+#   (default SKILL_DIR: ~/.claude/skills, used by Claude Code and Cursor).
+#   For Codex use SKILL_DIR=~/.agents/skills.
 #
 # What it does:
 #   1. Finds a suitable installation directory (checks /usr/local/bin, ~/.local/bin, etc.)
@@ -22,7 +26,19 @@
 set -e  # Exit on any error
 
 REPO_URL="https://raw.githubusercontent.com/inevolin/indo-cli/main/in.sh"
+SKILL_URL="https://raw.githubusercontent.com/inevolin/indo-cli/main/skills/indo/SKILL.md"
 SOURCE_FILE="./in.sh"
+
+# Options: --with-skill (anywhere), then an optional command name
+WITH_SKILL=0
+ARGS=()
+for arg in "$@"; do
+    case "$arg" in
+        --with-skill) WITH_SKILL=1 ;;
+        *) ARGS+=("$arg") ;;
+    esac
+done
+set -- "${ARGS[@]+"${ARGS[@]}"}"
 
 # Default command name is "indo". "in" is a reserved word in Bash and sh, so
 # "in * git status" fails there (including "bash -c", which AI agents use).
@@ -128,6 +144,19 @@ if ! echo "$PATH" | grep -q "$DEST_DIR"; then
     echo "   export PATH=\"$DEST_DIR:\$PATH\""
     echo "2. Restart your shell or run:"
     echo "   source ~/.bashrc  # or ~/.zshrc"
+fi
+
+# Optional Agent Skill for coding agents (Claude Code, Cursor, Codex)
+if [ "$WITH_SKILL" = "1" ]; then
+    SKILL_DIR="${SKILL_DIR:-$HOME/.claude/skills}"
+    mkdir -p "$SKILL_DIR/indo"
+    if [ -f "skills/indo/SKILL.md" ]; then
+        cp "skills/indo/SKILL.md" "$SKILL_DIR/indo/SKILL.md"
+    else
+        echo "Downloading the indo skill from $SKILL_URL..."
+        curl -sL "$SKILL_URL" -o "$SKILL_DIR/indo/SKILL.md"
+    fi
+    echo "Installed the indo Agent Skill to $SKILL_DIR/indo/SKILL.md"
 fi
 
 echo ""

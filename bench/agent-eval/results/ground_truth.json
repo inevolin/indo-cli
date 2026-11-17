@@ -1,0 +1,191 @@
+{
+ "repos": [
+  "awesome-nodejs",
+  "camelcase",
+  "dotfiles",
+  "errors",
+  "escape-string-regexp",
+  "gitignore",
+  "go-humanize",
+  "go-version",
+  "idna",
+  "is-plain-obj",
+  "more-itertools",
+  "p-limit",
+  "pretty-bytes",
+  "semver",
+  "six",
+  "slugify",
+  "tldr-python-client",
+  "tomli",
+  "toolz",
+  "uuid"
+ ],
+ "answers": {
+  "T01_dirty": [
+   "dotfiles",
+   "idna",
+   "more-itertools",
+   "pretty-bytes",
+   "semver",
+   "slugify"
+  ],
+  "T04_branch": [
+   "go-humanize"
+  ],
+  "T05_ahead": [
+   "camelcase",
+   "go-version"
+  ],
+  "T02_behind": [
+   "gitignore",
+   "p-limit",
+   "six",
+   "toolz",
+   "uuid"
+  ],
+  "T06_node": [
+   "escape-string-regexp",
+   "is-plain-obj"
+  ],
+  "T07_dep": [
+   "escape-string-regexp",
+   "is-plain-obj",
+   "p-limit",
+   "pretty-bytes"
+  ],
+  "T08_todo": {
+   "dotfiles": 2,
+   "gitignore": 8,
+   "p-limit": 1,
+   "pretty-bytes": 3,
+   "semver": 2,
+   "toolz": 1
+  },
+  "T09_license": [
+   "escape-string-regexp",
+   "tomli"
+  ],
+  "T10_touch": [
+   "idna",
+   "more-itertools",
+   "six",
+   "tldr-python-client",
+   "tomli",
+   "toolz"
+  ],
+  "T03_tests": [
+   "errors",
+   "slugify",
+   "tldr-python-client",
+   "toolz"
+  ],
+  "H1_pull_test": [
+   "toolz"
+  ],
+  "H2_fail_dirty": [
+   "slugify"
+  ],
+  "H3_ahead_behind": {
+   "camelcase": "1/0",
+   "gitignore": "0/2",
+   "go-version": "1/0",
+   "p-limit": "0/2",
+   "six": "0/2",
+   "toolz": "0/2",
+   "uuid": "0/2"
+  },
+  "H4_commit_readme": [
+   "more-itertools",
+   "pretty-bytes",
+   "semver"
+  ],
+  "D_govet": [
+   "errors"
+  ],
+  "O_jstests": [
+   "slugify"
+  ],
+  "O_pytests": [
+   "tldr-python-client",
+   "toolz"
+  ],
+  "N_branch": "feature/si-units",
+  "N_toolz": "191"
+ },
+ "H1_behind": [
+  "gitignore",
+  "p-limit",
+  "six",
+  "toolz",
+  "uuid"
+ ],
+ "template_heads": {
+  "awesome-nodejs": "b8e1c0c3879544e32dca7d381d8275ceff267e46",
+  "camelcase": "4911e18c2689d9b025a25cc147852a6336d2b355",
+  "dotfiles": "b7c7894e7bb2de5d60bfb9a2f5e46d01a61300ea",
+  "errors": "87f8819acf6dc28bf5d3c14b334268236d686f48",
+  "escape-string-regexp": "2e859e77e5b9cc9e58f4cf84f53c1199c26335b0",
+  "gitignore": "b71db924d35085e481ad7c7ad8a7435b8d8b3016",
+  "go-humanize": "f5b54ae1392365a578bb43ab728e3fcdc291f0cd",
+  "go-version": "19d36a2e3160ba226b6ccde50c448a5345355bd4",
+  "idna": "d357725082245ff90f5cf8800a3fc297b1f2319a",
+  "is-plain-obj": "666df7c10035f7e26f27ec214fe5ae3173435f34",
+  "more-itertools": "de8d98968205993aca2bc1361d9036203190d42f",
+  "p-limit": "a8a6fbec4e0e866d6d779b10889bb4f5567e70eb",
+  "pretty-bytes": "a35ed21bb4169c0bf40942ffa2987a06b8cd2854",
+  "semver": "dd2b995c61c39ddd668b23ac919b04d607be35ab",
+  "six": "c8e394065cd541a16c040515dc0afb85cf22a7c3",
+  "slugify": "99b35c2b0d6ccfad2b96ba9ce6997c6365b9a4b7",
+  "tldr-python-client": "fccd16fc720af9e150052402145501b369f24705",
+  "tomli": "4a7a63d880afcd1ae709a11bf6ca606c3bf3daaa",
+  "toolz": "451af60dec590a6010e2babdbf391ea8f815122f",
+  "uuid": "2d3c2a9cc518326daf99a383f07c4d3c44317e4d"
+ },
+ "template_status": {
+  "awesome-nodejs": "",
+  "camelcase": "",
+  "dotfiles": "?? tmp/",
+  "errors": "",
+  "escape-string-regexp": "",
+  "gitignore": "",
+  "go-humanize": "",
+  "go-version": "",
+  "idna": "?? scratch.txt",
+  "is-plain-obj": "",
+  "more-itertools": "M README.rst",
+  "p-limit": "",
+  "pretty-bytes": "M readme.md",
+  "semver": "M README.md",
+  "six": "",
+  "slugify": "M index.js",
+  "tldr-python-client": "",
+  "tomli": "",
+  "toolz": "",
+  "uuid": ""
+ },
+ "upstream_heads": {
+  "awesome-nodejs": "b8e1c0c3879544e32dca7d381d8275ceff267e46",
+  "camelcase": "328428291b2f5c0e41dd4a2d0e5a942eb9de3b70",
+  "dotfiles": "b7c7894e7bb2de5d60bfb9a2f5e46d01a61300ea",
+  "errors": "87f8819acf6dc28bf5d3c14b334268236d686f48",
+  "escape-string-regexp": "2e859e77e5b9cc9e58f4cf84f53c1199c26335b0",
+  "gitignore": "fdea3cdf3d253d82c0b1092d892899c72028d36c",
+  "go-version": "5ca63ba49818bf0b8776df7976f57420f3ac169b",
+  "idna": "d357725082245ff90f5cf8800a3fc297b1f2319a",
+  "is-plain-obj": "666df7c10035f7e26f27ec214fe5ae3173435f34",
+  "more-itertools": "de8d98968205993aca2bc1361d9036203190d42f",
+  "p-limit": "94071b63bc70ad2f1b25b179f4b1d6f1a2fef03a",
+  "pretty-bytes": "a35ed21bb4169c0bf40942ffa2987a06b8cd2854",
+  "semver": "dd2b995c61c39ddd668b23ac919b04d607be35ab",
+  "six": "e093ba8e61c190764170e79c1873356a031f787e",
+  "slugify": "99b35c2b0d6ccfad2b96ba9ce6997c6365b9a4b7",
+  "tldr-python-client": "fccd16fc720af9e150052402145501b369f24705",
+  "tomli": "4a7a63d880afcd1ae709a11bf6ca606c3bf3daaa",
+  "toolz": "3ef8289593d8ae6145ee84d32363d2b9fd6d1f06",
+  "uuid": "e3e67811d87e6485098f4badb1dac108f8e0fd8d"
+ },
+ "no_upstream": [
+  "go-humanize"
+ ]
+}

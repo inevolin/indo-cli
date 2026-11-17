@@ -1,0 +1,409 @@
+{
+ "model": "claude-sonnet-5-5",
+ "per_task": {
+  "O_jstests": {
+   "A": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 10.4,
+    "wall_sd": 1.2,
+    "cost_mean": 0.01741,
+    "turns_mean": 2,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "B": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 8.5,
+    "wall_sd": 1.1,
+    "cost_mean": 0.01909,
+    "turns_mean": 2,
+    "indo_runs": 3,
+    "parallel_runs": 3,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 8.4,
+    "wall_sd": 0.9,
+    "cost_mean": 0.01745,
+    "turns_mean": 2,
+    "indo_runs": 3,
+    "parallel_runs": 3,
+    "skill_loaded": 0
+   }
+  },
+  "O_pytests": {
+   "A": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 21.6,
+    "wall_sd": 0.6,
+    "cost_mean": 0.01773,
+    "turns_mean": 2,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "B": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 15.4,
+    "wall_sd": 0.5,
+    "cost_mean": 0.02149,
+    "turns_mean": 2,
+    "indo_runs": 3,
+    "parallel_runs": 3,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 12.9,
+    "wall_sd": 0.9,
+    "cost_mean": 0.0176,
+    "turns_mean": 2,
+    "indo_runs": 3,
+    "parallel_runs": 3,
+    "skill_loaded": 0
+   }
+  },
+  "H1_pull_test": {
+   "A": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 16.0,
+    "wall_sd": 5.9,
+    "cost_mean": 0.02366,
+    "turns_mean": 3,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "B": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 13.5,
+    "wall_sd": 1.2,
+    "cost_mean": 0.03607,
+    "turns_mean": 3.67,
+    "indo_runs": 3,
+    "parallel_runs": 1,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 11.5,
+    "wall_sd": 1.0,
+    "cost_mean": 0.02508,
+    "turns_mean": 3.67,
+    "indo_runs": 2,
+    "parallel_runs": 2,
+    "skill_loaded": 1
+   }
+  },
+  "H3_ahead_behind": {
+   "A": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 5.0,
+    "wall_sd": 0.2,
+    "cost_mean": 0.02038,
+    "turns_mean": 2,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "B": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 7.0,
+    "wall_sd": 2.8,
+    "cost_mean": 0.02272,
+    "turns_mean": 2.33,
+    "indo_runs": 3,
+    "parallel_runs": 2,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 5.2,
+    "wall_sd": 0.6,
+    "cost_mean": 0.01948,
+    "turns_mean": 2,
+    "indo_runs": 3,
+    "parallel_runs": 3,
+    "skill_loaded": 0
+   }
+  },
+  "T01_dirty": {
+   "A": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 5.8,
+    "wall_sd": 2.4,
+    "cost_mean": 0.01961,
+    "turns_mean": 2.67,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "B": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 3.8,
+    "wall_sd": 0.9,
+    "cost_mean": 0.01786,
+    "turns_mean": 2,
+    "indo_runs": 3,
+    "parallel_runs": 2,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 4.3,
+    "wall_sd": 1.0,
+    "cost_mean": 0.02527,
+    "turns_mean": 2,
+    "indo_runs": 3,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   }
+  },
+  "N_toolz": {
+   "A": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 5.2,
+    "wall_sd": 0.4,
+    "cost_mean": 0.02575,
+    "turns_mean": 2,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "B": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 5.0,
+    "wall_sd": 1.0,
+    "cost_mean": 0.01918,
+    "turns_mean": 2,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 3,
+    "correct": 3,
+    "wall_mean": 4.6,
+    "wall_sd": 0.8,
+    "cost_mean": 0.01843,
+    "turns_mean": 2,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   }
+  }
+ },
+ "pooled": {
+  "parallel_tasks": {
+   "A": {
+    "n": 9,
+    "correct": 9,
+    "wall_mean": 16.0,
+    "cost_mean": 0.0196,
+    "cost_total": 0.1764,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "B": {
+    "n": 9,
+    "correct": 9,
+    "wall_mean": 12.47,
+    "cost_mean": 0.02555,
+    "cost_total": 0.23,
+    "indo_runs": 9,
+    "parallel_runs": 7,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 9,
+    "correct": 9,
+    "wall_mean": 10.94,
+    "cost_mean": 0.02004,
+    "cost_total": 0.1804,
+    "indo_runs": 8,
+    "parallel_runs": 8,
+    "skill_loaded": 1
+   },
+   "B_vs_A": {
+    "wall_ratio": 0.779,
+    "wall_ratio_boot95": [
+     0.688,
+     0.868
+    ],
+    "cost_ratio": 1.304,
+    "cost_ratio_boot95": [
+     1.091,
+     1.664
+    ]
+   },
+   "C_vs_A": {
+    "wall_ratio": 0.684,
+    "wall_ratio_boot95": [
+     0.602,
+     0.764
+    ],
+    "cost_ratio": 1.022,
+    "cost_ratio_boot95": [
+     0.977,
+     1.064
+    ]
+   },
+   "C_vs_B": {
+    "wall_ratio": 0.877,
+    "cost_ratio": 0.784,
+    "cost_ratio_boot95": [
+     0.618,
+     0.947
+    ]
+   }
+  },
+  "all_tasks": {
+   "A": {
+    "n": 18,
+    "correct": 18,
+    "wall_mean": 10.68,
+    "cost_mean": 0.02076,
+    "cost_total": 0.3736,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "B": {
+    "n": 18,
+    "correct": 18,
+    "wall_mean": 8.87,
+    "cost_mean": 0.02274,
+    "cost_total": 0.4092,
+    "indo_runs": 15,
+    "parallel_runs": 11,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 18,
+    "correct": 18,
+    "wall_mean": 7.83,
+    "cost_mean": 0.02055,
+    "cost_total": 0.3699,
+    "indo_runs": 14,
+    "parallel_runs": 11,
+    "skill_loaded": 1
+   },
+   "B_vs_A": {
+    "wall_ratio": 0.831,
+    "wall_ratio_boot95": [
+     0.743,
+     0.921
+    ],
+    "cost_ratio": 1.095,
+    "cost_ratio_boot95": [
+     0.941,
+     1.276
+    ]
+   },
+   "C_vs_A": {
+    "wall_ratio": 0.733,
+    "wall_ratio_boot95": [
+     0.661,
+     0.806
+    ],
+    "cost_ratio": 0.99,
+    "cost_ratio_boot95": [
+     0.867,
+     1.134
+    ]
+   },
+   "C_vs_B": {
+    "wall_ratio": 0.883,
+    "cost_ratio": 0.904,
+    "cost_ratio_boot95": [
+     0.772,
+     1.058
+    ]
+   }
+  },
+  "other_tasks": {
+   "A": {
+    "n": 9,
+    "correct": 9,
+    "wall_mean": 5.36,
+    "cost_mean": 0.02191,
+    "cost_total": 0.1972,
+    "indo_runs": 0,
+    "parallel_runs": 0,
+    "skill_loaded": 0
+   },
+   "B": {
+    "n": 9,
+    "correct": 9,
+    "wall_mean": 5.27,
+    "cost_mean": 0.01992,
+    "cost_total": 0.1793,
+    "indo_runs": 6,
+    "parallel_runs": 4,
+    "skill_loaded": 0
+   },
+   "C": {
+    "n": 9,
+    "correct": 9,
+    "wall_mean": 4.72,
+    "cost_mean": 0.02106,
+    "cost_total": 0.1895,
+    "indo_runs": 6,
+    "parallel_runs": 3,
+    "skill_loaded": 0
+   },
+   "B_vs_A": {
+    "wall_ratio": 0.983,
+    "wall_ratio_boot95": [
+     0.788,
+     1.241
+    ],
+    "cost_ratio": 0.909,
+    "cost_ratio_boot95": [
+     0.749,
+     1.066
+    ]
+   },
+   "C_vs_A": {
+    "wall_ratio": 0.881,
+    "wall_ratio_boot95": [
+     0.752,
+     1.042
+    ],
+    "cost_ratio": 0.961,
+    "cost_ratio_boot95": [
+     0.748,
+     1.239
+    ]
+   },
+   "C_vs_B": {
+    "wall_ratio": 0.896,
+    "cost_ratio": 1.057,
+    "cost_ratio_boot95": [
+     0.906,
+     1.313
+    ]
+   }
+  }
+ }
+}

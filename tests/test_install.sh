@@ -325,6 +325,66 @@ test_in_link_replaces_old_in_cli_install() {
     teardown
 }
 
+test_with_skill_installs_skill() {
+    setup
+
+    mkdir -p bin skills/indo
+    cp "$INSTALL_SCRIPT" .
+    cp "$IN_SCRIPT" .
+    cp "$(dirname "$INSTALL_SCRIPT")/skills/indo/SKILL.md" skills/indo/SKILL.md
+    sed -i.bak 's|CANDIDATE_DIRS=(|CANDIDATE_DIRS=(\n    "'$TEST_DIR'/bin"|' install.sh
+
+    output=$(SKILL_DIR="$TEST_DIR/skilldir" bash install.sh --with-skill 2>&1)
+
+    assert_file_exists "bin/indo" "--with-skill still installs 'indo'"
+    assert_file_exists "skilldir/indo/SKILL.md" "--with-skill installs SKILL.md"
+    if grep -q "^name: indo" skilldir/indo/SKILL.md; then
+        log_pass "Installed skill has name: indo"
+    else
+        log_fail "Installed skill is missing name: indo"
+    fi
+    assert_output_contains "$output" "Installed the indo Agent Skill" "Skill message shown"
+
+    teardown
+}
+
+test_with_skill_and_custom_name() {
+    setup
+
+    mkdir -p bin skills/indo
+    cp "$INSTALL_SCRIPT" .
+    cp "$IN_SCRIPT" .
+    cp "$(dirname "$INSTALL_SCRIPT")/skills/indo/SKILL.md" skills/indo/SKILL.md
+    sed -i.bak 's|CANDIDATE_DIRS=(|CANDIDATE_DIRS=(\n    "'$TEST_DIR'/bin"|' install.sh
+
+    SKILL_DIR="$TEST_DIR/skilldir" bash install.sh mycmd --with-skill >/dev/null 2>&1
+
+    assert_file_exists "bin/mycmd" "Custom name works together with --with-skill"
+    assert_file_exists "skilldir/indo/SKILL.md" "Skill installed with custom name"
+
+    teardown
+}
+
+test_no_skill_by_default() {
+    setup
+
+    mkdir -p bin skills/indo
+    cp "$INSTALL_SCRIPT" .
+    cp "$IN_SCRIPT" .
+    cp "$(dirname "$INSTALL_SCRIPT")/skills/indo/SKILL.md" skills/indo/SKILL.md
+    sed -i.bak 's|CANDIDATE_DIRS=(|CANDIDATE_DIRS=(\n    "'$TEST_DIR'/bin"|' install.sh
+
+    SKILL_DIR="$TEST_DIR/skilldir" bash install.sh >/dev/null 2>&1
+
+    if [[ ! -e "skilldir" ]]; then
+        log_pass "No skill installed without --with-skill"
+    else
+        log_fail "Skill installed without --with-skill"
+    fi
+
+    teardown
+}
+
 echo "Running installation tests..."
 
 test_script_syntax
@@ -338,6 +398,9 @@ test_custom_command_name
 test_default_name_is_indo_with_in_link
 test_in_link_does_not_clobber_other_tools
 test_in_link_replaces_old_in_cli_install
+test_with_skill_installs_skill
+test_with_skill_and_custom_name
+test_no_skill_by_default
 
 if [[ $FAILED_TESTS -eq 0 ]]; then
     echo -e "${GREEN}All installation tests passed!${NC}"

@@ -1,0 +1,76 @@
+{
+ "parallel_excl_outlier": {
+  "pairs": 17,
+  "wall_ratio": 0.549,
+  "ci": [
+   0.435,
+   0.695
+  ],
+  "speedup": 1.82,
+  "A_mean": 30.0,
+  "C_mean": 13.9,
+  "cost_ratio": 1.022,
+  "cost_ci": [
+   0.933,
+   1.093
+  ]
+ },
+ "all_excl_outlier": {
+  "pairs": 23,
+  "wall_ratio": 0.652,
+  "ci": [
+   0.526,
+   0.806
+  ],
+  "speedup": 1.53,
+  "A_mean": 23.4,
+  "C_mean": 11.6,
+  "cost_ratio": 1.018,
+  "cost_ci": [
+   0.948,
+   1.074
+  ]
+ },
+ "median": {
+  "L1_tests": {
+   "A": 53.0,
+   "C": 16.1,
+   "speedup": 3.29
+  },
+  "L2_jstests": {
+   "A": 24.0,
+   "C": 13.5,
+   "speedup": 1.78
+  },
+  "L3_gotests": {
+   "A": 6.9,
+   "C": 5.6,
+   "speedup": 1.23
+  },
+  "L4_pytests": {
+   "A": 31.7,
+   "C": 14.8,
+   "speedup": 2.14
+  },
+  "L5_behind": {
+   "A": 5.0,
+   "C": 4.5,
+   "speedup": 1.11
+  },
+  "L6_pull_test": {
+   "A": 14.8,
+   "C": 14.0,
+   "speedup": 1.06
+  },
+  "L7_fail_behind": {
+   "A": 55.4,
+   "C": 16.8,
+   "speedup": 3.3
+  },
+  "L8_dirty": {
+   "A": 4.2,
+   "C": 5.0,
+   "speedup": 0.84
+  }
+ }
+}

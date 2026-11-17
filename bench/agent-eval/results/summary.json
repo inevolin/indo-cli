@@ -1,0 +1,110 @@
+{
+ "generated": "2026-11-17",
+ "tool": "indo",
+ "repo": "https://github.com/inevolin/indo-cli",
+ "eval_method": "https://github.com/inevolin/indo-cli/tree/main/bench/agent-eval",
+ "agents": {
+  "claude_code_sonnet_5_5": {
+   "agent": "Claude Code 2.1.325",
+   "model": "claude-sonnet-5-5",
+   "workspace_54_repos": {
+    "runs": 48,
+    "design": "8 tasks x 3 paired repeats, plain bash (A) vs indo + Agent Skill v6 (C), random order, one run at a time",
+    "correct": {
+     "plain_bash": "24/24",
+     "indo_skill": "24/24"
+    },
+    "full_test_run_54_repos_s": {
+     "plain_bash": 52.9,
+     "indo_skill": 15.9,
+     "speedup": 3.33
+    },
+    "test_tasks_speedup_geomean": {
+     "value": 1.82,
+     "ci95": [
+      1.44,
+      2.3
+     ],
+     "pairs": 17,
+     "note": "6 slow tasks; excludes one plain-bash run that stalled for 355 s; with it: 2.25x (1.54 to 3.77)"
+    },
+    "all_tasks_speedup_geomean": {
+     "value": 1.53,
+     "ci95": [
+      1.24,
+      1.9
+     ],
+     "pairs": 23
+    },
+    "cost_ratio_indo_vs_plain": {
+     "value": 1.018,
+     "ci95": [
+      0.948,
+      1.074
+     ]
+    },
+    "indo_used": "24/24 runs",
+    "indo_parallel_used": "21/24 runs",
+    "plain_bash_ran_in_parallel": "2/24 runs (both git fetch with & and wait); never for tests",
+    "per_task_median_speedup": {
+     "L1_tests": 3.29,
+     "L2_jstests": 1.78,
+     "L3_gotests": 1.23,
+     "L4_pytests": 2.14,
+     "L5_behind": 1.11,
+     "L6_pull_test": 1.06,
+     "L7_fail_behind": 3.3,
+     "L8_dirty": 0.84
+    },
+    "api_spend_usd": 0.99
+   },
+   "workspace_20_repos": {
+    "round1_note_runs": 168,
+    "correct": "tied (Sonnet 42/42 each, Haiku 41/42 each)",
+    "full_test_run_s": {
+     "plain_bash": 26.9,
+     "indo_note": 13.0
+    },
+    "heldout_final_skill_v6": {
+     "runs": 36,
+     "correct": "18/18 each",
+     "slow_tasks_time_ratio": 0.78,
+     "ci95": [
+      0.7,
+      0.89
+     ],
+     "cost_ratio_without_cache_warmup": 1.0
+    },
+    "plain_bash_ran_in_parallel": "0/148 runs"
+   }
+  },
+  "claude_code_haiku_5_5": {
+   "workspace_20_repos": {
+    "correct": "tied",
+    "speedup": "none (0.98x time)",
+    "indo_used": "8/18 runs",
+    "note": "the skill does not help this model yet"
+   }
+  },
+  "cursor_agent_cli": {
+   "status": "not run",
+   "reason": "cursor-agent 2026.11.13 installed, but not logged in and no CURSOR_API_KEY on the box"
+  },
+  "codex_cli": {
+   "status": "not run",
+   "reason": "no OpenAI credentials on the box"
+  },
+  "gemini_cli": {
+   "status": "not run",
+   "reason": "no Google credentials on the box"
+  }
+ },
+ "headline": "On 54 real repos, Claude Code with indo finished test tasks about 1.8x faster (95% CI 1.4x to 2.3x) and a full test run 3.3x faster (52.9 s to 15.9 s), with the same correct answers and the same cost.",
+ "caveats": [
+  "One agent and model (Claude Code, Sonnet 5.5) on 54 repos; 3 paired runs per task",
+  "One 8-core Linux machine",
+  "Fast commands (git status, fetch) gain little or nothing",
+  "Haiku 5.5 did not get faster",
+  "One plain-bash Go run stalled for 355 s and is excluded from the headline; results with it are listed"
+ ]
+}

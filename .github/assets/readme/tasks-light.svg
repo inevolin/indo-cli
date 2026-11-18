@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="612" viewBox="0 0 960 612" role="img" aria-labelledby="title desc">
+  <title id="title">Speedup by task</title>
+  <desc id="desc">Median speedup, plain bash over indo, 3 runs each. All tests 3.3x (53.0s plain, 16.1s indo); Failing and behind 3.3x (55.4s plain, 16.8s indo); Python tests 2.1x (31.7s plain, 14.8s indo); JavaScript tests 1.8x (24.0s plain, 13.5s indo); Go tests 1.2x (6.9s plain, 5.6s indo); git fetch 1.1x (5.0s plain, 4.5s indo); Pull 6, then test 1.1x (14.8s plain, 14.0s indo); git status 0.8x (4.2s plain, 5.0s indo). Six slow tasks pooled: 1.8x (95% CI 1.4x to 2.3x). One plain Go run of 355s is excluded from that pool.</desc>
+  <rect x="0.5" y="0.5" width="959" height="611" rx="14" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="40.0" y="48.0" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="28" font-weight="650" text-anchor="start">Speedup by task</text>
+  <text x="40.0" y="74.0" fill="#656d76" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="15" font-weight="400" text-anchor="start">1x is no change. Bars that pass the line are faster. Median of 3 runs.</text>
+  <line x1="444.0" y1="102.0" x2="444.0" y2="514.0" stroke="#eef1f4" stroke-width="1" stroke-dasharray="3 4"/>
+  <text x="444.0" y="92.0" fill="#8c959f" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="12" font-weight="400" text-anchor="middle">2x</text>
+  <line x1="552.0" y1="102.0" x2="552.0" y2="514.0" stroke="#eef1f4" stroke-width="1" stroke-dasharray="3 4"/>
+  <text x="552.0" y="92.0" fill="#8c959f" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="12" font-weight="400" text-anchor="middle">3x</text>
+  <text x="212.0" y="129.0" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="400" text-anchor="end">All tests</text>
+  <rect x="228.0" y="117.0" width="355.5" height="14.0" rx="4" fill="#1a7f37"/>
+  <text x="700.0" y="129.0" fill="#1a7f37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="650" text-anchor="start">3.3x</text>
+  <text x="762.0" y="129.0" fill="#656d76" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" font-weight="400" text-anchor="start">53.0s  to  16.1s</text>
+  <text x="212.0" y="181.0" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="400" text-anchor="end">Failing and behind</text>
+  <rect x="228.0" y="169.0" width="356.1" height="14.0" rx="4" fill="#1a7f37"/>
+  <text x="700.0" y="181.0" fill="#1a7f37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="650" text-anchor="start">3.3x</text>
+  <text x="762.0" y="181.0" fill="#656d76" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" font-weight="400" text-anchor="start">55.4s  to  16.8s</text>
+  <text x="212.0" y="233.0" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="400" text-anchor="end">Python tests</text>
+  <rect x="228.0" y="221.0" width="231.3" height="14.0" rx="4" fill="#1a7f37"/>
+  <text x="700.0" y="233.0" fill="#1a7f37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="650" text-anchor="start">2.1x</text>
+  <text x="762.0" y="233.0" fill="#656d76" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" font-weight="400" text-anchor="start">31.7s  to  14.8s</text>
+  <text x="212.0" y="285.0" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="400" text-anchor="end">JavaScript tests</text>
+  <rect x="228.0" y="273.0" width="192.0" height="14.0" rx="4" fill="#1a7f37"/>
+  <text x="700.0" y="285.0" fill="#1a7f37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="650" text-anchor="start">1.8x</text>
+  <text x="762.0" y="285.0" fill="#656d76" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" font-weight="400" text-anchor="start">24.0s  to  13.5s</text>
+  <text x="212.0" y="337.0" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="400" text-anchor="end">Go tests *</text>
+  <rect x="228.0" y="325.0" width="133.1" height="14.0" rx="4" fill="#1a7f37"/>
+  <text x="700.0" y="337.0" fill="#1a7f37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="650" text-anchor="start">1.2x</text>
+  <text x="762.0" y="337.0" fill="#656d76" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" font-weight="400" text-anchor="start">6.9s  to  5.6s</text>
+  <text x="212.0" y="389.0" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="400" text-anchor="end">git fetch</text>
+  <rect x="228.0" y="377.0" width="120.0" height="14.0" rx="4" fill="#6e7781"/>
+  <text x="700.0" y="389.0" fill="#656d76" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="650" text-anchor="start">1.1x</text>
+  <text x="762.0" y="389.0" fill="#656d76" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" font-weight="400" text-anchor="start">5.0s  to  4.5s</text>
+  <text x="212.0" y="441.0" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="400" text-anchor="end">Pull 6, then test</text>
+  <rect x="228.0" y="429.0" width="114.2" height="14.0" rx="4" fill="#6e7781"/>
+  <text x="700.0" y="441.0" fill="#656d76" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="650" text-anchor="start">1.1x</text>
+  <text x="762.0" y="441.0" fill="#656d76" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" font-weight="400" text-anchor="start">14.8s  to  14.0s</text>
+  <text x="212.0" y="493.0" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="400" text-anchor="end">git status</text>
+  <rect x="228.0" y="481.0" width="90.7" height="14.0" rx="4" fill="#bf8700"/>
+  <text x="700.0" y="493.0" fill="#9a6700" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="650" text-anchor="start">0.8x</text>
+  <text x="762.0" y="493.0" fill="#656d76" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" font-weight="400" text-anchor="start">4.2s  to  5.0s</text>
+  <line x1="336.0" y1="102.0" x2="336.0" y2="514.0" stroke="#afb8c1" stroke-width="1.5"/>
+  <text x="336.0" y="92.0" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="650" text-anchor="middle">1x</text>
+  <text x="40.0" y="550.0" fill="#656d76" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" text-anchor="start">6 slow tasks together: 1.8x (95% CI 1.4x to 2.3x). git status got slower. Fetch, and a pull of 6 repos, barely moved.</text>
+  <text x="40.0" y="572.0" fill="#656d76" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="13" font-weight="400" text-anchor="start">* Go median is 6.9s. One plain bash run took 355s and is left out of the 1.8x pool. With it, that pool is 2.25x.</text>
+</svg>

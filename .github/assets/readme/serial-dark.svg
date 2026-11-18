@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" role="img" aria-labelledby="title desc">
+  <title id="title">Serial loop versus indo in parallel</title>
+  <desc id="desc">Schematic of 8 equal repos. Plain bash runs them one after another. indo -P 8 runs them at once. In 172 plain bash runs the agent did this in parallel 2 times, both git fetch, never tests. Real suites are uneven, so the measured all-tests speedup is 3.3x, not 8x.</desc>
+  <rect x="0.5" y="0.5" width="959" height="559" rx="14" fill="#0d1117" stroke="#30363d"/>
+  <text x="40.0" y="48.0" fill="#e6edf3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="28" font-weight="650" text-anchor="start">One loop, or all at once</text>
+  <text x="40.0" y="74.0" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="15" font-weight="400" text-anchor="start">Schematic of 8 equal repos. Real suites are uneven, so all tests were 3.3x, not 8x.</text>
+  <text x="40.0" y="118.0" fill="#e6edf3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="600" text-anchor="start">Plain bash</text>
+  <text x="148.0" y="118.0" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="14" font-weight="400" text-anchor="start">for d in */; do (cd "$d" &amp;&amp; ./ci.sh); done</text>
+  <rect x="40.0" y="132.0" width="103.0" height="44.0" rx="7" fill="#6e7681"/>
+  <text x="91.5" y="160.0" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="650" text-anchor="middle">1</text>
+  <rect x="151.0" y="132.0" width="103.0" height="44.0" rx="7" fill="#6e7681"/>
+  <text x="202.5" y="160.0" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="650" text-anchor="middle">2</text>
+  <rect x="262.0" y="132.0" width="103.0" height="44.0" rx="7" fill="#6e7681"/>
+  <text x="313.5" y="160.0" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="650" text-anchor="middle">3</text>
+  <rect x="373.0" y="132.0" width="103.0" height="44.0" rx="7" fill="#6e7681"/>
+  <text x="424.5" y="160.0" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="650" text-anchor="middle">4</text>
+  <rect x="484.0" y="132.0" width="103.0" height="44.0" rx="7" fill="#6e7681"/>
+  <text x="535.5" y="160.0" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="650" text-anchor="middle">5</text>
+  <rect x="595.0" y="132.0" width="103.0" height="44.0" rx="7" fill="#6e7681"/>
+  <text x="646.5" y="160.0" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="650" text-anchor="middle">6</text>
+  <rect x="706.0" y="132.0" width="103.0" height="44.0" rx="7" fill="#6e7681"/>
+  <text x="757.5" y="160.0" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="650" text-anchor="middle">7</text>
+  <rect x="817.0" y="132.0" width="103.0" height="44.0" rx="7" fill="#6e7681"/>
+  <text x="868.5" y="160.0" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="650" text-anchor="middle">8</text>
+  <text x="40.0" y="214.0" fill="#3fb950" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="600" text-anchor="start">indo -P 8</text>
+  <text x="156.0" y="214.0" fill="#8b949e" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="14" font-weight="400" text-anchor="start">indo -f -P 8 */ ./ci.sh</text>
+  <rect x="40.0" y="232.0" width="880.0" height="172.0" rx="8" fill="#21262d"/>
+  <rect x="40.0" y="232.0" width="103.0" height="18.0" rx="4" fill="#3fb950"/>
+  <rect x="40.0" y="254.0" width="103.0" height="18.0" rx="4" fill="#3fb950"/>
+  <rect x="40.0" y="276.0" width="103.0" height="18.0" rx="4" fill="#3fb950"/>
+  <rect x="40.0" y="298.0" width="103.0" height="18.0" rx="4" fill="#3fb950"/>
+  <rect x="40.0" y="320.0" width="103.0" height="18.0" rx="4" fill="#3fb950"/>
+  <rect x="40.0" y="342.0" width="103.0" height="18.0" rx="4" fill="#3fb950"/>
+  <rect x="40.0" y="364.0" width="103.0" height="18.0" rx="4" fill="#3fb950"/>
+  <rect x="40.0" y="386.0" width="103.0" height="18.0" rx="4" fill="#3fb950"/>
+  <text x="159.0" y="316.0" fill="#3fb950" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="16" font-weight="650" text-anchor="start">finished</text>
+  <text x="159.0" y="338.0" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="14" font-weight="400" text-anchor="start">the serial loop is still on repo 2</text>
+  <rect x="40.0" y="432.0" width="880.0" height="78.0" rx="10" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="64.0" y="480.0" fill="#3fb950" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="28" font-weight="650" text-anchor="start">2 of 172</text>
+  <text x="250.0" y="466.0" fill="#e6edf3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="15" font-weight="400" text-anchor="start">plain bash runs started the next folder before the previous one finished.</text>
+  <text x="250.0" y="490.0" fill="#e6edf3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif" font-size="15" font-weight="400" text-anchor="start">Both times it was git fetch. It never ran tests in parallel.</text>
+</svg>

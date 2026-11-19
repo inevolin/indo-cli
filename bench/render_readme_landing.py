@@ -282,15 +282,21 @@ def demo(c: dict) -> str:
     # Fail-only summary. Centered in the right pane so it reads as the
     # command's output, not as another column of the repo list.
     # Visible in the still frame (animation disabled).
+    # Counts come from REPOS: 8 folders, 2 failures, so 6 ok.
+    failed = [name for name, _s, _f, fail in REPOS if fail]
+    ok_n = len(REPOS) - len(failed)
+    if len(failed) != 2:
+        raise SystemExit(f"demo summary card is laid out for 2 failures, got {failed}")
+    summary = f"{ok_n}/{len(REPOS)} ok, {len(failed)} failed: {' '.join(failed)}"
     pane_cx = 720
     sy = 250
     parts.append('<g opacity="1">' + anim_opacity("0;0;1;1;0", _keys(0, 0.40, 0.48, 0.92, 1)))
     parts.append(
         rect(532, sy - 28, 376, 108, fill=c["bar_bg"], rx=10, extra=f' stroke="{c["border"]}" stroke-width="1"')
     )
-    parts.append(text(pane_cx, sy, "FAIL checkout", fill=c["red"], size=15, weight="650", family=MONO, anchor="middle"))
-    parts.append(text(pane_cx, sy + 28, "FAIL mail", fill=c["red"], size=15, weight="650", family=MONO, anchor="middle"))
-    parts.append(text(pane_cx, sy + 58, "2/8 ok, 2 failed: checkout mail", fill=c["ink"], size=14, family=MONO, anchor="middle"))
+    for i, name in enumerate(failed):
+        parts.append(text(pane_cx, sy + i * 28, f"FAIL {name}", fill=c["red"], size=15, weight="650", family=MONO, anchor="middle"))
+    parts.append(text(pane_cx, sy + 58, summary, fill=c["ink"], size=14, family=MONO, anchor="middle"))
     parts.append("</g>")
 
     parts.append("</svg>")

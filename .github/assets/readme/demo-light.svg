@@ -74,6 +74,6 @@
 <rect x="532.0" y="222.0" width="376.0" height="108.0" rx="10" fill="#f6f8fa" stroke="#d0d7de" stroke-width="1"/>
 <text x="720.0" y="250.0" fill="#cf222e" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" font-weight="650" text-anchor="middle">FAIL checkout</text>
 <text x="720.0" y="278.0" fill="#cf222e" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="15" font-weight="650" text-anchor="middle">FAIL mail</text>
-<text x="720.0" y="308.0" fill="#1f2328" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="14" font-weight="400" text-anchor="middle">2/8 ok, 2 failed: checkout mail</text>
+<text x="720.0" y="308.0" fill="#1f2328" font-family="ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace" font-size="14" font-weight="400" text-anchor="middle">6/8 ok, 2 failed: checkout mail</text>
 </g>
 </svg>

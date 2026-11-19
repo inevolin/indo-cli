@@ -9,7 +9,7 @@ Run any command in every repo, in parallel. For humans and AI coding agents.
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/readme/demo-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/readme/demo-light.svg">
-  <img alt="Terminal demo. A for loop runs npm test in one repo at a time. indo -f -P 8 runs the same tests in eight repos at once, then prints only the failures: FAIL checkout, FAIL mail, 2/8 ok." src=".github/assets/readme/demo-light.svg">
+  <img alt="Terminal demo. A for loop runs npm test in one repo at a time. indo -f -P 8 runs the same tests in eight repos at once, then prints only the failures: FAIL checkout, FAIL mail, 6/8 ok, 2 failed." src=".github/assets/readme/demo-light.svg">
 </picture>
 
 <p>

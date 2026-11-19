@@ -1,29 +1,50 @@
-# indo
-
-Run one command in every repo, in parallel.
-
-**53.0 s** with a plain bash loop. **16.1 s** with indo and the Agent Skill. Same answers, same cost.
-
-Claude Code (Sonnet 5.5) on 54 real repos. Median of 3 paired runs. [Method and raw results](bench/agent-eval/README.md). [Write-up](https://nevolin.be/blog/coding-agents-run-tests-one-repo-at-a-time).
-
-[Install](#install) · [Quick start](#quick-start) · [For agents](#indo-for-ai-agents) · [Usage](#usage)
-
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/readme/hero-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset=".github/assets/readme/hero-light.svg">
-  <img alt="Full test run on 54 repos. Plain bash 53.0 seconds, indo plus the Agent Skill 16.1 seconds, 3.3x faster. Both setups 24 of 24 correct. Cost 1.02x (95% CI 0.95x to 1.07x), about 0.02 USD per run." src=".github/assets/readme/hero-light.svg">
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/readme/wordmark-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/readme/wordmark-light.svg">
+  <img alt="indo" src=".github/assets/readme/wordmark-light.svg" width="360">
 </picture>
 
+Run any command in every repo, in parallel. For humans and AI coding agents.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/readme/demo-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/readme/demo-light.svg">
+  <img alt="Terminal demo. A for loop runs npm test in one repo at a time. indo -f -P 8 runs the same tests in eight repos at once, then prints only the failures: FAIL checkout, FAIL mail, 6/8 ok, 2 failed." src=".github/assets/readme/demo-light.svg">
+</picture>
+
+<p>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/readme/badge-mit-dark.svg">
+    <img alt="MIT" height="30" src=".github/assets/readme/badge-mit-light.svg">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/readme/badge-deps-dark.svg">
+    <img alt="Zero dependencies" height="30" src=".github/assets/readme/badge-deps-light.svg">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/readme/badge-bash-dark.svg">
+    <img alt="One Bash file" height="30" src=".github/assets/readme/badge-bash-light.svg">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/readme/badge-agents-dark.svg">
+    <img alt="Claude Code, Cursor, Codex" height="30" src=".github/assets/readme/badge-agents-light.svg">
+  </picture>
+</p>
+
 ```bash
-indo -f -P 8 * 'npm test'      # test every repo, show only what failed
+curl -sL https://raw.githubusercontent.com/inevolin/indo-cli/main/install.sh | bash -s -- --with-skill
 ```
 
-- **One command, every folder.** No `for` loops, no `find -exec`, no `xargs` quoting.
-- **Parallel.** `-P 8` runs 8 folders at a time. Output stays grouped and in order.
-- **Only what broke.** `-f` prints the failed folders and one count line. 94% less output on 20 real repos.
-- **Honest exit codes.** 0 only if the command worked in every folder.
-- **Built for AI agents.** On 54 real repos, test tasks finished 1.8x faster and a full test run 3.3x faster. Same answers, same cost ([eval](#indo-for-ai-agents)).
-- **Zero dependencies.** One Bash script. Bash 3.2 or newer.
+Installs `indo` and the Agent Skill for Claude Code and Cursor. Drop `--with-skill` for the tool only. Codex and the other options are under [Install](#install).
+
+```bash
+indo -f -P 8 */ 'npm test'               # failures only, 8 at a time
+indo -P 8 */ 'git pull --ff-only'        # update every repo
+indo -c */ 'git status -s'               # dirty files, one line each
+indo -s -P 8 services/* 'go test ./...'  # one ok or FAIL line per repo
+```
+
+More commands: [Quick start](#quick-start) and [EXAMPLES.md](EXAMPLES.md).
 
 ## Install
 
@@ -68,25 +89,15 @@ indo -d * 'rm -rf node_modules'           # dry run: print, do not run
 
 ## The problem
 
-Many of us work in a folder full of repos. Ten services, twenty libraries, a fleet of small projects without a monorepo.
-
-So we run the same command again and again. `git pull` here, `npm test` there. Or we write a loop:
+A folder of repos usually means a loop:
 
 ```bash
 for d in */; do (cd "$d" && npm test); done
 ```
 
-The loop runs one folder at a time. It prints thousands of lines. It returns the exit code of the last folder only, so a failure in the middle is lost.
+The loop runs one folder at a time. It prints every passing suite. It returns the exit code of the last folder only, so a failure in the middle is lost.
 
-AI coding agents do the same thing. In 172 plain bash runs, Claude Code ran folders in parallel twice. Both times it was `git fetch`. It never ran tests in parallel.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/readme/serial-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset=".github/assets/readme/serial-light.svg">
-  <img alt="Schematic of 8 equal repos. A plain bash loop runs them one after another. indo -P 8 runs them at once and finishes while the loop is still on repo 2. In 172 plain bash runs the agent ran folders in parallel twice, both git fetch, never tests. Real suites are uneven, so all tests were 3.3x faster, not 8x." src=".github/assets/readme/serial-light.svg">
-</picture>
-
-indo is one short command. It runs in every folder, in parallel, and tells you only what went wrong.
+indo runs the command in parallel, groups the output, and exits 0 only when every folder worked. `-f` prints the failures and one count line.
 
 ## Use cases
 
@@ -130,13 +141,15 @@ indo packages/* "npm version patch && git push --follow-tags"
 
 ### Agent workflows
 
-Give your coding agent indo and the Agent Skill. It then runs slow commands in parallel and reads short output. See [indo for AI agents](#indo-for-ai-agents).
+Give your coding agent indo and the Agent Skill. It then runs slow commands in parallel and reads short output. See [Why agents need this](#why-agents-need-this).
 
 More: [EXAMPLES.md](EXAMPLES.md) has 50+ examples.
 
-## indo for AI agents
+## Why agents need this
 
-We tested indo with a real coding agent, not with scripted commands. Claude Code got the same multi-repo tasks with and without indo. Full method, scripts and every raw run: [bench/agent-eval](bench/agent-eval/README.md).
+Agents reach for a `for` loop. In 172 plain bash runs, Claude Code started the next folder before the last one finished only twice. Both times it was `git fetch`. It never ran tests in parallel.
+
+On 54 real repos, Claude Code (Sonnet 5.5) took 53.0 s to test every repo with a plain loop, and 16.1 s with indo and the [Agent Skill](#install-the-agent-skill). Both got 24 of 24 answers right. A run cost about 0.02 USD either way (1.02x, 95% CI 0.95x to 1.07x). [Method and raw results](bench/agent-eval/README.md).
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/readme/tasks-dark.svg">
@@ -144,23 +157,17 @@ We tested indo with a real coding agent, not with scripted commands. Claude Code
   <img alt="Speedup by task, median of 3 runs. All tests 3.3x (53.0s to 16.1s). Failing and behind 3.3x (55.4s to 16.8s). Python 2.1x (31.7s to 14.8s). JavaScript 1.8x (24.0s to 13.5s). Go 1.2x (6.9s to 5.6s). git fetch 1.1x (5.0s to 4.5s). Pull 6 then test 1.1x (14.8s to 14.0s). git status 0.8x (4.2s to 5.0s). Six slow tasks together: 1.8x, 95% CI 1.4x to 2.3x." src=".github/assets/readme/tasks-light.svg">
 </picture>
 
-### What we found
-
-On 54 real repos, Claude Code (Sonnet 5.5) with indo and the Agent Skill:
-
 | | Plain bash | With indo |
 |---|---|---|
 | Correct answers | 24/24 | 24/24 |
-| Run all tests in 54 repos, which fail? | 53.0 s | **16.1 s (3.3x faster)** |
-| 6 slow multi-repo tasks (tests, pull then test) | 1x | **1.8x faster** (95% CI 1.4x to 2.3x) |
-| Cost per run | 1x | 1.02x (95% CI 0.95 to 1.07) |
-| Ran tests in parallel | never | 18 of 18 slow-task runs |
+| Full test run | 53.0 s | 16.1 s |
+| 6 slow tasks | 1x | 1.8x (95% CI 1.4x to 2.3x) |
+| Cost per run | 1x | 1.02x (95% CI 0.95x to 1.07x) |
 
-- **Same answers.** Both setups got every task right, here and in 168 earlier runs on 20 repos.
-- **Faster where it matters.** Tests and builds finish faster because indo runs folders in parallel. Quick commands like `git status` gain nothing.
-- **Agents do not parallelize on their own.** In 172 plain bash runs, Claude Code ran folders in parallel only twice (both `git fetch`). It never ran tests in parallel.
+The chart is every task, including the ones that did not get faster. `git status` was 0.8x. Quick commands gain nothing. Slow test suites gain the most.
+
 - **Use the skill, not a prompt note.** An always-on note in the system prompt cost 6% to 30% more per run. With the skill, cost stayed about the same.
-- **A smaller model did not get faster.** Haiku 5.5 was at 0.98x the time, and it used indo in 8 of 18 runs.
+- **Haiku 5.5 got no speedup.** It was at 0.98x the time, and it used indo in 8 of 18 runs.
 
 ### Limits
 
@@ -251,7 +258,7 @@ FAIL toolz (exit 1)
 
 Claude Code 2.1.325 on 20 and 54 real repos (JavaScript, Go, Python), 402 graded runs in total. Three setups: plain bash, indo with a prompt note, and indo with the Agent Skill. Results above. Method, all tables and the scripts: [bench/agent-eval](bench/agent-eval/README.md).
 
-The charts on this page are drawn from those results by [`bench/agent-eval/render_readme_charts.py`](bench/agent-eval/render_readme_charts.py). Re-run that script to regenerate the SVGs.
+The per-task chart is drawn from those results by [`bench/agent-eval/render_readme_charts.py`](bench/agent-eval/render_readme_charts.py). The wordmark, demo and badges are drawn by [`bench/render_readme_landing.py`](bench/render_readme_landing.py).
 
 ### Output size
 

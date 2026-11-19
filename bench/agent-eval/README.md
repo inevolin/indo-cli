@@ -1,6 +1,6 @@
 # Agent eval: does indo help a real coding agent?
 
-We gave Claude Code the same multi-repo tasks with and without indo and measured the results. This page explains how, and shows every number. Raw per-run metrics are in [results/runs.csv](results/runs.csv). The charts in the repository README are drawn from these files by [render_readme_charts.py](render_readme_charts.py).
+We gave Claude Code the same multi-repo tasks with and without indo and measured the results. This page explains how, and shows every number. Raw per-run metrics are in [results/runs.csv](results/runs.csv). The per-task chart in the repository README is drawn from these files by [render_readme_charts.py](render_readme_charts.py).
 
 ## Short answer
 
